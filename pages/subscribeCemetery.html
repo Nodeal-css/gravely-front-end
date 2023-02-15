@@ -40,31 +40,20 @@
 
 				  <div class="form-outline mb-4">
 	                <input type="text" id="cem-name" class="form-control" placeholder="" value="Manila Memorial park" />
-	                <label class="form-label text-left" for="cem-name">&nbsp;&nbsp;Cemetery</label>
+	                <label class="form-label text-left" for="cem-name">Cemetery</label>
 	              </div>
 
-	              <div class="row">
-	                <div class="col-md-6 mb-4">
-
-	                  <div class="form-outline">
-	                    <input type="text" id="form3Example1w" class="form-control" />
-	                    <label class="form-label" for="form3Example1w">&nbsp;&nbsp;Registration code</label>
-	                  </div>
-
-	                </div>
-	                <div class="col-md-6 mb-4">
-	                	<table>
+	                <div class="mb-4">
+	                	<table class="table" id="payment-methods">
 	                		<tr>
-	                			<td><i class="fa fa-cc-paypal" style="font-size:36px"></i></td>
-	                			<td><img src="../assets/gcash.png" width="50" height="50"></td>
+	                			<td><i class="fa fa-cc-paypal" data-toggle="modal" data-target="#modal-subscribe-paypal" style="font-size:36px; cursor: pointer;"></i></td>
+	                			<td><img src="../assets/gcash.png" width="50" height="40" data-toggle="modal" data-target="#modal-subscribe-gcash" style="cursor: pointer;"></td>
 	                		</tr>
 	                	</table>
+	                	<label class="form-label" for="payment-methods">Choose how you pay</label>
 	                </div>
-	              </div>
 
-				<small><label for="cemetery" style="color: gray;">If the cemetery has not been added to our database,<br> please <a href="#" data-toggle="modal" data-target="#modalAddCemetery">add a new cemetery</a></label></small><br>
-
-					<button class="btn btn-success mt-5" onclick="" id="confirm">Confirm</button>
+					<button class="btn btn-success mt-5" onclick="" id="confirm">Next</button>
 				</div>
 			</div>
 		</div>
@@ -82,6 +71,78 @@
   <!-- Copyright -->
 </footer>
 <!-- Footer -->
+
+<!-- start of subscription modal for paypal -->
+<div class="modal fade" id="modal-subscribe-paypal" tabindex="-1" role="dialog" aria-labelledby="modal-subscribe" aria-hidden="true">
+	 <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width:90%; margin: auto;">
+      <div class="modal-header">
+        <h5 class="modal-title">Subscribe with Paypal</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<div class="form-outline mb-4">
+        	<input type="number" class="form-control" id="cost" name="cost" value="₱ 1,399.00" placeholder="₱ 1,399.00" readonly>
+        	<label class="form-label" for="cost">Cost</label>
+        </div>
+        <div class="row">
+        	<div class="col-5">
+        		<input type="text" id="status" class="form-control" name="" placeholder="ACTIVE" value="ACTIVE" readonly>
+        		<label class="form-label" for="status">Status</label>
+        	</div>
+        	<div class="col-2">until</div>
+        	<div class="col-5">
+        		<input type="date" id="expiry" class="form-control" name="" readonly>
+        		<label class="form-label" for="expiry">Date due</label>
+        	</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Create subscription</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end of subscription modal -->
+
+<!-- start of subscription modal for gcash -->
+<div class="modal fade" id="modal-subscribe-gcash" tabindex="-1" role="dialog" aria-labelledby="modal-subscribe" aria-hidden="true">
+	 <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width:90%; margin: auto;">
+      <div class="modal-header">
+        <h5 class="modal-title">Subscribe with Gcash</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<div class="form-outline mb-4">
+        	<input type="number" class="form-control" id="cost" name="cost" value="₱ 1,399.00" placeholder="₱ 1,399.00" readonly>
+        	<label class="form-label" for="cost">Cost</label>
+        </div>
+        <div class="row">
+        	<div class="col-5">
+        		<input type="text" id="status" class="form-control" name="" placeholder="ACTIVE" value="ACTIVE" readonly>
+        		<label class="form-label" for="status">Status</label>
+        	</div>
+        	<div class="col-2">until</div>
+        	<div class="col-5">
+        		<input type="date" id="expiry" class="form-control" name="" readonly>
+        		<label class="form-label" for="expiry">Date due</label>
+        	</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Create subscription</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end of subscription modal -->
 
 <!-- Start of javascript -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -34,7 +34,7 @@
 <section class="vh-90 bg-image" style="background-image: url('../assets/body.png');background-size:     cover; background-repeat: no-repeat; background-position: center center; ">
 	<div class="container py-5 h-100">
 		<div class="row d-flex align-items-center justify-content-center h-100">
-			<div class="card text-center">
+			<div class="card text-center" style="width: 60%;">
 				<h5 class="card-header">Admin account onboarding</h5>
 				<div class="card-body py-5 h-100 px-5">
 					<select class="form-control" id="cemetery">
@@ -44,7 +44,7 @@
 						<option>Triumphant memorial park</option>
 						<option>Sta. Clarita Cemetary</option>
 					</select>
-					<small><label for="cemetery" style="color: gray;">If the cemetery has not been added to our database,<br> please <a href="#" data-toggle="modal" data-target="#modalAddCemetery">add a new cemetery</a></label></small><br>
+					<small><label for="cemetery" style="color: gray;">If the cemetery is not found in our system,<br> please <a href="#" data-toggle="modal" data-target="#modalAddCemetery">add a new cemetery</a></label></small><br>
 
 					<button class="btn btn-success mt-5" onclick="" id="confirm">Confirm</button>
 				</div>
@@ -100,26 +100,7 @@
                 <label class="form-label" for="cem-contact">Contact</label>
               </div>
 
-              <div class="row">
-                <div class="col-md-6 mb-4">
-
-                  <div class="form-outline">
-                    <input type="text" id="form3Example1w" class="form-control" />
-                    <label class="form-label" for="form3Example1w">Registration code</label>
-                  </div>
-
-                </div>
-                <div class="col-md-6 mb-4">
-                	<table>
-                		<tr>
-                			<td><i class="fa fa-cc-paypal" style="font-size:36px"></i></td>
-                			<td><img src="../assets/gcash.png" width="50" height="50"></td>
-                		</tr>
-                	</table>
-                </div>
-              </div>
-
-              <button type="submit" class="btn btn-success btn-lg mb-1">Subscribe</button>
+              <button type="submit" class="btn btn-success btn-lg mb-1">Save</button>
 
             </form>
 
