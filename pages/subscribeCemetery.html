@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<title>Subscribe to Gravely</title>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(220, 108, 75);">
+  <a class="navbar-brand" href="#">
+    <img src="../assets/logo.png" width="90" height="30" alt="">
+  </a>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link text-light" href="../index.html">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-light" href="#">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-light" href="#">Sign out</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<!-- End of Navigation -->
+
+<!-- Page content -->
+<section class="vh-90 bg-image" style="background-image: url('../assets/body.png');background-size:     cover; background-repeat: no-repeat; background-position: center center; ">
+	<div class="container py-5 h-100">
+		<div class="row d-flex align-items-center justify-content-center h-100">
+			<div class="card text-left">
+				<h5 class="card-header">Cemetery subscription is not active<br></h5>
+				<div class="card-body py-5 h-100 px-5">
+
+				  <div class="form-outline mb-4">
+	                <input type="text" id="cem-name" class="form-control" placeholder="" value="Manila Memorial park" />
+	                <label class="form-label text-left" for="cem-name">&nbsp;&nbsp;Cemetery</label>
+	              </div>
+
+	              <div class="row">
+	                <div class="col-md-6 mb-4">
+
+	                  <div class="form-outline">
+	                    <input type="text" id="form3Example1w" class="form-control" />
+	                    <label class="form-label" for="form3Example1w">&nbsp;&nbsp;Registration code</label>
+	                  </div>
+
+	                </div>
+	                <div class="col-md-6 mb-4">
+	                	<table>
+	                		<tr>
+	                			<td><i class="fa fa-cc-paypal" style="font-size:36px"></i></td>
+	                			<td><img src="../assets/gcash.png" width="50" height="50"></td>
+	                		</tr>
+	                	</table>
+	                </div>
+	              </div>
+
+				<small><label for="cemetery" style="color: gray;">If the cemetery has not been added to our database,<br> please <a href="#" data-toggle="modal" data-target="#modalAddCemetery">add a new cemetery</a></label></small><br>
+
+					<button class="btn btn-success mt-5" onclick="" id="confirm">Confirm</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- Page content End -->
+
+<!-- Footer -->
+<footer class="text-center text-lg-start bg-white text-muted">
+  <!-- Copyright -->
+  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.025);">
+    © 2023 Copyright:
+    <a class="text-reset fw-bold" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
+
+<!-- Start of javascript -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
