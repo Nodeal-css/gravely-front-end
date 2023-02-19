@@ -23,9 +23,7 @@ function signout() {
   pb.authStore?.clear();
 }
 
-function register(user) {
-  return pb.collection('admin').create(user)
-}
+
 /** 
   registerAdmin({  
     "username": "test_username1223",
@@ -64,6 +62,10 @@ function registerAdmin(user, cemetery, subscription) {
           return data;
         })
     });
+}
+
+function register(user) {
+  return pb.collection('admin').create(user)
 }
 
 function subscribe(data) {

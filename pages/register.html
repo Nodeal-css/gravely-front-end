@@ -154,21 +154,37 @@
             <h4>Subscribe</h4>
             <small class="mb-5">Please include the mode of payment</small>
                 <div class="form-outline mb-4 mt-5">
-                  <input type="text" id="cemetery-name" class="form-control" placeholder="" value="Manila Memorial park" />
-                  <label class="form-label text-left" for="cem-name">Cemetery</label>
+                  <input type="text" id="cemetery-name" class="form-control" value="" />
+                  <label class="form-label text-left" for="cemetery-name">Cemetery</label>
                 </div>
 
-                  <div class="mb-4">
+                  <div class="mb-5">
                     <table class="table" id="payment-methods">
                       <tr>
-                        <td><i class="fa fa-cc-paypal" data-toggle="modal" data-target="#modal-subscribe-paypal" style="font-size:36px; cursor: pointer;"></i></td>
-                        <td><img src="../assets/gcash.png" width="50" height="40" data-toggle="modal" data-target="#modal-subscribe-gcash" style="cursor: pointer;"></td>
+                        <td><img src="../assets/gcash.png" width="50" height="40" id="btn-gcash" style="cursor: pointer;"></td>
                       </tr>
                     </table>
                     <label class="form-label" for="payment-methods">Choose how you pay</label>
                   </div>
+                
+                  <div id="sub-content" style="display: none;">
+                    <div class="form-outline mb-4">
+                      <input type="number" class="form-control" id="cost" name="" value="1399.00" placeholder="₱ 1,399.00" readonly>
+                      <label class="form-label" for="cost">Cost</label>
+                    </div>
+                    <div class="row">
+                      <div class="col-5">
+                        <input type="text" id="status" class="form-control" name="" placeholder="ACTIVE" value="ACTIVE" readonly>
+                        <label class="form-label" for="status">Status</label>
+                      </div>
+                      <div class="col-2">until</div>
+                      <div class="col-5">
+                        <input type="date" id="expiry" class="form-control" name="">
+                        <label class="form-label" for="expiry">Subscription ends</label>
+                      </div>
+                  </div>
 
-                <div class="text-right">
+                <div class="text-right mt-5">
                   <button type="button"
                     class="btn btn-success btn-lg text-light" id="subscribe-btn">Finish</button>
                 </div>
@@ -193,78 +209,6 @@
   <!-- Copyright -->
 </footer>
 <!-- Footer -->
-
-<!-- start of subscription modal for paypal -->
-<div class="modal fade" id="modal-subscribe-paypal" tabindex="-1" role="dialog" aria-labelledby="modal-subscribe" aria-hidden="true">
-   <div class="modal-dialog" role="document">
-    <div class="modal-content" style="width:90%; margin: auto;">
-      <div class="modal-header">
-        <h5 class="modal-title">Subscribe with Paypal</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-outline mb-4">
-          <input type="number" class="form-control" id="cost" name="cost" value="₱ 1,399.00" placeholder="₱ 1,399.00" readonly>
-          <label class="form-label" for="cost">Cost</label>
-        </div>
-        <div class="row">
-          <div class="col-5">
-            <input type="text" id="status" class="form-control" name="" placeholder="ACTIVE" value="ACTIVE" readonly>
-            <label class="form-label" for="status">Status</label>
-          </div>
-          <div class="col-2">until</div>
-          <div class="col-5">
-            <input type="date" id="expiry" class="form-control" name="" readonly>
-            <label class="form-label" for="expiry">Date due</label>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Create subscription</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- end of subscription modal -->
-
-<!-- start of subscription modal for gcash -->
-<div class="modal fade" id="modal-subscribe-gcash" tabindex="-1" role="dialog" aria-labelledby="modal-subscribe" aria-hidden="true">
-   <div class="modal-dialog" role="document">
-    <div class="modal-content" style="width:90%; margin: auto;">
-      <div class="modal-header">
-        <h5 class="modal-title">Subscribe with Gcash</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-outline mb-4">
-          <input type="number" class="form-control" id="cost" name="cost" value="₱ 1,399.00" placeholder="₱ 1,399.00" readonly>
-          <label class="form-label" for="cost">Cost</label>
-        </div>
-        <div class="row">
-          <div class="col-5">
-            <input type="text" id="status" class="form-control" name="" placeholder="ACTIVE" value="ACTIVE" readonly>
-            <label class="form-label" for="status">Status</label>
-          </div>
-          <div class="col-2">until</div>
-          <div class="col-5">
-            <input type="date" id="expiry" class="form-control" name="" readonly>
-            <label class="form-label" for="expiry">Date due</label>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Create subscription</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- end of subscription modal -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pocketbase/0.10.1/pocketbase.umd.min.js" integrity="sha512-5fhlKWYvJkEBjEmVznt+oi09HehBG8AhveES3kSosa9VEKnOPJfMWV7cl+e5zAc0Tkn10w+CSfi4lrXcDWc4TQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript" src="../js/lib.js"></script>
