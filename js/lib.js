@@ -23,6 +23,10 @@ function signout() {
   pb.authStore?.clear();
 }
 
+function register_acc(user) {
+  return pb.collection('admin').create(user)
+}
+
 
 /** 
   registerAdmin({  
@@ -47,8 +51,7 @@ function signout() {
   )
 */
 function registerAdmin(user, cemetery, subscription) {
-  return register(user)
-    .then(function(data) {
+  return register_acc(user).then(function(data) {
       return signin(user)
     }).then(function(data) {
       return subscribe(subscription)
@@ -62,10 +65,6 @@ function registerAdmin(user, cemetery, subscription) {
           return data;
         })
     });
-}
-
-function register(user) {
-  return pb.collection('admin').create(user)
 }
 
 function subscribe(data) {
