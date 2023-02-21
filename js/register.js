@@ -32,7 +32,13 @@ cemetery_reg.addEventListener('click', function(){
 });
 
 btn_gcash.addEventListener('click', function(){
+    let date = new Date();
+    const daysOfyear = 365;
+    date.setDate(date.getDate() + daysOfyear);
+    let format = date.toISOString().substring(0, 10);
+    
     document.getElementById('sub-content').style.display = 'block';
+    document.getElementById('expiry').value = format;
 });
 
 reg.addEventListener('click', function(){
@@ -72,5 +78,6 @@ reg.addEventListener('click', function(){
 
 /*
     Assignment:
-    Create a form validation for registering admin, cemetery and subscription
+    - Create a form validation for registering admin, cemetery and subscription
+    - Fix the given date of expiry, users must not able to edit it.
 */
