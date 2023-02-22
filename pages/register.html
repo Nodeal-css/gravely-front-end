@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 	<title>Grave.ly admin registration</title>
 	
 </head>
@@ -66,7 +66,7 @@
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input type="text" id="mi" class="form-control form-control-lg" />
+                  <input type="text" id="mi" class="form-control form-control-lg" maxlength="2" />
                   <label class="form-label" for="mi">Middle Initial</label>
                 </div><br>
 
@@ -76,12 +76,12 @@
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input type="password" id="pass" class="form-control form-control-lg" />
+                  <input type="password" id="pass" class="form-control form-control-lg" minlength="8" />
                   <label class="form-label" for="pass">Password</label>
                 </div>
 
                 <div class="form-outline mb-4">
-                    <input type="password" id="re-pass" class="form-control form-control-lg" />
+                    <input type="password" id="re-pass" class="form-control form-control-lg" minlength="8" />
                     <label class="form-label" for="re-pass">Enter password again</label>
                 </div>
 
@@ -100,10 +100,10 @@
                 <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="../index.html"
                     class="fw-bold text-body"><u>Login here</u></a></p>
             </div>
+          
 <!-- end Register as admin -->
 
 <!-- Register as cemetery -->
-
             <div class="card-body p-5" id="cemetery-container" style="display: none;">
             <h4>Cemetery registration</h4>
             <small class="mb-5">please fill up details of the cemetery</small>
@@ -118,17 +118,17 @@
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input type="text" id="telephone-1" class="form-control form-control-lg" />
+                  <input type="number" id="telephone-1" class="form-control form-control-lg" maxlength="15"/>
                   <label class="form-label" for="telephone-1">Telephone line 1</label>
                 </div>
 
                 <div class="form-outline mb-4">
-                    <input type="text" id="telephone-2" class="form-control form-control-lg" />
+                    <input type="number" id="telephone-2" class="form-control form-control-lg" maxlength="15"/>
                     <label class="form-label" for="telephone-2">Telephone line 2</label>
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input type="text" id="contact" class="form-control form-control-lg" />
+                  <input type="number" id="contact" class="form-control form-control-lg" maxlength="11"/>
                   <label class="form-label" for="contact">Contact</label>
                 </div>
 

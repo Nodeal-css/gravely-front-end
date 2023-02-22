@@ -13,6 +13,19 @@ const subscribe_container = document.querySelector("#subscribe-container");
 
 
 admin_reg.addEventListener('click', function(){
+    //form validation for admin
+    const admin_id_names = ["email", "pass", "re-pass", "fname", "lname", "mi"];
+    for(let i = 0; i < admin_id_names.length; i++){
+        if(!input_validation(admin_id_names[i])){
+            alert("Invalid input: Please fill up all the forms correctly.");
+            return;
+        }
+    }
+    if(document.getElementById('pass').value !== document.getElementById('re-pass').value){
+        alert("The password you entered does not match the re-entered password.");
+        return;
+    }
+
     admin_container.style.display = 'none';
     cemetery_container.style.display = 'block';
     subscribe_container.style.display = 'none';
@@ -22,6 +35,14 @@ admin_reg.addEventListener('click', function(){
 });
 
 cemetery_reg.addEventListener('click', function(){
+    //forma validation
+    const cemetery_id_names = ["cem-name", "cem-address", "telephone-1", "telephone-2", "contact"];
+    for(let i = 0; i < cemetery_id_names.length; i++){
+        if(!input_validation(cemetery_id_names[i])){
+            alert("Invalid input: Please fill up all the forms correctly.");
+            return;
+        }
+    }
     cemetery_container.style.display = 'none';
     admin_container.style.display = 'none';
     subscribe_container.style.display = 'block';
@@ -68,7 +89,7 @@ reg.addEventListener('click', function(){
     registerAdmin(account, cem, sub).then( function () {
         //redirect to admin dashboard
         console.log("account has been added");
-        alert("You have signed up an Admin, Cemetery, and subscription details,\nThank you for trusting Gravely!");
+        alert("You have signed up an Admin, Cemetery, and subscription details,\nThank you for trusting Gravely!\nredirecting to login page.");
         window.location.href = '../index.html';
     }).catch(function(err) {
         console.log(err.message);
@@ -76,8 +97,20 @@ reg.addEventListener('click', function(){
  
 });
 
+//This function will check if the format of input is not followed, or if it is empty.
+function input_validation(id){
+    let input = document.getElementById(id);
+    let flag = false;
+    if(input.checkValidity() && input.value != ""){
+        flag = true;
+    }
+    return flag;
+}
+
+
+
 /*
     Assignment:
     - Create a form validation for registering admin, cemetery and subscription
-    - Fix the given date of expiry, users must not able to edit it.
+    - Fix the given date of expiry, users must not able to edit it.(done)
 */
