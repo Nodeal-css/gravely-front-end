@@ -9,50 +9,58 @@
     <link rel="stylesheet" href="../css/navigation.css">
     <title>Admin Dashboard</title>
 </head>
-<body style="background-color: rgb(246, 246, 246);">
+<body>
 <!-- start of header -->
 <header>
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(220, 108, 75);">
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(220, 108, 75); z-index: 2;">
     <div class="menu-btn">
-        <i class="uil uil-bars" style=""></i>
+        <i class="uil uil-bars" style="font-size: 30px;"></i>
     </div>
     <a class="navbar-brand" href="#">
       <img src="../assets/logo.png" width="90" height="30" alt="">
     </a>
     <div class="collapse navbar-collapse" id="navbarNav">
-
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a href="#" class="nav-link text-light" >Profile</a>
+            </li>
+        </ul>
     </div>
 </nav>
   <!-- End of Header -->
   <!-- Start of side bar -->
-    <!-- Sidebar -->
     <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
         <div class="position-sticky">
-          <div class="list-group list-group-flush mx-3 mt-4">
+          <div class="list-group list-group-flush mx-3 mt-3">
             <a
               href="#"
-              class="list-group-item list-group-item-action py-2 ripple"
+              class="list-group-item list-group-item-action py-2 ripple active"
               aria-current="true">
-              <i class="uil uil-estate fa-fw me-3"></i><span>Main dashboard</span>
-            </a>
-            <a href="#" class="list-group-item list-group-item-action py-2 ripple active">
-              <i class="uil uil fa-fw me-3"></i><span>Webiste traffic</span>
-            </a>
-            <a href="#" class="list-group-item list-group-item-action py-2 ripple"
-              ><i class="uil uil-lock fa-fw me-3"></i><span>Password</span>
+              <i class="uil uil-estate fa-fw me-3 mr-2"></i><span>Main Dashboard</span>
             </a>
             <a href="#" class="list-group-item list-group-item-action py-2 ripple">
-                <i class="uil uil-user fa-fw me-3"></i><span>Users</span>
+              <i class="uil uil-chat-bubble-user fa-fw me-3 mr-2"></i><span>Contacts</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action py-2 ripple"
+              ><i class="uil uil-lock fa-fw me-3 mr-2"></i><span>Deceased Records</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action py-2 ripple">
+                <i class="uil uil-map fa-fw me-3 mr-2"></i><span>Cemetery Map</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action py-2 ripple">
+                <i class="uil uil-user fa-fw me-3 mr-2"></i><span>Users</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action py-2 ripple">
+                <i class="uil uil-sign-out-alt mr-2"></i><span>Log out</span>
             </a>
 
           </div>
         </div>
       </nav>
-<!-- Sidebar -->
 <!-- End of side bar-->
 </header>
 
-    <main class="container">
+    <main>
         <div class="mt-5">
             <h3>Cemetery / Dashboard</h3>
             <small>Graph of cemetery statistics</small>
@@ -62,57 +70,57 @@
             <div class="card col mr-2" style="width: 18rem;">
                 <div class="card-body row">
                     <div class="col-9">
-                        <p><b>Count of burials</b></p>
+                        <small><b>Count of burials</b></small><br>
                         <small>Shows a graph of burials per year</small>
                     </div>
                     <div class="col-3 mt-3">
-                        <i class="uil uil-percentage" style="font-size: 40px;color: #E47A00;"></i>
+                        <i class="uil uil-percentage" style="font-size: 30px;color: #E47A00;"></i>
                     </div>
                 </div>
             </div>
             <div class="card col mr-2" style="width: 18rem;">
                 <div class="card-body row">
                     <div class="col-9">
-                        <p><b>Men : Women</b></p> 
+                        <small><b>Men : Women</b></small> <br>
                         <small>The ratio of deceased men to women</small>
                     </div>
                     <div class="col-3 mt-3">
-                        <i class="uil uil-mars" style="font-size: 40px; color: #E47A00;"></i>
+                        <i class="uil uil-mars" style="font-size: 30px; color: #E47A00;"></i>
                     </div>
                 </div>
             </div>
             <div class="card col mr-2" style="width: 18rem;">
                 <div class="card-body row">
                     <div class="col-9">
-                        <p><b>Age</b></p>
+                        <small><b>Age</b></small><br>
                         <small>Shows the age demographic</small>
                     </div>
                     <div class="col-3 mt-3">
-                        <i class="uil uil-list-ol-alt" style="font-size: 40px; color: #E47A00;"></i>
+                        <i class="uil uil-list-ol-alt" style="font-size: 30px; color: #E47A00;"></i>
                     </div>
                 </div>
             </div>
             <div class="card col" style="width: 18rem;">
                 <div class="card-body row">
                     <div class="col-9">
-                        <p><b>Vacant : occupied</b></p>
+                        <small><b>Vacant graves</b></small><br>
                         <small>Display the count of vacant graves</small>
                     </div>
                     <div class="col-3 mt-3">
-                        <i class="uil uil-n-a" style="font-size: 40px; color: #E47A00;"></i>
+                        <i class="uil uil-n-a" style="font-size: 30px; color: #E47A00;"></i>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row mt-5">
-            <div class="card col-7 ">
+        <div class="row mt-3">
+            <div class="card col-md">
                 <div class="card-body">
-                    <p><b>Graph</b></p>
+                    <small><b>Graph</b></small>
                 </div>
             </div>
-            <div class="card col-4" style="margin-left: 95px;">
+            <div class="card col">
                 <div class="card-body">
-                    Pie graph
+                    <small><b>Pie graph</b></small>
                 </div>
             </div>
         </div>

@@ -23,10 +23,15 @@ function signout() {
   pb.authStore?.clear();
 }
 
+
 function register_acc(user) {
   return pb.collection('admin').create(user)
 }
 
+
+function register(user) {
+  return pb.collection('admin').create(user)
+}
 
 /** 
   registerAdmin({  
@@ -52,6 +57,8 @@ function register_acc(user) {
 */
 function registerAdmin(user, cemetery, subscription) {
   return register_acc(user).then(function(data) {
+  return register(user)
+    .then(function(data) {
       return signin(user)
     }).then(function(data) {
       return subscribe(subscription)
@@ -65,7 +72,7 @@ function registerAdmin(user, cemetery, subscription) {
           return data;
         })
     });
-}
+})
 
 function subscribe(data) {
   return pb.collection('subscription').create(data);
@@ -82,6 +89,6 @@ function createCemetery(cemetery) {
 }
 
 function updateCemetery(cemetery) {
-  const { id, ...data } = cemetery 
+  const { id, ...data } = cemetery
   return pb.collection('cemetery').update(cemetery.id, data);
-}
+}}
