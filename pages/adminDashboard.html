@@ -6,24 +6,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="../css/navigation.css">
     <title>Admin Dashboard</title>
 </head>
 <body style="background-color: rgb(246, 246, 246);">
-<!-- Navigation -->
-
+<!-- start of header -->
+<header>
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(220, 108, 75);">
-
+    <div class="menu-btn">
+        <i class="uil uil-bars" style=""></i>
+    </div>
     <a class="navbar-brand" href="#">
       <img src="../assets/logo.png" width="90" height="30" alt="">
     </a>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav"></ul>
-  
-      </ul>
+
     </div>
-  </nav>
-  <!-- End of Navigation -->
-    <section class="container">
+</nav>
+  <!-- End of Header -->
+  <!-- Start of side bar -->
+    <!-- Sidebar -->
+    <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+        <div class="position-sticky">
+          <div class="list-group list-group-flush mx-3 mt-4">
+            <a
+              href="#"
+              class="list-group-item list-group-item-action py-2 ripple"
+              aria-current="true">
+              <i class="uil uil-estate fa-fw me-3"></i><span>Main dashboard</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action py-2 ripple active">
+              <i class="uil uil fa-fw me-3"></i><span>Webiste traffic</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action py-2 ripple"
+              ><i class="uil uil-lock fa-fw me-3"></i><span>Password</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action py-2 ripple">
+                <i class="uil uil-user fa-fw me-3"></i><span>Users</span>
+            </a>
+
+          </div>
+        </div>
+      </nav>
+<!-- Sidebar -->
+<!-- End of side bar-->
+</header>
+
+    <main class="container">
         <div class="mt-5">
             <h3>Cemetery / Dashboard</h3>
             <small>Graph of cemetery statistics</small>
@@ -87,7 +116,11 @@
                 </div>
             </div>
         </div>
-    </section>
+    </main>
+
+    <footer>
+
+    </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pocketbase/0.10.1/pocketbase.umd.min.js" integrity="sha512-5fhlKWYvJkEBjEmVznt+oi09HehBG8AhveES3kSosa9VEKnOPJfMWV7cl+e5zAc0Tkn10w+CSfi4lrXcDWc4TQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="text/javascript" src="../js/lib.js"></script>
