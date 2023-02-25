@@ -12,7 +12,7 @@ body {
 
 /* Sidebar */
 .sidebar {
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
@@ -45,6 +45,19 @@ body {
   padding: 0;
 }
 
+/* Notifications */
+#notif-tab {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 240px;
+  height: auto;
+  margin-top: 5%;
+  z-index: 3;
+}
+
+/* Animations */
+
 @keyframes navHide {
   0% {left: 0px; top: 0px;}
   100% {left: -300px; top: 0px;}
@@ -53,4 +66,14 @@ body {
 @keyframes navShow {
   0% {left: -300px; top: 0px;}
   100% {left: 0px; top: 0px;}
+}
+
+@keyframes spin { 
+  0% {-webkit-transform: rotate(deg);transform:rotate(0deg);} 
+  100% {-webkit-transform: rotate(360deg);transform:rotate(360deg);} 
+}
+
+@keyframes reversespin { 
+  0% {-webkit-transform: rotate(360deg);transform:rotate(360deg);} 
+  100% {-webkit-transform: rotate(0deg);transform:rotate(0deg);} 
 }
