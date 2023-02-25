@@ -1,0 +1,9 @@
+#filter-tab {
+    position: absolute;
+    top: 1;
+    right: 0;
+    width: 190px;
+    height: auto;
+    margin-top: 5%;
+    z-index: 3;
+}

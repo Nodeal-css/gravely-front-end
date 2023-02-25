@@ -5,6 +5,7 @@ const age_btn = document.getElementById('age-btn');
 const vacant_btn = document.getElementById('vacant-btn');
 const graph_title = document.getElementById('graph-title');
 
+
 burial_btn.addEventListener('click', function(){
     google.charts.load("current", {packages:['corechart']});
     google.charts.setOnLoadCallback(draw_deceased_count);
