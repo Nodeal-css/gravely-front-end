@@ -42,7 +42,7 @@
                   aria-current="true">
                   <i class="uil uil-estate fa-fw me-3 mr-2"></i><span>Main Dashboard</span>
                 </a>
-                <a href="#" class="list-group-item list-group-item-action py-2 ripple">
+                <a href="../pages/adminContacts.html" class="list-group-item list-group-item-action py-2 ripple">
                   <i class="uil uil-chat-bubble-user fa-fw me-3 mr-2"></i><span>Contacts</span>
                 </a>
                 <a href="#" class="list-group-item list-group-item-action py-2 ripple active"
@@ -86,8 +86,18 @@
         </div>
         <div class="card">
             <div class="card-header" style="display: table;">
-                <div class="input-group" style="width: 16rem; float: left;">
-                    <div id="search-autocomplete" class="form-outline">
+                <div class="input-group" style="width: 28rem; float: left;">
+                    <select name="search-type" id="search-type" class="form-control">
+                        <option value="" selected disabled>Choose search field</option>
+                        <option value="First name">First name</option>
+                        <option value="Last name">Last name</option>
+                        <option value="Middle initial">Middle initial</option>
+                        <option value="Birthday">Birthday</option>
+                        <option value="Date of Death">Date of Death</option>
+                        <option value="Burial date">Burial date</option>
+                        <option value="Grave type">Grave type</option>
+                    </select>
+                    <div id="search-autocomplete" class="form-outline ml-2">
                       <input type="search" id="search" class="form-control" placeholder="Search" />
                     </div>
                     <button type="button" class="btn btn-primary px-2">
@@ -104,6 +114,7 @@
                             <li class="nav-item"><a href="">Exceeded 5 years</a></li>
                             <li class="nav-item"><a href="">Sort earliest</a></li>
                             <li class="nav-item"><a href="">Type of decease</a></li>
+                            <li class="nav-item"><a href="">Appartment Type</a></li>
                         </ul>
                     </div>
                 </div>
@@ -115,8 +126,8 @@
                 <thead>
                     <tr class="bg-light">
                         <th scope="col" width="5%">no.</th>
-                        <th scope="col" width="10%">Fname</th>
-                        <th scope="col" width="10%">Lname</th>
+                        <th scope="col" width="10%">First name</th>
+                        <th scope="col" width="10%">Last name</th>
                         <th scope="col" width="5%">MI</th>
                         <th scope="col" width="5%">Sex</th>
                         <th scope="col" width="5%">DOB</th>
@@ -131,6 +142,24 @@
                     
                 </tbody>
             </table>
+            </div>
+        </div>
+        <div class="card mt-2">
+            <div class="card-body" style="display: table;">
+                <div class="ml-3" style="float: left;">
+                    <input class="form-check-input" type="checkbox" value="" id="show-all">
+                    <label for="show-all">Show all</label>
+                </div>
+                <div style="float: right;">
+                    <label for="num-rows">Number of rows</label>
+                    <select name="num-rows" id="num-rows" class="ml-2">
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="150">150</option>
+                        <option value="200">200</option>
+                    </select>
+                </div>
             </div>
         </div>
     </main>

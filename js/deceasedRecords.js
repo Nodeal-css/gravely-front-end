@@ -19,7 +19,7 @@ var arr = [
 function loadList(){
     for(let i = 0; i < arr.length; i++){
         deceasedList.innerHTML += '<tr>' +
-        '<th scope="row">'+ i +'.</th>' +
+        '<th scope="row">'+ (i + 1) +'.</th>' +
         '<td>'+ arr[i][0] +'</td>' +
         '<td>'+ arr[i][1] +'</td>' +
         '<td>'+ arr[i][2] +'</td>' +

@@ -7,23 +7,7 @@ const graph_title = document.getElementById('graph-title');
 
 
 burial_btn.addEventListener('click', function(){
-    google.charts.load("current", {packages:['corechart']});
-    google.charts.setOnLoadCallback(draw_deceased_count);
-    function draw_deceased_count() {
-      let data = google.visualization.arrayToDataTable([
-        ["Year", "count", { role: "style" } ],
-        ["2015", 160, "rgb(220, 108, 75)"],
-        ["2016", 85, "rgb(220, 108, 75)"],
-        ["2017", 115, "rgb(220, 108, 75)"],
-        ["2018", 105, "rgb(220, 108, 75)"],
-        ["2019", 98, "rgb(220, 108, 75)"],
-        ["2020", 200, "rgb(220, 108, 75)"],
-        ["2021", 205, "rgb(220, 108, 75)"],
-        ["2022", 196, "rgb(220, 108, 75)"]
-      ]);
-    drawChart(data);
-  }
-  graph_title.innerHTML = '<b>Number of deceased in the cemetery</b>';
+    countBurial();
 });
 
 gender_btn.addEventListener('click', function(){
@@ -71,6 +55,27 @@ vacant_btn.addEventListener('click', function(){
     graph_title.innerHTML = '<b>Ratio of vacant to occupied graves</b>';
 });
 
+// Count of burials function
+function countBurial(){
+  google.charts.load("current", {packages:['corechart']});
+  google.charts.setOnLoadCallback(draw_deceased_count);
+  function draw_deceased_count() {
+    let data = google.visualization.arrayToDataTable([
+      ["Year", "count", { role: "style" } ],
+      ["2015", 160, "rgb(220, 108, 75)"],
+      ["2016", 85, "rgb(220, 108, 75)"],
+      ["2017", 115, "rgb(220, 108, 75)"],
+      ["2018", 105, "rgb(220, 108, 75)"],
+      ["2019", 98, "rgb(220, 108, 75)"],
+      ["2020", 200, "rgb(220, 108, 75)"],
+      ["2021", 205, "rgb(220, 108, 75)"],
+      ["2022", 196, "rgb(220, 108, 75)"]
+    ]);
+  drawChart(data);
+}
+graph_title.innerHTML = '<b>Number of deceased in the cemetery</b>';
+}
+
 // Donut chart
 function drawDonatChart(data){
     let options = {
@@ -102,3 +107,5 @@ function drawChart(data){
     let chart = new google.visualization.ColumnChart(col_chart);
     chart.draw(view, options);
 }
+
+countBurial();
