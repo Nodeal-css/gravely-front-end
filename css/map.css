@@ -1,0 +1,11 @@
+.mini-map{
+    position: relative;
+    width: 81%;
+    height: 100%;
+}
+
+.max-map{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
