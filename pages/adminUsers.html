@@ -7,8 +7,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <link rel="stylesheet" href="../css/navigation.css">
-    <link rel="stylesheet" href="../css/records.css">
-    <title>Deceased Records</title>
+    <title>Admin accounts</title>
 </head>
 <body>
 <!-- start of header -->
@@ -45,13 +44,13 @@
                 <a href="../pages/adminContacts.html" class="list-group-item list-group-item-action py-2 ripple">
                   <i class="uil uil-chat-bubble-user fa-fw me-3 mr-2"></i><span>Contacts</span>
                 </a>
-                <a href="#" class="list-group-item list-group-item-action py-2 ripple active"
+                <a href="../pages/adminDeceasedRecords.html" class="list-group-item list-group-item-action py-2 ripple"
                   ><i class="uil uil-lock fa-fw me-3 mr-2"></i><span>Deceased Records</span>
                 </a>
                 <a href="../pages/adminCemeteryMap.html" class="list-group-item list-group-item-action py-2 ripple">
                     <i class="uil uil-map fa-fw me-3 mr-2"></i><span>Cemetery Map</span>
                 </a>
-                <a href="../pages/adminUsers.html" class="list-group-item list-group-item-action py-2 ripple">
+                <a href="#" class="list-group-item list-group-item-action py-2 ripple active">
                     <i class="uil uil-user fa-fw me-3 mr-2"></i><span>Users</span>
                 </a>
                 <a href="#" class="list-group-item list-group-item-action py-2 ripple">
@@ -78,25 +77,26 @@
     <!-- End of notifications -->
     </header>
 
-    <main id="main-content">
-        <div class="mt-5">
-            <h3>Cemetery / Deceased Records</h3>
-            <small>You have different options to search deceased records.</small>
-            <hr>
+<main id="main-content">
+    <div class="mt-5">
+        <h3>Cemetery / Administrators</h3>
+        <small>Admin accounts management</small>
+        <hr>
+    </div>
+    <div class="row justify-content-end">
+        <div class="card col-4 mr-5" style="height: 13rem;">
+            <div class="text-center mt-3 border mx-3 p-2 rounded-pill">
+                <i class="uil uil-plus-circle" style="color: rgb(220, 108, 75);"></i>
+                <span>Create an admin account</span>
+            </div>
+            <div class="text-center mt-3 mb-3 border mx-3 p-2 rounded-pill">
+                <i class="uil uil-times-square" style="color: rgb(220, 108, 75);"></i>
+                <span>Remove admin account</span>
+            </div>
         </div>
-        <div class="card">
-            <div class="card-header" style="display: table;">
-                <div class="input-group" style="width: 28rem; float: left;">
-                    <select name="search-type" id="search-type" class="form-control">
-                        <option value="" selected disabled>Choose search field</option>
-                        <option value="First name">First name</option>
-                        <option value="Last name">Last name</option>
-                        <option value="Middle initial">Middle initial</option>
-                        <option value="Birthday">Birthday</option>
-                        <option value="Date of Death">Date of Death</option>
-                        <option value="Burial date">Burial date</option>
-                        <option value="Grave type">Grave type</option>
-                    </select>
+        <div class="card col-7 table-responsive">
+            <div class="card-header" style="width: 50rem; position: absolute;">
+                <div class="input-group" style="width: 19rem; float: left;">
                     <div id="search-autocomplete" class="form-outline ml-2">
                       <input type="search" id="search" class="form-control" placeholder="Search" />
                     </div>
@@ -104,81 +104,60 @@
                         <i class="uil uil-search"></i>
                     </button>
                 </div>
-                <div class="" style="float: right;">
-                    <i class="uil uil-filter" style="font-size: 25px; color: rgb(220, 108, 75);" id="filter-btn"></i>
-                </div>
-                <div class="card" id="filter-tab" style="display: none;">
-                    <div class="card-body">
-                        <ul class="navbar-nav">
-                            <li class="nav-item"><a href="">Not in Grave</a></li>
-                            <li class="nav-item"><a href="">Exceeded 5 years</a></li>
-                            <li class="nav-item"><a href="">Sort earliest</a></li>
-                            <li class="nav-item"><a href="">Type of decease</a></li>
-                            <li class="nav-item"><a href="">Appartment Type</a></li>
-                        </ul>
+            </div>
+            <div class="card-body mt-5" style="overflow: auto; width: 50rem; max-height: 25rem;">
+                <table class="table table-responsive table-borderless">
+                    <thead>
+                        <tr class="bg-light">
+                            <th scope="col" width="">#.</th>
+                            <th scope="col" width="20%">Email</th>
+                            <th scope="col" width="20%">Password</th>
+                            <th scope="col" width="20%">First name</th>
+                            <th scope="col" width="20%">Last name</th>
+                            <th scope="col" width="20%">Middle initial</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-list">
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer row" style="width: 50rem;">
+                    <div class="ml-3 col">
+                        <input class="form-check-input" type="checkbox" value="" id="show-all">
+                        <label for="show-all">Show all</label>
+                     </div>
+                    <div class="col">
+                        <label for="num-rows">Number of rows</label>
+                        <select name="num-rows" id="num-rows" class="ml-2">
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="150">150</option>
+                            <option value="200">200</option>
+                        </select>
                     </div>
-                </div>
             </div>
         </div>
-        <div class="table-responsive card mt-2">
-            <div class="card-body" style="overflow: auto; width: 80rem; max-height: 25rem;">
-            <table class="table table-responsive table-borderless">
-                <thead>
-                    <tr class="bg-light">
-                        <th scope="col" width="5%">no.</th>
-                        <th scope="col" width="10%">First name</th>
-                        <th scope="col" width="10%">Last name</th>
-                        <th scope="col" width="5%">MI</th>
-                        <th scope="col" width="5%">Sex</th>
-                        <th scope="col" width="5%">DOB</th>
-                        <th scope="col" width="5%">DOD</th>
-                        <th scope="col" width="10%">Burial date</th>
-                        <th scope="col" width="15%">Cause of Death</th>
-                        <th scope="col" width="15%">Memorial</th>
-                        <th scope="col" width="15%">Grave type</th>
-                    </tr>
-                </thead>
-                <tbody id="deceased-list">
-                    
-                </tbody>
-            </table>
-            </div>
-        </div>
-        <div class="card mt-2">
-            <div class="card-body" style="display: table;">
-                <div class="ml-3" style="float: left;">
-                    <input class="form-check-input" type="checkbox" value="" id="show-all">
-                    <label for="show-all">Show all</label>
-                </div>
-                <div style="float: right;">
-                    <label for="num-rows">Number of rows</label>
-                    <select name="num-rows" id="num-rows" class="ml-2">
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                        <option value="150">150</option>
-                        <option value="200">200</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-    </main>
+    </div>
+</main>
 
-
-    <footer>
-    <!-- Copyright -->
+<footer class="text-center text-lg-start bg-white text-muted">
+ <!-- Copyright -->
     <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.025);">
-        © 2023 Copyright:
-        <a class="text-reset fw-bold" href="https://mdbootstrap.com/">gravely.com</a>
-      </div>
-      <!-- Copyright -->
-    </footer>
+      © 2023 Copyright:
+      <a class="text-reset fw-bold" href="https://mdbootstrap.com/">gravely.com</a>
+    </div>
+<!-- Copyright -->
+</footer>
+<!-- Footer -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pocketbase/0.10.1/pocketbase.umd.min.js" integrity="sha512-5fhlKWYvJkEBjEmVznt+oi09HehBG8AhveES3kSosa9VEKnOPJfMWV7cl+e5zAc0Tkn10w+CSfi4lrXcDWc4TQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="text/javascript" src="../js/lib.js"></script>
     <script type="text/javascript" src="../js/navigation.js"></script>
-    <script type="text/javascript" src="../js/deceasedRecords.js"></script>
 
+    <script type="text/javascript" src="../js/adminUsers.js"></script>
+    
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
