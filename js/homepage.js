@@ -1,4 +1,4 @@
-var login = document.querySelector('#login');
+const login = document.querySelector('#login');
 
 //
 login.addEventListener('click', function(){
@@ -22,3 +22,4 @@ login.addEventListener('click', function(){
 		window.location.href = 'index.html';
 	});
 });
+
