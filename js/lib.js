@@ -1,9 +1,17 @@
 const pb = new PocketBase('http://localhost:8090');
 
+/** CHeck if user is authenticated
+ * 
+ * @returns boolean true or false
+ */
 function isLoggedIn() {
   return pb.authStore?.isValid
 }
 
+/** Getting the session of current logged admin
+ * 
+ * @returns Collection of Admin
+ */
 function getSessionAdmin() {
   return pb.authStore?.model
 }

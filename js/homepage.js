@@ -16,7 +16,7 @@ login.addEventListener('click', function(){
 		//redirect admin user to cemetery dashboard
 		//load the cemetery information, map, to the admin end
 		//study the functions in lib.js
-		alert("correct username and password");
+		window.location.href = 'pages/adminDashboard.html';
 	}).catch(function(err) {
 		alert("Invalid usrename or password\nplease try again");
 		window.location.href = 'index.html';

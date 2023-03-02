@@ -1,6 +1,9 @@
 const menu = document.querySelector('.menu-btn');
 const notif = document.querySelector('#notif-btn');
+const log_out = document.getElementById('logout');
 var flag = false;
+
+check_session();
 
 //transfer this script to js file
 menu.addEventListener('click', function(){
@@ -24,3 +27,20 @@ menu.addEventListener('click', function(){
 notif.addEventListener('click', function(){
     document.getElementById('notif-tab').style.display = 'block';
 })
+
+log_out.addEventListener('click', function(){
+    if(confirm("<p>Confirm signing out Gravely</p>" == true)){
+        signout();
+        window.location.href = '../index.html';
+    }
+});
+
+function check_session(){
+    if(!isLoggedIn()){
+        console.log('Session: not active');
+        alert('Invalid access, please sign in');
+        window.location.href = '../index.html';
+        return;
+    }
+    console.log('Session: active');
+}
