@@ -190,3 +190,25 @@ function findMyCemetery() {
     expand: 'cemetery_id'
   })
 }
+
+function search(collectionName, page=1, perPage=100, query='', sortBy='', expand='') {
+  let filters = {}
+  if (query) {
+    filters = {
+      filter: query
+    }
+  }
+  if (sortBy) {
+    filters = {
+      ...filters,
+      sort: sortBy
+    }
+  }
+  if (expand) {
+    filters = {
+      ...filters,
+      expand: expand
+    }
+  }
+  return pb.collection(collectionName).getList(page, perPage, filters)
+}
