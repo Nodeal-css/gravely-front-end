@@ -103,6 +103,7 @@
                     <button type="button" class="btn btn-primary px-2">
                         <i class="uil uil-search"></i>
                     </button>
+                    <button type="button" class="btn btn-success ml-2" data-toggle="modal" data-target="#add-deceased">insert</button>
                 </div>
                 <div class="" style="float: right;">
                     <i class="uil uil-filter" style="font-size: 25px; color: rgb(220, 108, 75);" id="filter-btn"></i>
@@ -173,6 +174,77 @@
       </div>
       <!-- Copyright -->
     </footer>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="add-deceased">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title"><i class="uil uil-plus-circle mr-2" style="color: rgb(220, 108, 75);"></i>Deceased record</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                    <label for="d-fname">First name:</label>
+                    <input type="text" class="form-control" id="d-fname" placeholder="Enter name" >
+                  </div>
+                  <div class="form-group">
+                    <label for="d-lname">Last name:</label>
+                    <input type="text" class="form-control" id="d-lname" placeholder="Enter last name" >
+                  </div>
+                  <div class="form-group">
+                    <label for="d-mi">Middle initial:</label>
+                    <input type="text" class="form-control" id="d-mi" placeholder="Enter middle name" >
+                  </div>
+                  <div class="form-group">
+                    <label for="cause-of-death">Cause of death:</label>
+                    <input type="text" class="form-control" id="cause-of-death" placeholder="Enter cause of death" >
+                  </div>
+                  <div class="form-group">
+                    <label for="memorial">Memorial:</label>
+                    <textarea class="form-control" id="memorial" placeholder="Enter memorial" ></textarea>
+                  </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                    <label for="dod">Date of death:</label>
+                    <input type="date" class="form-control" id="dod" placeholder="" >
+                  </div>
+                  <div class="form-group">
+                    <label for="d-burial">Date of burial:</label>
+                    <input type="date" class="form-control" id="d-burial" placeholder="" >
+                  </div>
+                  <div class="form-group">
+                    <label for="dob">Date of birth:</label>
+                    <input type="date" class="form-control" id="dob" placeholder="Enter last name" >
+                  </div>
+                  <div class="form-group">
+                    <label for="burial-type">Burial type:</label>
+                    <select id="burial-type">
+                        <option value="" disabled selected>Choose type</option>
+                        <option value="1">Above ground</option>
+                        <option value="2">In ground</option>
+                        <option value="3">Cremation</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="image-file">Image:</label>
+                    <input type="file" class="form-control" id="image-file" placeholder="Image" >
+                  </div>
+              </div>
+            </div>
+              <!-- firstname, lastname, mi, memorial, date_death, date_burial, date_birth, cause_of_death, burial_type-->
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" id="create-deceased">Save</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pocketbase/0.10.1/pocketbase.umd.min.js" integrity="sha512-5fhlKWYvJkEBjEmVznt+oi09HehBG8AhveES3kSosa9VEKnOPJfMWV7cl+e5zAc0Tkn10w+CSfi4lrXcDWc4TQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="text/javascript" src="../js/lib.js"></script>

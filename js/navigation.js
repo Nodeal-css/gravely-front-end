@@ -1,9 +1,16 @@
 const menu = document.querySelector('.menu-btn');
 const notif = document.querySelector('#notif-btn');
 const log_out = document.getElementById('logout');
+var header = new Headers();
 var flag = false;
 
 check_session();
+getSessionAdmin();
+
+
+findMyCemetery().then( function(data){
+    console.log('Cemetery id: ' + data.cemetery_id);
+});
 
 //transfer this script to js file
 menu.addEventListener('click', function(){

@@ -12,7 +12,7 @@ login.addEventListener('click', function(){
 		"password": pass
 	}; 
 
-	signin(arr).then( function(){
+	signin(arr).then( function(data){
 		//redirect admin user to cemetery dashboard
 		//load the cemetery information, map, to the admin end
 		//study the functions in lib.js

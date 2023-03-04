@@ -1,5 +1,7 @@
 const deceasedList = document.getElementById('deceased-list');
 const filter_btn = document.getElementById('filter-btn');
+const insert_deceased = document.getElementById('create-deceased');
+
 
 var arr = [
     ['Mike', 'Lopez', 'P.', 'Male', '01/22/1999', '01/20/2022', '03/29/2022', 'Cancer', 'Rest in peace', 'Appartment type'],
@@ -42,4 +44,27 @@ filter_btn.addEventListener('click', function(){
     }
     document.getElementById('filter-tab').style.display = 'block';
 });
+
+insert_deceased.addEventListener('click', function(){
+    let deceased = {
+        "firstname": document.getElementById('d-fname').value,
+        "lastname":document.getElementById('d-lname').value,
+        "mi": document.getElementById('d-mi').value,
+        "cause_of_death": document.getElementById('cause-of-death').value,
+        "memorial": document.getElementById('memorial').value,
+        "date_death": document.getElementById('dod').value,
+        "date_burial": document.getElementById('d-burial').value,
+        "date_birth": document.getElementById('dob').value,
+        "burial_type": document.getElementById('burial-type').value,
+        "image": document.getElementById('image-file').value
+    };
+
+    create('deceased', deceased).then( function(){
+        console.log('Record has been added');
+    }).catch( function(err){
+        console.log(err);
+    });
+});
+
+
 

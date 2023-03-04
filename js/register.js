@@ -63,8 +63,8 @@ btn_gcash.addEventListener('click', function(){
 });
 
 reg.addEventListener('click', function(){
-    var account = {
-        "username": document.querySelector("#fname").value + '_' + document.querySelector("#lname").value,
+    let account = {
+        "username": document.querySelector("#fname").value + '_5' + document.querySelector("#lname").value,
         "email": document.querySelector("#email").value,
         "emailVisibility": true,
         "password": document.querySelector("#pass").value,
@@ -73,14 +73,14 @@ reg.addEventListener('click', function(){
         "lastname": document.querySelector("#lname").value,
         "mi": document.querySelector("#mi").value
     };
-    var cem = {
+    let cem = {
         "name": document.querySelector("#cem-name").value,
         "address": document.querySelector("#cem-address").value,
         "tel1": document.querySelector("#telephone-1").value,
         "tel2": document.querySelector("#telephone-2").value,
         "contact": document.querySelector("#contact").value
     };
-    var sub = {
+    let sub = {
         "payment": document.querySelector("#cost").value,
         "status": document.querySelector("#status").value,
         "expiry_date": document.querySelector("#expiry").value
@@ -92,6 +92,7 @@ reg.addEventListener('click', function(){
         alert("You have signed up an Admin, Cemetery, and subscription details,\nThank you for trusting Gravely!\nredirecting to login page.");
         window.location.href = '../index.html';
     }).catch(function(err) {
+        //console.log(search('admin', 1, 1, account.email, '', '', ''));
         console.log(err.message);
     });
  
