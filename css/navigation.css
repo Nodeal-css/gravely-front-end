@@ -1,0 +1,79 @@
+TML
+CSS
+body {
+  background-color: rgb(246, 246, 246);
+}
+@media (min-width: 991.98px) {
+  main {
+    padding-left: 240px;
+    margin: 2%;
+  }
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  padding: 58px 0 0; /* Height of navbar */
+  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+  width: 240px;
+  z-index: 1;
+}
+
+@media (max-width: 991.98px) {
+  .sidebar {
+    width: 100%;
+  }
+}
+.sidebar .active {
+  border-radius: 5px;
+  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+}
+
+.sidebar-sticky {
+  position: relative;
+  top: 0;
+  height: calc(100vh - 48px);
+  padding-top: 0.5rem;
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+
+.card {
+  padding: 0;
+}
+
+/* Notifications */
+#notif-tab {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 240px;
+  height: auto;
+  margin-top: 5%;
+  z-index: 3;
+}
+
+/* Animations */
+
+@keyframes navHide {
+  0% {left: 0px; top: 0px;}
+  100% {left: -300px; top: 0px;}
+}
+
+@keyframes navShow {
+  0% {left: -300px; top: 0px;}
+  100% {left: 0px; top: 0px;}
+}
+
+@keyframes spin { 
+  0% {-webkit-transform: rotate(deg);transform:rotate(0deg);} 
+  100% {-webkit-transform: rotate(360deg);transform:rotate(360deg);} 
+}
+
+@keyframes reversespin { 
+  0% {-webkit-transform: rotate(360deg);transform:rotate(360deg);} 
+  100% {-webkit-transform: rotate(0deg);transform:rotate(0deg);} 
+}

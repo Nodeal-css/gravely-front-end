@@ -4,7 +4,8 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<title>Grave.ly Login</title>
 	
 </head>
@@ -15,7 +16,7 @@
   <a class="navbar-brand" href="#">
     <img src="assets/logo.png" width="90" height="30" alt="">
   </a>
-  <div class="collapse navbar-collapse" id="navbarNav">
+  <div class="collapse navbar-collapse" id="navbarNav" style="float: right;">
     <ul class="navbar-nav">
       <li class="nav-item active">
         <a class="nav-link text-light" href="#">Home <span class="sr-only">(current)</span></a>
@@ -34,18 +35,18 @@
     <div class="row d-flex align-items-center justify-content-center h-100">
       <div class="col-md-8 col-lg-7 col-xl-6 text-light">
         <h1>Cemetery Records<br><span>ease of access</span> <br>Visit the graves of your love ones</h1>
-        <button class="btn btn-secondary btn-md">Cemetery Map</button>
+        <button class="btn btn-secondary btn-md" data-toggle="modal" data-target="#cemetery-mdl">Cemetery Map</button>
       </div>
-      <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+      <div class="offset-xl-1" style="width: 19rem;">
           <!-- Email input -->
           <div class="form-outline mb-4">
-            <input type="email" id="user-name" class="form-control form-control-lg" />
+            <input type="email" id="user-name" class="form-control form-control-md" />
             <label class="form-label text-light" for="user-name">Email</label>
           </div>
 
           <!-- Password input -->
           <div class="form-outline mb-4">
-            <input type="password" id="pass-word" class="form-control form-control-lg" />
+            <input type="password" id="pass-word" class="form-control form-control-md" />
             <label class="form-label text-light" for="pass-word">Password</label>
           </div>
 
@@ -55,13 +56,13 @@
           </div>
 
           <!-- Submit button -->
-          <button id="login" class="btn btn-success btn-lg btn-block">Sign in</button>
+          <button id="login" class="btn btn-success btn-md btn-block">Sign in</button>
 
           <div class="divider d-flex align-items-center my-4">
-            <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
+            <p class="text-center fw-bold mx-3 mb-0 text-light">OR</p>
           </div>
 
-          <button class="btn btn-lg btn-block text-light" style="background-color: rgb(220, 108, 75);" onclick="location.href = 'pages/register.html';">Register</button>
+          <button class="btn btn-md btn-block text-light" style="background-color: rgb(220, 108, 75);" onclick="location.href = 'pages/register.html';">Register</button>
 
         
       </div>
@@ -74,11 +75,53 @@
   <!-- Copyright -->
   <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.025);">
     © 2023 Copyright:
-    <a class="text-reset fw-bold" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+    <a class="text-reset fw-bold" href="https://mdbootstrap.com/">gravely.com</a>
   </div>
   <!-- Copyright -->
 </footer>
 <!-- Footer -->
+
+<!-- Start of modal to view list of cemeteries -->
+<div class="modal fade" id="cemetery-mdl" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>Cemeteries</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body justify-content-center">
+          <div class="row container" style="overflow-x: auto; max-height: 12rem;width: 30rem;">
+              <div class="col m-2" style="border: 0.1px solid rgb(134, 133, 133);margin: auto;">
+                <div style="width: 100%; margin: auto;">
+                  <i class="uil uil-clinic-medical ml-3" style="font-size: 60px; color: rgb(220, 108, 75);"></i>
+                  <small>Manila Memorial Park</small>
+                </div>
+              </div>
+              <div class="col m-2" style="border: 0.5px solid rgb(134, 133, 133);;margin: auto;">
+                <div style="width: 100%; margin: auto;">
+                  <i class="uil uil-clinic-medical ml-3" style="font-size: 60px; color: rgb(220, 108, 75);"></i><br>
+                  <small>St. Martha Cemetery</small>
+                </div>
+              </div>
+              <div class="col m-2" style="border: 0.5px solid rgb(134, 133, 133);;margin: auto;">
+                <div style="width: 100%; margin: auto;">
+                  <i class="uil uil-clinic-medical ml-3" style="font-size: 60px; color: rgb(220, 108, 75);"></i>
+                  <small>Triumphant Memorial Park</small>
+                </div>
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End of modal to view list of cemeteries -->
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pocketbase/0.10.1/pocketbase.umd.min.js" integrity="sha512-5fhlKWYvJkEBjEmVznt+oi09HehBG8AhveES3kSosa9VEKnOPJfMWV7cl+e5zAc0Tkn10w+CSfi4lrXcDWc4TQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript" src="js/lib.js"></script>
 <script type="text/javascript" src="js/homepage.js"></script>

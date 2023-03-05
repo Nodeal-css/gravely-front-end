@@ -145,6 +145,28 @@ function signout() {
   pb.authStore?.clear()
 }
 
+function register_acc(user) {
+  return pb.collection('admin').create(user)
+}
+function subscribe(data) {
+  return pb.collection('subscription').create(data);
+}
+function findMyCemetery() {
+  return pb.collection('admin').getOne(pb.authStore?.model.id, {
+    expand: 'cemetery_id'
+  });
+}
+function createCemetery(cemetery) {
+  return pb.collection('cemetery').create(cemetery);
+}
+function updateCemetery(cemetery) {
+  const { id, ...data } = cemetery
+  return pb.collection('cemetery').update(cemetery.id, data);
+}
+function updateAdmin(user) {
+  return pb.collection('admin').update(user.id, user);
+}
+
 /** 
   registerAdmin({  
     "username": "test_username1223",
@@ -168,19 +190,18 @@ function signout() {
   )
 */
 function registerAdmin(user, cemetery, subscription) {
-  return create(ADMIN, user)
-    .then(function(data) {
+  return register_acc(user).then(function(data) {
       return signin(user)
     }).then(function(data) {
-      return create(SUBSCRIPTION, subscription)
+      return subscribe(subscription)
     }).then(function(data) {
-      return create(CEMETERY, {...cemetery, subscription_id: data.id})
+      return createCemetery({...cemetery, subscription_id: data.id})
     }).then(function(data) {
       const {signinedUser, oldPassword } = user
-      return update(ADMIN, {...signinedUser, id: pb.authStore?.model.id , cemetery_id: data.id})
+      return updateAdmin({...signinedUser, id: pb.authStore?.model.id , cemetery_id: data.id})
         .then(function(data) {
-          signout()
-          return data
+          signout();
+          return data;
         })
     });
 }

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="../css/navigation.css">
+    <title>Admin accounts</title>
+</head>
+<body>
+<!-- start of header -->
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(220, 108, 75); z-index: 2; width: 100%;">
+        <div class="menu-btn">
+            <i id="menu" class="uil uil-bars" style="font-size: 30px;color: white;"></i>
+        </div>
+        <a class="navbar-brand ml-3" href="#">
+          <img src="../assets/logo.png" width="90" height="30" alt="">
+        </a>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <i class="uil uil-bell text-light" style="font-size: 30px;" id="notif-btn"></i>
+                </li>
+                <li class="nav-item ml-3">
+                    <i class="uil uil-user-square text-light" style="font-size: 30px;"></i>
+                </li>
+            </ul>
+        </div>
+    </nav>
+      <!-- End of Header -->
+      <!-- Start of side bar -->
+        <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+            <div class="position-sticky">
+              <div class="list-group list-group-flush mx-3 mt-3">
+                <a
+                  href="../pages/adminDashboard.html"
+                  class="list-group-item list-group-item-action py-2 ripple"
+                  aria-current="true">
+                  <i class="uil uil-estate fa-fw me-3 mr-2"></i><span>Main Dashboard</span>
+                </a>
+                <a href="../pages/adminContacts.html" class="list-group-item list-group-item-action py-2 ripple">
+                  <i class="uil uil-chat-bubble-user fa-fw me-3 mr-2"></i><span>Contacts</span>
+                </a>
+                <a href="../pages/adminDeceasedRecords.html" class="list-group-item list-group-item-action py-2 ripple"
+                  ><i class="uil uil-lock fa-fw me-3 mr-2"></i><span>Deceased Records</span>
+                </a>
+                <a href="../pages/adminCemeteryMap.html" class="list-group-item list-group-item-action py-2 ripple">
+                    <i class="uil uil-map fa-fw me-3 mr-2"></i><span>Cemetery Map</span>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action py-2 ripple active">
+                    <i class="uil uil-user fa-fw me-3 mr-2"></i><span>Users</span>
+                </a>
+                <a id="logout" class="list-group-item list-group-item-action py-2 ripple" style="cursor: pointer;">
+                    <i class="uil uil-sign-out-alt mr-2"></i><span>Log out</span>
+                </a>
+    
+              </div>
+            </div>
+          </nav>
+    <!-- End of side bar-->
+    <!-- Start of notifications -->
+    <div class="card" id="notif-tab" style="display: none;">
+        <div class="card-header">
+            <small class="mr-5"><b>Notifications</b></small>
+            <span class="ml-5" style="font-size: 20px; cursor: pointer;" onclick="document.getElementById('notif-tab').style.display = 'none';">&times;</span>
+        </div>
+        <div class="card-body">
+            <a href="">Notification 1 ....</a>
+            <a href="">Notification 2 ....</a>
+            <a href="">Notification 3 ....</a>
+            <a href="">Notification 4 ....</a>
+        </div>
+    </div>
+    <!-- End of notifications -->
+    </header>
+
+<main id="main-content">
+    <div class="mt-5">
+        <h3>Cemetery / Administrators</h3>
+        <small>Admin accounts management</small>
+        <hr>
+    </div>
+    <div class="row justify-content-end">
+        <div class="card col-4 mr-5" style="height: 13rem;">
+            <div class="text-center mt-3 border mx-3 p-2 rounded-pill">
+                <i class="uil uil-plus-circle" style="color: rgb(220, 108, 75);"></i>
+                <span>Create an admin account</span>
+            </div>
+            <div class="text-center mt-3 mb-3 border mx-3 p-2 rounded-pill">
+                <i class="uil uil-times-square" style="color: rgb(220, 108, 75);"></i>
+                <span>Remove admin account</span>
+            </div>
+        </div>
+        <div class="card col-7 table-responsive">
+            <div class="card-header" style="width: 50rem; position: absolute;">
+                <div class="input-group" style="width: 19rem; float: left;">
+                    <div id="search-autocomplete" class="form-outline ml-2">
+                      <input type="search" id="search" class="form-control" placeholder="Search" />
+                    </div>
+                    <button type="button" class="btn btn-primary px-2">
+                        <i class="uil uil-search"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body mt-5" style="overflow: auto; width: 50rem; max-height: 25rem;">
+                <table class="table table-responsive table-borderless">
+                    <thead>
+                        <tr class="bg-light">
+                            <th scope="col" width="">#.</th>
+                            <th scope="col" width="20%">Email</th>
+                            <th scope="col" width="20%">Password</th>
+                            <th scope="col" width="20%">First name</th>
+                            <th scope="col" width="20%">Last name</th>
+                            <th scope="col" width="20%">Middle initial</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-list">
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer row" style="width: 50rem;">
+                    <div class="ml-3 col">
+                        <input class="form-check-input" type="checkbox" value="" id="show-all">
+                        <label for="show-all">Show all</label>
+                     </div>
+                    <div class="col">
+                        <label for="num-rows">Number of rows</label>
+                        <select name="num-rows" id="num-rows" class="ml-2">
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="150">150</option>
+                            <option value="200">200</option>
+                        </select>
+                    </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="text-center text-lg-start bg-white text-muted">
+ <!-- Copyright -->
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.025);">
+      © 2023 Copyright:
+      <a class="text-reset fw-bold" href="https://mdbootstrap.com/">gravely.com</a>
+    </div>
+<!-- Copyright -->
+</footer>
+<!-- Footer -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pocketbase/0.10.1/pocketbase.umd.min.js" integrity="sha512-5fhlKWYvJkEBjEmVznt+oi09HehBG8AhveES3kSosa9VEKnOPJfMWV7cl+e5zAc0Tkn10w+CSfi4lrXcDWc4TQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript" src="../js/lib.js"></script>
+    <script type="text/javascript" src="../js/navigation.js"></script>
+
+    <script type="text/javascript" src="../js/adminUsers.js"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

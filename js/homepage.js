@@ -1,4 +1,4 @@
-var login = document.querySelector('#login');
+const login = document.querySelector('#login');
 
 //
 login.addEventListener('click', function(){
@@ -6,6 +6,20 @@ login.addEventListener('click', function(){
 	var pass = document.querySelector('#pass-word').value;
 	
 	//render data and pass to server with node.js
-	console.log("user: " + user + " \npass: " + pass);
+	//console.log("user: " + user + " \npass: " + pass);
+	var arr = {
+		"username": user,
+		"password": pass
+	}; 
+
+	signin(arr).then( function(data){
+		//redirect admin user to cemetery dashboard
+		//load the cemetery information, map, to the admin end
+		//study the functions in lib.js
+		window.location.href = 'pages/adminDashboard.html';
+	}).catch(function(err) {
+		alert("Invalid usrename or password\nplease try again");
+		window.location.href = 'index.html';
+	});
 });
 

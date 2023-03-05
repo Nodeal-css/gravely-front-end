@@ -5,6 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 	<title>Grave.ly admin registration</title>
 	
 </head>
@@ -34,17 +35,27 @@
 <!-- Page content -->
 <section class="vh-90 bg-image" style="background-image: url('../assets/body.png');background-size:     cover; background-repeat: no-repeat; background-position: center center; ">
   <div class="container py-5 h-100">
-    <div class="row d-flex align-items-center justify-content-center h-100">
-      <div class="col-md-8 col-lg-7 col-xl-6 text-light">
-        <!--h1>Cemetery Records<br><span>ease of access</span> <br>Visit the graves of your love ones</h1>
-        <button class="btn btn-secondary btn-md">Cemetery Map</button-->
-      </div>
-      <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-        <div class="card" style="border-radius: 15px;background:rgba(255,255,255,0.6);">
-            <div class="card-body p-5">
-              <h4 class="text-uppercase text-center mb-5">Create an admin account</h4>
-                
-                <div class="form-outline mb-4">
+        <div class="card" style="border-radius: 15px; width: 45%; margin: auto;">
+          <div class="card-header" style="background-color: whitesmoke;">
+          <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" id="admin">Admin</a>
+            </li>
+          
+            <li class="nav-item">
+              <a class="nav-link" id="cemetery">Cemetery</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" id="subscribe">Subscription</a>
+            </li>            
+          </ul>
+          </div><br>
+<!-- Register as admin -->
+            <div class="card-body p-5" id="admin-container">
+            <h4>Sign up an admin account</h4>
+            <small>First admin account of a cemetery should sign up</small>
+                <div class="form-outline mb-4 mt-5">
                   <input type="text" id="fname" class="form-control form-control-lg" />
                   <label class="form-label" for="fname">First name</label>
                 </div>
@@ -55,9 +66,9 @@
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input type="text" id="mi" class="form-control form-control-lg" />
+                  <input type="text" id="mi" class="form-control form-control-lg" maxlength="2" />
                   <label class="form-label" for="mi">Middle Initial</label>
-                </div>
+                </div><br>
 
                 <div class="form-outline mb-4">
                     <input type="email" id="email" class="form-control form-control-lg" />
@@ -65,12 +76,12 @@
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input type="password" id="pass" class="form-control form-control-lg" />
+                  <input type="password" id="pass" class="form-control form-control-lg" minlength="8" />
                   <label class="form-label" for="pass">Password</label>
                 </div>
 
                 <div class="form-outline mb-4">
-                    <input type="password" id="re-pass" class="form-control form-control-lg" />
+                    <input type="password" id="re-pass" class="form-control form-control-lg" minlength="8" />
                     <label class="form-label" for="re-pass">Enter password again</label>
                 </div>
 
@@ -81,18 +92,109 @@
                   </label>
                 </div>
 
-                <div class="d-flex justify-content-center">
+                <div class="text-right">
                   <button type="button"
-                    class="btn btn-success btn-block btn-lg text-light" id="register">Register</button>
+                    class="btn btn-success btn-lg text-light" id="admin-register">Next</button>
                 </div>
                 
                 <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="../index.html"
                     class="fw-bold text-body"><u>Login here</u></a></p>
-              
             </div>
+          
+<!-- end Register as admin -->
+
+<!-- Register as cemetery -->
+            <div class="card-body p-5" id="cemetery-container" style="display: none;">
+            <h4>Cemetery registration</h4>
+            <small class="mb-5">please fill up details of the cemetery</small>
+                <div class="form-outline mb-4 mt-5">
+                  <input type="text" id="cem-name" class="form-control form-control-lg" />
+                  <label class="form-label" for="cem-name">Name</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="text" id="cem-address" class="form-control form-control-lg" />
+                  <label class="form-label" for="cem-address">Address</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="phone" id="telephone-1" class="form-control form-control-lg" maxlength="15"/>
+                  <label class="form-label" for="telephone-1">Telephone line 1</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                    <input type="phone" id="telephone-2" class="form-control form-control-lg" maxlength="15"/>
+                    <label class="form-label" for="telephone-2">Telephone line 2</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="number" id="contact" class="form-control form-control-lg" maxlength="11"/>
+                  <label class="form-label" for="contact">Contact</label>
+                </div>
+
+                <div class="form-check d-flex mb-5">
+                  <input class="form-check-input me-2" type="checkbox" value="" id="terms" />
+                  <label class="form-check-label" for="terms">
+                    I agree all statements in <a href="#!" class="text-body"><u>Terms of service</u></a>
+                  </label>
+                </div>
+
+                <div class="text-right">
+                  <button type="button"
+                    class="btn btn-success btn-lg text-light" id="cem-register">Next</button>
+                </div>
+                
+                <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="../index.html"
+                    class="fw-bold text-body"><u>Login here</u></a></p>
+            </div>
+<!-- end Register as admin -->
+
+<!-- start of subscribe container -->
+            <div class="card-body p-5" id="subscribe-container" style="display: none;">
+            <h4>Subscribe</h4>
+            <small class="mb-5">Please include the mode of payment</small>
+                <div class="form-outline mb-4 mt-5">
+                  <input type="text" id="cemetery-name" class="form-control" value="" />
+                  <label class="form-label text-left" for="cemetery-name">Cemetery</label>
+                </div>
+
+                  <div class="mb-5">
+                    <table class="table" id="payment-methods">
+                      <tr>
+                        <td><img src="../assets/gcash.png" width="50" height="40" id="btn-gcash" style="cursor: pointer;"></td>
+                      </tr>
+                    </table>
+                    <label class="form-label" for="payment-methods">Click on this mode of payment</label>
+                  </div>
+                
+                  <div id="sub-content" style="display: none;">
+                    <div class="form-outline mb-4">
+                      <input type="number" class="form-control" id="cost" name="" value="1399.00" placeholder="₱ 1399.00" readonly>
+                      <label class="form-label" for="cost">Cost</label>
+                    </div>
+                    <div class="row">
+                      <div class="col-5">
+                        <input type="text" id="status" class="form-control" name="" placeholder="ACTIVE" value="ACTIVE" readonly>
+                        <label class="form-label" for="status">Status</label>
+                      </div>
+                      <div class="col-2">until</div>
+                      <div class="col-5">
+                        <input type="date" id="expiry" class="form-control" name="" readonly>
+                        <label class="form-label" for="expiry">Subscription ends</label>
+                      </div>
+                  </div>
+
+                <div class="text-right mt-5">
+                  <button type="button"
+                    class="btn btn-success btn-lg text-light" id="subscribe-btn">Finish</button>
+                </div>
+                
+                <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="../index.html"
+                    class="fw-bold text-body"><u>Login here</u></a></p>
+            </div>
+<!-- end of subscribe container -->
           </div>
       </div>
-    </div>
   </div>
 </section>
 <!-- Page content End -->
@@ -102,11 +204,14 @@
   <!-- Copyright -->
   <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.025);">
     © 2023 Copyright:
-    <a class="text-reset fw-bold" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+    <a class="text-reset fw-bold" href="https://mdbootstrap.com/">gravely.com</a>
   </div>
   <!-- Copyright -->
 </footer>
 <!-- Footer -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pocketbase/0.10.1/pocketbase.umd.min.js" integrity="sha512-5fhlKWYvJkEBjEmVznt+oi09HehBG8AhveES3kSosa9VEKnOPJfMWV7cl+e5zAc0Tkn10w+CSfi4lrXcDWc4TQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript" src="../js/lib.js"></script>
 <script type="text/javascript" src="../js/register.js"></script>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

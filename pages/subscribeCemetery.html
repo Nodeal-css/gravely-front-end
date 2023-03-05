@@ -46,7 +46,6 @@
 	                <div class="mb-4">
 	                	<table class="table" id="payment-methods">
 	                		<tr>
-	                			<td><i class="fa fa-cc-paypal" data-toggle="modal" data-target="#modal-subscribe-paypal" style="font-size:36px; cursor: pointer;"></i></td>
 	                			<td><img src="../assets/gcash.png" width="50" height="40" data-toggle="modal" data-target="#modal-subscribe-gcash" style="cursor: pointer;"></td>
 	                		</tr>
 	                	</table>
@@ -72,41 +71,6 @@
 </footer>
 <!-- Footer -->
 
-<!-- start of subscription modal for paypal -->
-<div class="modal fade" id="modal-subscribe-paypal" tabindex="-1" role="dialog" aria-labelledby="modal-subscribe" aria-hidden="true">
-	 <div class="modal-dialog" role="document">
-    <div class="modal-content" style="width:90%; margin: auto;">
-      <div class="modal-header">
-        <h5 class="modal-title">Subscribe with Paypal</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      	<div class="form-outline mb-4">
-        	<input type="number" class="form-control" id="cost" name="cost" value="₱ 1,399.00" placeholder="₱ 1,399.00" readonly>
-        	<label class="form-label" for="cost">Cost</label>
-        </div>
-        <div class="row">
-        	<div class="col-5">
-        		<input type="text" id="status" class="form-control" name="" placeholder="ACTIVE" value="ACTIVE" readonly>
-        		<label class="form-label" for="status">Status</label>
-        	</div>
-        	<div class="col-2">until</div>
-        	<div class="col-5">
-        		<input type="date" id="expiry" class="form-control" name="" readonly>
-        		<label class="form-label" for="expiry">Date due</label>
-        	</div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Create subscription</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- end of subscription modal -->
 
 <!-- start of subscription modal for gcash -->
 <div class="modal fade" id="modal-subscribe-gcash" tabindex="-1" role="dialog" aria-labelledby="modal-subscribe" aria-hidden="true">
