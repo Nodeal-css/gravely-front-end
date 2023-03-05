@@ -46,6 +46,7 @@ filter_btn.addEventListener('click', function(){
 });
 
 insert_deceased.addEventListener('click', function(){
+    let img = document.getElementById('image-file').value;
     let deceased = {
         "firstname": document.getElementById('d-fname').value,
         "lastname":document.getElementById('d-lname').value,
@@ -55,16 +56,24 @@ insert_deceased.addEventListener('click', function(){
         "date_death": document.getElementById('dod').value,
         "date_burial": document.getElementById('d-burial').value,
         "date_birth": document.getElementById('dob').value,
-        "burial_type": document.getElementById('burial-type').value,
-        "image": 'path'
+        "burial_type": document.getElementById('burial-type').value
     };
 
     create('deceased', deceased).then( function(){
         console.log('Record has been added');
+        alert('Inserted deceased record');
+        $('#add-deceased').modal('hide');
     }).catch( function(err){
         console.log(err);
     });
 });
+
+/*
+function searchDeceased(){
+    //       table          column        asc       created
+    //         |                |          |          |
+    search('deceased', 1, 100, '', sortBy='', expand='')
+}*/
 
 
 

@@ -111,9 +111,20 @@
             </div>
         </div>
         <!-- End of Main content header -->
-        <div id="cem-map" class="mini-map" style="width: 100%; height: 34rem;">
+        <div id="cem-map" class="mini-map" style="width: 100%; height: 34rem; display: none;">
 
         </div>
+        <!-- Display if cemetery_id is not found in map table -->
+        <div class="card" style="display: block;" id="no-map">
+            <div class="card-body" style="width: 65rem; height: 26rem;">
+                <div style="width: 50%; margin: auto;" class="mt-5">
+                    <h5>Ooops, we can not find coordinates of your cemetery...</h5>
+                    <a href="#" id="new-window-map">Click here </a><small>to set your cemetery location</small>
+                </div>
+            </div>
+        </div>
+
+
         <!-- Start grave form -->
         <div id="grave-form">
             <div class="text-right">

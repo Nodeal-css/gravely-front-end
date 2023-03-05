@@ -1,5 +1,6 @@
 const filter_btn = document.getElementById('filter-btn');
 const contact_list = document.getElementById('contact-list');
+const insert_contact = document.getElementById('insert-contact');
 //8
 var arr = [
     ['Johanna', 'Garry', 'J.', '02/14/2015', 'Pob. III, Carcar City', '245-1711', '09121231511'],
@@ -31,4 +32,22 @@ filter_btn.addEventListener('click', function(){
         return;
     }
     document.getElementById('filter-tab').style.display = 'block';
+});
+
+insert_contact.addEventListener('click', function(){
+    let contact = {
+        "fname": document.getElementById('c-fname').value,
+        "lname": document.getElementById('c-lname').value,
+        "mi": document.getElementById('c-mi').value, 
+        "address": document.getElementById('c-address').value,
+        "tel": document.getElementById('c-tel').value
+    };
+
+    create('contract', contact).then( function(){
+        console.log('Inserted a contact record');
+        alert('Inserted a contact record');
+        $("#add-contact").modal('hide');
+    }).catch( function(err){
+        console.log(err.message);
+    });
 });

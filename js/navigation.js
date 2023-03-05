@@ -7,11 +7,6 @@ var flag = false;
 check_session();
 getSessionAdmin();
 
-
-findMyCemetery().then( function(data){
-    console.log('Cemetery id: ' + data.cemetery_id);
-});
-
 //transfer this script to js file
 menu.addEventListener('click', function(){
     let sidebar = document.getElementById('sidebarMenu');

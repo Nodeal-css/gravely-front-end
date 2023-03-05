@@ -101,6 +101,7 @@
                     <button type="button" class="btn btn-primary px-2">
                         <i class="uil uil-search"></i>
                     </button>
+                    <button type="button" class="btn btn-success ml-2" data-toggle="modal" data-target="#add-contact">insert</button>
                 </div>
                 <div class="" style="float: right;">
                     <i class="uil uil-filter" style="font-size: 25px; color: rgb(220, 108, 75);" id="filter-btn"></i>
@@ -166,6 +167,50 @@
         </div>
     <!-- Copyright -->
     </footer>
+    <!-- Start of modal: inserting contacts -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="add-contact">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title"><i class="uil uil-plus-circle mr-2" style="color: rgb(220, 108, 75);"></i>Contact</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div>
+                <div class="form-group">
+                    <label for="c-fname">First name:</label>
+                    <input type="text" class="form-control" id="c-fname" placeholder="Enter name" >
+                  </div>
+                  <div class="form-group">
+                    <label for="c-lname">Last name:</label>
+                    <input type="text" class="form-control" id="c-lname" placeholder="Enter last name" >
+                  </div>
+                  <div class="form-group">
+                    <label for="c-mi">Middle initial:</label>
+                    <input type="text" class="form-control" id="c-mi" placeholder="Enter middle initial" >
+                  </div>
+                  <div class="form-group">
+                    <label for="c-address">Address:</label>
+                    <input type="text" class="form-control" id="c-address" placeholder="Enter address" >
+                  </div>
+                  <div class="form-group">
+                    <label for="c-tel">Phone:</label>
+                    <input type="phone" class="form-control" id="c-tel" placeholder="Enter phone no." >
+                  </div>
+              </div>
+              <!-- firstname, lastname, mi, memorial, date_death, date_burial, date_birth, cause_of_death, burial_type-->
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" id="insert-contact">Save</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End of modal: inserting contacts -->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pocketbase/0.10.1/pocketbase.umd.min.js" integrity="sha512-5fhlKWYvJkEBjEmVznt+oi09HehBG8AhveES3kSosa9VEKnOPJfMWV7cl+e5zAc0Tkn10w+CSfi4lrXcDWc4TQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="text/javascript" src="../js/lib.js"></script>
     <script type="text/javascript" src="../js/navigation.js"></script>

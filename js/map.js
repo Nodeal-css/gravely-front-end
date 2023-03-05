@@ -1,4 +1,5 @@
 const btn_menu = document.querySelector('.menu-btn');
+const map_origin_picker = document.getElementById('new-window-map');
 const map = L.map('cem-map').setView([10.096647373111004, 123.63371551036836], 15);
 var flag1 = false;
 
@@ -17,5 +18,9 @@ btn_menu.addEventListener('click', function(){
     cem_map.classList.remove('mini-map');
     cem_map.classList.add('max-map');
     flag1 = true;
+});
+
+map_origin_picker.addEventListener('click', function(){
+    window.open("../pages/adminChooseMapOrigin.html", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=150,left=300,width=600,height=400");
 });
 
