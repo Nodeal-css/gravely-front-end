@@ -31,7 +31,7 @@ notif.addEventListener('click', function(){
 })
 
 log_out.addEventListener('click', function(){
-    if(confirm("<p>Confirm signing out Gravely</p>" == true)){
+    if(confirm("Confirm signing out Gravely")){
         signout();
         window.location.href = '../index.html';
     }

@@ -111,15 +111,16 @@
             </div>
         </div>
         <!-- End of Main content header -->
-        <div id="cem-map" class="mini-map" style="width: 100%; height: 34rem; display: none;">
+        <div id="cem-map" class="mini-map" style="width: 100%; height: 30rem; display: block;">
 
         </div>
         <!-- Display if cemetery_id is not found in map table -->
-        <div class="card" style="display: block;" id="no-map">
+        <div class="card" style="display: none;" id="no-map">
             <div class="card-body" style="width: 65rem; height: 26rem;">
                 <div style="width: 50%; margin: auto;" class="mt-5">
                     <h5>Ooops, we can not find coordinates of your cemetery...</h5>
-                    <a href="#" id="new-window-map">Click here </a><small>to set your cemetery location</small>
+                    <a href="#" id="new-window-map">Click here </a><small>to set your cemetery location, or if the map is not showing please </small>
+                    <a href="#" >reload</a>.
                 </div>
             </div>
         </div>
@@ -136,44 +137,16 @@
             <small>Status: <input type="text" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;"></small>
             <div class="text-right mt-3">
                 <button class="btn btn-danger btn-sm">clear</button>
-                <button class="btn btn-primary btn-sm">create</button>
+                <button class="btn btn-primary btn-sm" id="btn-save">Save</button>
             </div>
         </div>
         <!-- End grave form -->
 
         <!-- Properties for map-->
         <div class="container" style="color: rgb(141, 141, 141);">
-            <small><b>Properties</b></small>
-            <div>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th colspan="2" class="text-left">coordinate</th>
-                        <th>Point a</th>
-                        <th>Point b</th>
-                        <th>Point c</th>
-                        <th>Point d</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="text-right">X : </td>
-                        <td class="text-left"><input class="form-control bg-white" type="text" style="width: 70px;height: 29px;" readonly></td>
-                        <td><input class="form-control bg-white" type="text" style="width: 70px;height: 29px;" placeholder="x coor..." readonly></td>
-                        <td><input class="form-control bg-white" type="text" style="width: 70px;height: 29px;" placeholder="x coor..." readonly></td>
-                        <td><input class="form-control bg-white" type="text" style="width: 70px;height: 29px;" placeholder="x coor..." readonly></td>
-                        <td><input class="form-control bg-white" type="text" style="width: 70px;height: 29px;" placeholder="x coor..." readonly></td>
-                    </tr>
-                    <tr>
-                        <td class="text-right">Y : </td>
-                        <td class="text-right"><input class="form-control bg-white" type="text" style="width: 70px;height: 29px;" readonly></td>
-                        <td><input class="form-control bg-white" type="text" style="width: 70px;height: 29px;" placeholder="y coor..." readonly></td>
-                        <td><input class="form-control bg-white" type="text" style="width: 70px;height: 29px;" placeholder="y coor..." readonly></td>
-                        <td><input class="form-control bg-white" type="text" style="width: 70px;height: 29px;" placeholder="y coor..." readonly></td>
-                        <td><input class="form-control bg-white" type="text" style="width: 70px;height: 29px;" placeholder="y coor..." readonly></td>
-                    </tr>
-                </tbody>
-            </table>
+            <small><b>Coordinates</b></small><br>
+            <div id="coord-display">
+
             </div>
         </div>
         <!-- End of properties for map-->

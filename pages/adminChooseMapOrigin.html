@@ -19,7 +19,14 @@
             position: fixed;
             z-index: 600;
             bottom: 0;
-            left: 40%;
+            left: 38%;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            padding: 9px;
+            background-color: white;
+            width: 20rem;
         }
     </style>
 </head>
@@ -27,12 +34,22 @@
     <div id="orig-map" class="map-origin">
 
     </div>
-    <div class="card mb-3 floating-div">
-        <div class="card-body">
-            <small>Right click to pin a specific location</small>
+    <div class="mb-3 floating-div">
+        <small><b>Pin the address of your cemetery</b><br>by right clicking a location.</small>
+        <hr>
+        <div class="row">
+            <div id="coordinates-display" class="col">
+                lat: long:
+            </div>
+            <div class="col">
+                <button id="btn-save-coord" type="button" class="btn btn-sm text-light ml-5" style="background-color: rgb(220, 108, 75);">Save</button>
+            </div>
         </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pocketbase/0.10.1/pocketbase.umd.min.js" integrity="sha512-5fhlKWYvJkEBjEmVznt+oi09HehBG8AhveES3kSosa9VEKnOPJfMWV7cl+e5zAc0Tkn10w+CSfi4lrXcDWc4TQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+    <script type="text/javascript" src="../js/lib.js"></script>
     <script type="text/javascript" src="../js/mapOrigin.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
