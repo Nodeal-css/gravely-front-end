@@ -41,6 +41,9 @@ map.addEventListener('mousemove', function(e){
 
 document.getElementById('cem-map').addEventListener('contextmenu', function(event){
     event.preventDefault();
+    let lat_txt = document.getElementById('lat-txt');
+    let lng_txt = document.getElementById('lng-txt');
+
     if(marker != null){
         map.removeLayer(marker);
     }
@@ -53,16 +56,17 @@ document.getElementById('cem-map').addEventListener('contextmenu', function(even
     grave_form.style.animation = "show_form 0.8s";
     grave_form.style.position = "absolute";
     grave_form.style.right = "0px";
+    //display coordinates in grave-form
+    lat_txt.value = lat;
+    lng_txt.value = lng;
 });
-
-document.getElementById('close-form').addEventListener('click', function(){
-    clearGraveForm();
-})
 
 function clearGraveForm(){
     grave_form.style.animation = "hide_form 0.8s";
     grave_form.style.position = "fixed";
     grave_form.style.right = "-300px";
     map.removeLayer(marker);
+    document.getElementById('lat-txt').value = "";
+    document.getElementById('lng-txt').value = "";
 }
 

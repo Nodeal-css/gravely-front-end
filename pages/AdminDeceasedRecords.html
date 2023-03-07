@@ -91,19 +91,18 @@
             <div class="card-header" style="display: table;">
                 <div class="input-group" style="width: 28rem; float: left;">
                     <select name="search-type" id="search-type" class="form-control">
-                        <option value="" selected disabled>Choose search field</option>
-                        <option value="First name">First name</option>
-                        <option value="Last name">Last name</option>
-                        <option value="Middle initial">Middle initial</option>
-                        <option value="Birthday">Birthday</option>
-                        <option value="Date of Death">Date of Death</option>
-                        <option value="Burial date">Burial date</option>
-                        <option value="Grave type">Grave type</option>
+                        <option value="firstname" selected>First name</option>
+                        <option value="lastname">Last name</option>
+                        <option value="mi">Middle initial</option>
+                        <option value="date_birth">Birthday</option>
+                        <option value="date_death">Date of Death</option>
+                        <option value="date_burial">Burial date</option>
+                        <!--option value="Grave type">Grave type</option-->
                     </select>
                     <div id="search-autocomplete" class="form-outline ml-2">
-                      <input type="search" id="search" class="form-control" placeholder="Search" />
+                      <input type="search" id="search-input" class="form-control" placeholder="Search" />
                     </div>
-                    <button type="button" class="btn btn-primary px-2">
+                    <button type="button" class="btn btn-primary px-2" id="search-deceased">
                         <i class="uil uil-search"></i>
                     </button>
                     <button type="button" class="btn btn-success ml-2" data-toggle="modal" data-target="#add-deceased">insert</button>
@@ -133,7 +132,7 @@
                         <th scope="col" width="10%">First name</th>
                         <th scope="col" width="10%">Last name</th>
                         <th scope="col" width="5%">MI</th>
-                        <th scope="col" width="5%">Sex</th>
+                        <!--th scope="col" width="5%">Sex</th-->
                         <th scope="col" width="5%">DOB</th>
                         <th scope="col" width="5%">DOD</th>
                         <th scope="col" width="10%">Burial date</th>

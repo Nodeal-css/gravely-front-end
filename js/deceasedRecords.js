@@ -1,41 +1,28 @@
 const deceasedList = document.getElementById('deceased-list');
 const filter_btn = document.getElementById('filter-btn');
 const insert_deceased = document.getElementById('create-deceased');
+const btn_search_deceased = document.getElementById('search-deceased');
 
+loadDeceasedRecords();
 
-var arr = [
-    ['Mike', 'Lopez', 'P.', 'Male', '01/22/1999', '01/20/2022', '03/29/2022', 'Cancer', 'Rest in peace', 'Appartment type'],
-    ['Alby', 'Lee', 'P.', 'Female', '01/22/1929', '01/20/2012', '03/29/2021', 'Accident', 'Rest in peace', 'Appartment type'],
-    ['Shawn', 'Lopez', 'P.', 'Male', '01/22/1999', '01/20/2022', '03/29/2022', 'Bad health', 'Rest in peace', 'Appartment type'],
-    ['Jericho', 'Lopez', 'P.', 'Male', '01/22/1999', '01/20/2022', '03/29/2022', 'Bad health', 'Rest in peace', 'Appartment type'],
-    ['Alphonso', 'Lopez', 'P.', 'Male', '01/22/1999', '01/20/2022', '03/29/2022', 'Bad health', 'Rest in peace', 'Appartment type'],
-    ['Alpha', 'Lopez', 'P.', 'Male', '01/22/1999', '01/20/2022', '03/29/2022', 'Due to age', 'Rest in peace', 'Appartment type'],
-    ['Beta', 'Lopez', 'P.', 'Male', '01/22/1999', '01/20/2022', '03/29/2022', 'Due to age', 'Rest in peace', 'Appartment type'],
-    ['Omega', 'Lopez', 'P.', 'Male', '01/22/1999', '01/20/2022', '03/29/2022', 'Due to age', 'Rest in peace', 'Appartment type'],
-    ['Delta', 'Lopez', 'P.', 'Male', '01/22/1999', '01/20/2022', '03/29/2022', 'Due to age', 'Rest in peace', 'Appartment type'],
-    ['Bravo', 'Lopez', 'P.', 'Male', '01/22/1999', '01/20/2022', '03/29/2022', 'Cancer', 'Rest in peace', 'Appartment type'],
-    ['Yike', 'Lopez', 'P.', 'Male', '01/22/1999', '01/20/2022', '03/29/2022', 'Cancer', 'Rest in peace', 'Appartment type'],
-    ['Caps', 'Lopez', 'P.', 'Male', '01/22/1999', '01/20/2022', '03/29/2022', 'Cancer', 'Rest in peace', 'Appartment type']
-];
-
-function loadList(){
-    for(let i = 0; i < arr.length; i++){
+function loadList(data){
+    deceasedList.innerHTML = "";
+    for(let i = 0; i < data.length; i++){
         deceasedList.innerHTML += '<tr>' +
         '<th scope="row">'+ (i + 1) +'.</th>' +
-        '<td>'+ arr[i][0] +'</td>' +
-        '<td>'+ arr[i][1] +'</td>' +
-        '<td>'+ arr[i][2] +'</td>' +
-        '<td>'+ arr[i][3] +'</td>' +
-        '<td>'+ arr[i][4] +'</td>' +
-        '<td>'+ arr[i][5] +'</td>' +
-        '<td>'+ arr[i][6] +'</td>' +
-        '<td>'+ arr[i][7] +'</td>' +
-        '<td>'+ arr[i][8] +'</td>' +
-        '<td>'+ arr[i][9] +'</td>' +
+        '<td>'+ data[i].firstname +'</td>' +
+        '<td>'+ data[i].lastname +'</td>' +
+        '<td>'+ data[i].mi +'</td>' +
+        '<td>'+ data[i].date_birth +'</td>' +
+        '<td>'+ data[i].date_death +'</td>' +
+        '<td>'+ data[i].date_burial +'</td>' +
+        '<td>'+ data[i].cause_of_death +'</td>' +
+        '<td>'+ data[i].memorial +'</td>' +
+        '<td>'+ data[i].burial_type_id +'</td>' +
     '</tr>';
     }
 }
-loadList();
+
 
 filter_btn.addEventListener('click', function(){
     if(document.getElementById('filter-tab').style.display == 'block'){
@@ -68,12 +55,70 @@ insert_deceased.addEventListener('click', function(){
     });
 });
 
-/*
-function searchDeceased(){
-    //       table          column        asc       created
-    //         |                |          |          |
-    search('deceased', 1, 100, '', sortBy='', expand='')
-}*/
+btn_search_deceased.addEventListener('click', function(){
+    let field = document.getElementById('search-type').value;
+    let input = document.getElementById('search-input').value;
+    searchDeceasedRecords(field, input);
+});
+
+
+function loadDeceasedRecords(){
+    search('deceased', 1, 100, { id: '' }, '+created,id', 'burial_type_id')
+    .then( function(data){
+        loadList(data.items);
+    }).catch( function(err){
+        console.log(err.message);
+    });
+}
+
+
+//get parameters such as search type, and input
+function searchDeceasedRecords(search_field, search_input){
+    //console.log(searchFieldHelper(search_field, search_input));
+    search('deceased', 1, 100, searchFieldHelper(search_field, search_input), '+created,'+ search_field, 'burial_type_id')
+    .then( function(data){
+        loadList(data.items);
+        //console.log(data.items);
+    }).catch( function(err){
+        console.log(err.message);
+    });
+}
+//sample use
+//search(DECEASED, 1, 100, { lastname: 'John', firstname: ''},  '-created,lastname,firstname', 'burial_type_id')
+
+
+//switch case function to specify the field of searching
+function searchFieldHelper(field, input){
+    let obj = {};
+    switch(field){
+        case 'id':
+            obj = { id: input};
+            break;
+        case 'firstname':
+            obj = { firstname: input};
+            break;
+        case 'lastname':
+            obj = { lastname: input};
+            break;
+        case 'mi':
+            obj = { mi: input};
+            break;
+        case 'date_birth':
+            obj = { date_birth: input};
+            break;
+        case 'date_death':
+            obj = { date_death: input};
+            break;
+        case 'date_burial':
+            obj = { date_burial: input};
+            break;
+        default:
+            obj = { firstname: input};
+            break;
+    }
+    return obj;
+}
+
 
 
 
