@@ -212,11 +212,12 @@ function findMyCemetery() {
   })
 }
 
-function search(collectionName, page=1, perPage=100, query='', sortBy='', expand='') {
+function search(collectionName, page=1, perPage=500, query={}, sortBy='', expand='') {
+  let params = objectToParams(query)
   let filters = {}
   if (query) {
     filters = {
-      filter: query
+      filter: params
     }
   }
   if (sortBy) {
@@ -233,3 +234,17 @@ function search(collectionName, page=1, perPage=100, query='', sortBy='', expand
   }
   return pb.collection(collectionName).getList(page, perPage, filters)
 }
+
+function objectToParams(obj) {
+  let filters = ''
+  for (let key in obj) {
+    if (filters != '' && obj[key].trim() != '') {
+        filters += "&";
+    }
+    if (obj[key].trim() != '')
+    filters += key + "?~" + "'"+obj[key] +"'";
+  }
+  return filters
+}
+//sample use
+// search(DECEASED, 1, 100, { lastname: 'John', firstname: ''},  '-created,lastname,firstname', 'burial_type_id')
