@@ -1,6 +1,7 @@
 const btn_menu = document.querySelector('.menu-btn');
 const map_origin_picker = document.getElementById('new-window-map');
 const btn_save_location = document.getElementById('btn-save-coord'); // we left here
+const grave_form = document.getElementById('grave-form');
 
 const map = L.map('cem-map').setView([10.096647373111004, 123.63371551036836], 15);
 var flag1 = false;
@@ -48,5 +49,20 @@ document.getElementById('cem-map').addEventListener('contextmenu', function(even
         "latitude": lat,
         "longitude": lng
     };
+    //show #grave-form
+    grave_form.style.animation = "show_form 0.8s";
+    grave_form.style.position = "absolute";
+    grave_form.style.right = "0px";
 });
+
+document.getElementById('close-form').addEventListener('click', function(){
+    clearGraveForm();
+})
+
+function clearGraveForm(){
+    grave_form.style.animation = "hide_form 0.8s";
+    grave_form.style.position = "fixed";
+    grave_form.style.right = "-300px";
+    map.removeLayer(marker);
+}
 

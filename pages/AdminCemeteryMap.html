@@ -51,6 +51,9 @@
                     <a href="#" class="list-group-item list-group-item-action py-2 ripple active">
                         <i class="uil uil-map fa-fw me-3 mr-2"></i><span>Cemetery Map</span>
                     </a>
+                    <a href="#" class="list-group-item list-group-item-action py-2 ripple">
+                        <i class="uil uil-coins fa-fw me-3 mr-2"></i><span>Income Statement</span>
+                    </a>
                     <a href="../pages/adminUsers.html" class="list-group-item list-group-item-action py-2 ripple">
                         <i class="uil uil-user fa-fw me-3 mr-2"></i><span>Users</span>
                     </a>
@@ -125,19 +128,24 @@
             </div>
         </div>
 
-
         <!-- Start grave form -->
         <div id="grave-form">
             <div class="text-right">
-                <small class="text-right">&times;</small><br>
+                <small class="text-right" id="close-form" style="cursor: pointer;"><b>&times;</b></small><br>
             </div>
             <small><b>Grave details</b></small><br>
             <small>Location desc: <input type="text" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;"></small><br>
             <small>Price: <input type="text" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;"></small><br>
-            <small>Status: <input type="text" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;"></small>
-            <div class="text-right mt-3">
-                <button class="btn btn-danger btn-sm">clear</button>
-                <button class="btn btn-primary btn-sm" id="btn-save">Save</button>
+            <small>Status: <input type="text" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;"></small><br>
+            <div class="row">
+                <div class="col">
+                    <small>Latitude: <input type="text" id="lat-txt" style="width: 40px;float: right; border-top: 0; border-left: 0; border-right: 0; border-bottom: 0;"></small><br>
+                    <small>Longitude: <input type="text" id="lng-txt" style="width: 40px;float: right; border-top: 0; border-left: 0; border-right: 0; border-bottom: 0;"></small>
+                </div>
+                <div class="text-right col mt-3">
+                    <button class="btn btn-primary btn-sm" id="btn-save-coord">Save</button>
+                    <button class="btn btn-danger btn-sm" onclick="clearGraveForm();">clear</button>
+                </div>
             </div>
         </div>
         <!-- End grave form -->
