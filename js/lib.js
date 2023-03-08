@@ -110,6 +110,11 @@ function update(collectionName, collection) {
   return pb.collection(collectionName).update(collection.id, data)
 }
 
+function remove(collectionName, recordId) {
+  return pb.collection(collectionName).delete(recordId)
+}
+
+
 /** Signin
  * 
  * @param {*} data
@@ -246,5 +251,16 @@ function objectToParams(obj) {
   }
   return filters
 }
+
 //sample use
-// search(DECEASED, 1, 100, { lastname: 'John', firstname: ''},  '-created,lastname,firstname', 'burial_type_id')
+// search(DECEASED, 1, 100, { lastname: '', firstname: 'Jac'},  '-created,lastname,firstname', 'burial_type_id')
+// remove(DECEASED, 'lfcb4wd34122c74').then(console.log)
+// function doupload() {
+//   let data = document.getElementById("file").files[0];
+//   let formData = new FormData()
+//   formData.append('file', data)
+//   formData.append('deceased_id', 'mi292b2llkz8twn')
+//   create(LEGAL_DOCUMENT, formData).then(console.log)
+//   alert('your file has been uploaded');
+// }
+// ./minio.exe server s3 --console-address ":9001"
