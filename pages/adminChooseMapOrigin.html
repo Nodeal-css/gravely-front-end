@@ -20,14 +20,14 @@
             position: fixed;
             z-index: 600;
             bottom: 0;
-            left: 38%;
+            left: 30%;
             border-top-left-radius: 15px;
             border-top-right-radius: 15px;
             border-bottom-left-radius: 15px;
             border-bottom-right-radius: 15px;
             padding: 9px;
             background-color: white;
-            width: 20rem;
+            width: 29rem;
         }
     </style>
 </head>
@@ -40,7 +40,10 @@
         <hr>
         <div class="row">
             <div id="coordinates-display" class="col">
-                lat: long:
+                <small>lat: <br>lng:</small>
+            </div>
+            <div class="col">
+                <input type="text" id="address-input" placeholder="Address" readonly>
             </div>
             <div class="col">
                 <button id="btn-save-coord" type="button" class="btn btn-sm text-light ml-5" style="background-color: rgb(220, 108, 75);">Save</button>

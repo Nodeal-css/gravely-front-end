@@ -2,8 +2,9 @@ const btn_menu = document.querySelector('.menu-btn');
 const map_origin_picker = document.getElementById('new-window-map');
 const btn_save_location = document.getElementById('btn-save-coord'); // we left here
 const grave_form = document.getElementById('grave-form');
+const cem_id = getSessionAdmin().cemetery_id;
 
-const map = L.map('cem-map').setView([10.096647373111004, 123.63371551036836], 15);
+var map = L.map('cem-map');
 var flag1 = false;
 var lat;
 var lng;
@@ -74,7 +75,7 @@ function clearGraveForm(){
 
 function displayMap(){
     var temp = 0;
-    search('map', 1, 100, { cemetery_id: getSessionAdmin().cemetery_id }, '+created,cemetery_id', '')
+    search('map', 1, 100, { cemetery_id: cem_id }, '+created,cemetery_id', '')
     .then( function(data){
         temp = data.items.length;
         if(temp > 0){
@@ -89,6 +90,7 @@ function displayMap(){
 }
 
 function changeDisplay(istrue){
+    focusOrigin();
     if(istrue){
         document.getElementById('cem-map').style.display = 'block';
         document.getElementById('no-map').style.display = 'none';
@@ -99,6 +101,16 @@ function changeDisplay(istrue){
         document.getElementById('cem-map').style.display = 'none';
         console.log('display map: false');
     }
+}
+
+function focusOrigin(){
+    search('map', 1, 100, { cemetery_id: cem_id }, '+created,cemetery_id', 'cemetery_id')
+    .then( function(data){
+        console.log('\npointing to\nlat: ' + data.items[0].latitude + '\nlng: ' + data.items[0].longitude + "\n");
+        map.setView([data.items[0].latitude, data.items[0].longitude], 19);
+    }).catch( function(err){
+        console.log(err.message);
+    });
 }
 
 

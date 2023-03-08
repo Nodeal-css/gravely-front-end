@@ -27,7 +27,7 @@ mapOrig.addEventListener('mousemove', function(e){
      let coordinates = document.getElementById('coordinates-display');
      lat = e.latlng.lat;
      lng = e.latlng.lng;
-     coordinates.innerHTML = "<small>Lat: "+ lat.toFixed(3) +" Lng: "+ lng.toFixed(3) +"</small>";
+     coordinates.innerHTML = "<small>Lat: "+ lat.toFixed(2) +"<br>Lng: "+ lng.toFixed(2) +"</small>";
 
 });
 
@@ -41,20 +41,22 @@ document.getElementById('orig-map').addEventListener('contextmenu', function(eve
                 "latitude": lat,
                 "longitude": lng
         };
+        getAddress(lat, lng);
+        console.log('lat: ' + lat + "\nlng: " + lng);
 });
 
 btnSave.addEventListener('click', function(){
         const input_map = {
-                address: "carcar city, cebu",
+                address: document.getElementById('address-input').value,
                 cemetery_id: getSessionAdmin().cemetery_id,
                 latitude: coords.latitude,
                 longitude: coords.longitude
         };
 
-
         if(confirm("Are you sure this is the right location?")){
                 create('map', input_map).then( function(){
                         alert("Map origin has been set, \nclose this window and return to admin page.");
+                        window.close();
                 }).catch( function(err){
                         console.log(err.message);
                 });
@@ -63,6 +65,7 @@ btnSave.addEventListener('click', function(){
         }
         console.log(coords);
         coords = {};
+        
 });
 
 function getAddress(latitude, longitude){
@@ -73,14 +76,6 @@ function getAddress(latitude, longitude){
                 }
         }).then(res => res.json())
         .then(res => {
-                //console.log(res.display_name);
-                return res;
-                /*
-                addr = {
-                        city: res.address.city,
-                        state: res.address.state,
-                        postcode: res.address.postcode,
-                        country: res.address.country
-                };*/
+                document.getElementById('address-input').value = res.display_name;
         });
 }

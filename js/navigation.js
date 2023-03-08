@@ -5,7 +5,6 @@ var header = new Headers();
 var flag = false;
 
 check_session();
-console.log(getSessionAdmin());
 
 //transfer this script to js file
 menu.addEventListener('click', function(){
