@@ -1,30 +1,24 @@
 const filter_btn = document.getElementById('filter-btn');
 const contact_list = document.getElementById('contact-list');
 const insert_contact = document.getElementById('insert-contact');
-//8
-var arr = [
-    ['Johanna', 'Garry', 'J.', '02/14/2015', 'Pob. III, Carcar City', '245-1711', '09121231511'],
-    ['Rowen', 'Garison', 'T.', '03/13/2016', 'Luwan luwan, Carcar City', '123-1241', '09421313133'],
-    ['Steven', 'Stephen', 'F.', '03/13/2017', 'Argao City, Cebu', '123-2241', '09321314123'],
-    ['Hawking', 'Hank', 'U.', '03/13/2018', 'San Fernando City, Cebu', '123-51241', '09321541231'],
-    ['Alpha', 'Shrader', 'P.', '03/13/2019', 'Naga City, Cebu', '123-4441', '0932145125']
-];
+const btn_search_contact = document.getElementById('search-contact');
 
-function loadList(){
-    for(let i = 0; i < arr.length; i++){
+loadContactRecords();
+
+function loadList(data){
+    contact_list.innerHTML = "";
+    for(let i = 0; i < data.length; i++){
         contact_list.innerHTML += '<tr>' +
         '<th scope="row">'+ (i + 1) +'.</th>' +
-        '<td>'+ arr[i][0] +'</td>' +
-        '<td>'+ arr[i][1] +'</td>' +
-        '<td>'+ arr[i][2] +'</td>' +
-        '<td>'+ arr[i][3] +'</td>' +
-        '<td>'+ arr[i][4] +'</td>' +
-        '<td>'+ arr[i][5] +'</td>' +
-        '<td>'+ arr[i][6] +'</td>' +
+        '<td>'+ data[i].fname +'</td>' + // firstname
+        '<td>'+ data[i].lname +'</td>' + // lastname
+        '<td>'+ data[i].mi +'</td>' + // mi
+        '<td>'+ data[i].created +'</td>' + // date recorded
+        '<td>'+ data[i].address +'</td>' + // address
+        '<td>'+ data[i].tel +'</td>' + // tel
     '</tr>';
     }
 }
-loadList();
 
 filter_btn.addEventListener('click', function(){
     if(document.getElementById('filter-tab').style.display == 'block'){
@@ -47,7 +41,58 @@ insert_contact.addEventListener('click', function(){
         console.log('Inserted a contact record');
         alert('Inserted a contact record');
         $("#add-contact").modal('hide');
+        loadContactRecords();
     }).catch( function(err){
         console.log(err.message);
     });
 });
+
+btn_search_contact.addEventListener('click', function(){
+    let type = document.getElementById('search-type').value;
+    let input = document.getElementById('search-input').value;
+    searchContactRecords(type, input);
+});
+
+function loadContactRecords(){
+    search('contract', 1, 100, { id: '' }, '+created,id', '')
+    .then( function(data){
+        loadList(data.items);
+    }).catch( function(e){
+        console.log(e.message);
+    })
+}
+
+function searchContactRecords(field, input){
+    search('contract', 1, 100, searchFieldHelper(field, input), '+created,' + field, '')
+    .then( function(data){
+        loadList(data.items);
+    }).catch( function(e){
+        console.log(e.message);
+    });
+}
+
+//switch case function to specify the field of searching
+function searchFieldHelper(field, input){
+    let obj = {};
+    switch(field){
+        case 'id':
+            obj = { id: input};
+            break;
+        case 'fname':
+            obj = { fname: input};
+            break;
+        case 'lname':
+            obj = { lname: input};
+            break;
+        case 'mi':
+            obj = { mi: input};
+            break;
+        case 'address':
+            obj = { address: input};
+            break;
+        default:
+            obj = { fname: input};
+            break;
+    }
+    return obj;
+}

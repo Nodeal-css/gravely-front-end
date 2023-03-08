@@ -110,6 +110,10 @@ function update(collectionName, collection) {
   return pb.collection(collectionName).update(collection.id, data)
 }
 
+function remove(collectionName, recordId) {
+  return pb.collection(collectionName).delete(recordId)
+}
+
 /** Signin
  * 
  * @param {*} data

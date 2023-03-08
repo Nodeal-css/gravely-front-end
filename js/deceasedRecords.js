@@ -87,7 +87,6 @@ function searchDeceasedRecords(search_field, search_input){
 //sample use
 //search(DECEASED, 1, 100, { lastname: 'John', firstname: ''},  '-created,lastname,firstname', 'burial_type_id')
 
-
 //switch case function to specify the field of searching
 function searchFieldHelper(field, input){
     let obj = {};
@@ -120,6 +119,32 @@ function searchFieldHelper(field, input){
     return obj;
 }
 
+/*tested update function
+const person = {
+    id: 'ds925i2w8cc12st',
+    firstname: 'ANDY',
+    lastname: 'PEREZ'
+}
 
+function updateRecord(){
+    update('deceased', person).then( function(){
+        console.log("id: " + person.id + " updated");
+    }).catch( function(err){
+        console.log(err.message);
+    });
+}
+updateRecord();
+
+*/
+
+/* tested remove function
+function deleteDeceasedRecord(){
+    remove('deceased', 'jbz51dxwn2lmmni').then( function(){
+        console.log('id: jbz51dxwn2lmmni deleted');
+    }).catch( function(e){
+        console.log(e.message);
+    })
+}
+deleteDeceasedRecord();*/
 
 
