@@ -43,13 +43,14 @@ insert_deceased.addEventListener('click', function(){
         "date_death": document.getElementById('dod').value,
         "date_burial": document.getElementById('d-burial').value,
         "date_birth": document.getElementById('dob').value,
-        "burial_type": document.getElementById('burial-type').value
+        "burial_type_id": document.getElementById('burial-type').value
     };
 
     create('deceased', deceased).then( function(){
         console.log('Record has been added');
         alert('Inserted deceased record');
         $('#add-deceased').modal('hide');
+        loadDeceasedRecords();
     }).catch( function(err){
         console.log(err);
     });

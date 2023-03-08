@@ -44,18 +44,43 @@ document.getElementById('orig-map').addEventListener('contextmenu', function(eve
 });
 
 btnSave.addEventListener('click', function(){
-        /*save lat, lng to db
-        check if coords is not empty first
-        create('map', coords).then( function(){
+        const input_map = {
+                address: "carcar city, cebu",
+                cemetery_id: getSessionAdmin().cemetery_id,
+                latitude: coords.latitude,
+                longitude: coords.longitude
+        };
 
-        }).catch(function(err){
-                console.log(err.message);
-        });*/
+
         if(confirm("Are you sure this is the right location?")){
-                //statement
+                create('map', input_map).then( function(){
+                        alert("Map origin has been set, \nclose this window and return to admin page.");
+                }).catch( function(err){
+                        console.log(err.message);
+                });
         }else{
                 mapOrig.removeLayer(marker);
         }
         console.log(coords);
         coords = {};
 });
+
+function getAddress(latitude, longitude){
+        var addr;
+        fetch(`https://nominatim.openstreetmap.org/reverse?lat=${ latitude }&lon=${ longitude }&format=json`, {
+                headers: {
+                        'User-Agent': 'ID of your APP/service/website/etc. v0.1'
+                }
+        }).then(res => res.json())
+        .then(res => {
+                //console.log(res.display_name);
+                return res;
+                /*
+                addr = {
+                        city: res.address.city,
+                        state: res.address.state,
+                        postcode: res.address.postcode,
+                        country: res.address.country
+                };*/
+        });
+}

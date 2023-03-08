@@ -64,7 +64,7 @@ btn_gcash.addEventListener('click', function(){
 
 reg.addEventListener('click', function(){
     let account = {
-        "username": document.querySelector("#fname").value + '_5' + document.querySelector("#lname").value,
+        "username": document.querySelector("#fname").value + '_' + document.querySelector("#lname").value,
         "email": document.querySelector("#email").value,
         "emailVisibility": true,
         "password": document.querySelector("#pass").value,

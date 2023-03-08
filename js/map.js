@@ -14,6 +14,8 @@ L.tileLayer('https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=8QM9cn
         attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
 }).addTo(map);
 
+displayMap();
+
 //transfer this script to js file
 btn_menu.addEventListener('click', function(){
     let cem_map = document.getElementById('cem-map');
@@ -69,4 +71,34 @@ function clearGraveForm(){
     document.getElementById('lat-txt').value = "";
     document.getElementById('lng-txt').value = "";
 }
+
+function displayMap(){
+    var temp = 0;
+    search('map', 1, 100, { cemetery_id: getSessionAdmin().cemetery_id }, '+created,cemetery_id', '')
+    .then( function(data){
+        temp = data.items.length;
+        if(temp > 0){
+            changeDisplay(true);
+            return;
+        }
+        changeDisplay(false);
+    }).catch( function(err){
+        console.log(err.message);
+    });
+    temp = 0;
+}
+
+function changeDisplay(istrue){
+    if(istrue){
+        document.getElementById('cem-map').style.display = 'block';
+        document.getElementById('no-map').style.display = 'none';
+        console.log('display map: true');
+        return;
+    }else{
+        document.getElementById('no-map').style.display = 'block';
+        document.getElementById('cem-map').style.display = 'none';
+        console.log('display map: false');
+    }
+}
+
 
