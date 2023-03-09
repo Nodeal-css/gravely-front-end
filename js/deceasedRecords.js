@@ -8,7 +8,7 @@ loadDeceasedRecords();
 function loadList(data){
     deceasedList.innerHTML = "";
     for(let i = 0; i < data.length; i++){
-        deceasedList.innerHTML += '<tr>' +
+        deceasedList.innerHTML += '<tr onClick="deceasedInfo(\''+ data[i].id +'\');" style="cursor: pointer;">' +
         '<th scope="row">'+ (i + 1) +'.</th>' +
         '<td>'+ data[i].firstname +'</td>' +
         '<td>'+ data[i].lastname +'</td>' +
@@ -18,7 +18,7 @@ function loadList(data){
         '<td>'+ data[i].date_burial +'</td>' +
         '<td>'+ data[i].cause_of_death +'</td>' +
         '<td>'+ data[i].memorial +'</td>' +
-        '<td>'+ data[i].burial_type_id +'</td>' +
+        '<td>'+ getBurialType(data[i].burial_type_id) +'</td>' +
     '</tr>';
     }
 }
@@ -119,6 +119,27 @@ function searchFieldHelper(field, input){
     return obj;
 }
 
+function deceasedInfo(id){
+    console.log('clicked: ' + id);
+    window.localStorage.setItem('deceased-id', id);
+    window.location.href = "../pages/adminDeceasedInfo.html";
+}
+
+function getBurialType(burial_id){
+    let type = "";
+    switch(burial_id){
+        case 'pzcou9z7i198uhf':
+            type = "Above ground";
+            break;
+        case '3gk7c2h67lhgbzr':
+            type = "In ground";
+            break;
+        case 'yfr3d0hrq4cr7np':
+            type = "Cremation";
+            break;
+    }
+    return type;
+}
 /*tested update function
 const person = {
     id: 'ds925i2w8cc12st',

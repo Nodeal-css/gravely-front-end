@@ -1,0 +1,92 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .contain{
+  width:100%;
+  background-color: #ffffff;
+  height:420px;
+  }
+  .info{
+  
+    display:flex;
+    flex-direction:column;
+    padding: 100px;
+    margin-left:10px;
+    color:white;
+  
+  }
+  .info img{
+    position:absolute;
+    width:300px;
+    height:250px;
+    
+  }
+  
+  .info_detail{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    margin-left:350px;
+  }
+  .info_detail h1{
+    margin-left:100px;
+  
+  }
+  
+  .pdfbutton button{
+   top:0;
+   margin-left:155px;
+   width:200px;
+  
+  }
+  .card{
+    height:300px;
+  }
+  
+  .info_detail input{
+    width:200px;
+    outline:none;
+    border:none;
+    background-color:   #ffffff;
+    cursor:pointer;
+    border-bottom: 1px solid black;
+    text-align: center;
+  }
+  
+  .info_detail label{
+    display:inline-block;
+    text-align:right;
+    color:black;
+    font-weight: bold;
+  }
+  
+  
+  .info_detail .info1{
+    padding-bottom:20px;
+    
+  }
+  .info_detail .info2{
+    position:absolute;
+    top:0;
+    left:320px;
+    
+  }
+  .info_detail button{
+    margin-top:15px;
+  
+  }
+  
+  
+  
+  .info .btns{
+    margin-top:10px;
+    position:absolute;
+    display:flex;
+    align-items: center;
+    left:50px;
+  
+  }

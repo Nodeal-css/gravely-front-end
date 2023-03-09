@@ -1,0 +1,141 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="../css/deceasedinfo.css">
+    <title>Deceased Information</title>
+</head> 
+<body>
+<!-- start of header -->
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(220, 108, 75); z-index: 2; width: 100%;">
+        <div class="menu-btn">
+            
+        </div>
+        <a class="navbar-brand ml-3" href="#">
+          <img src="../assets/logo.png" width="90" height="30" alt="">
+        </a>
+        <div class="collapse navbar-collapse justify-content-start" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a class="nav-link text-light" href="../index.html">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-light" href="#">About</a>
+              </li>
+            </ul>
+        </div>
+    </nav>
+      <!-- End of Header -->
+      </header>
+
+    <div class="contain">
+       <div class="info">
+         <div>
+          <img src="../assets/grave-logo.png" alt="grave img">
+         </div>
+         <div class ="info_detail">
+          <form> 
+            <div class="info1">
+              <label style="padding-right:7px;">First name:  </label>
+              <input id="fNameInput"type="text" readonly value="John" ><br>
+              <label style="padding-right:7px;">Last name:  </label>
+              <input id="lNameInput"type="text" readonly value="Newman" ><br>
+              <label>Middle initial:  </label>
+              <input id="miInput"type="text" readonly value="M." ><br>
+              <label style="padding-right:25px;">Birth date: </label>
+              <input id="birthInput" type="text"  readonly><br>
+              <label>Date of Death: </label>
+              <input id ="deathInput"type="text" readonly><br>
+             
+             </div> 
+             <div class="info2">
+              <label style="padding-right:15px;">Date of burial: </label>
+              <input id="burialInput" type="text" readonly><br>
+                <label >Cause of death: </label>
+                <input id="cDeathInput" type="text" readonly value="Heart attack"><br>
+                <label style="padding-right: 40px;">Memorial: </label>
+                <input id ="memorialInput" type="text"  readonly value="Rest in peace"><br>
+                <label style="padding-right:30px;">Burial type: </label>
+                <select id="burial-type-input" readonly>
+                    <option value="" disabled>Choose type</option>
+                    <option value="pzcou9z7i198uhf" selected>Above ground</option>
+                    <option value="3gk7c2h67lhgbzr">In ground</option>
+                    <option value="yfr3d0hrq4cr7np">Cremation</option>
+                </select><br>
+            </div>
+          </form>
+         
+          </div>
+        </div>
+    </div>
+    <div class="divider" style="width:100%; height:50px; background-color:#ebeff2;">
+
+    </div>
+    <div class="card">
+       <div class="card-body">
+         
+         <div class="pdfs">
+           <div class ="pdfbutton">
+                <!-- Button trigger modal -->
+           </div>
+        
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add a pdf file</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-input py-2">
+                            
+                            
+                            <div class="form-group">
+                            <input type="file" name="pdf_file" accept=".pdf" title="Upload PDF" required/>
+                            </div>
+                            <!-- <div class="form-group">
+                            <input type="submit" class="btnRegister" name="submitpdf" value="Submit">
+                            </div> -->
+                    
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+            </div> 
+        </div>
+   </div>
+
+    <footer>
+    <!-- Copyright -->
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.025);">
+        © 2023 Copyright:
+        <a class="text-reset fw-bold" href="https://mdbootstrap.com/">gravely.com</a>
+      </div>
+      <!-- Copyright -->
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pocketbase/0.10.1/pocketbase.umd.min.js" integrity="sha512-5fhlKWYvJkEBjEmVznt+oi09HehBG8AhveES3kSosa9VEKnOPJfMWV7cl+e5zAc0Tkn10w+CSfi4lrXcDWc4TQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript" src="../js/lib.js"></script>
+    <script type="text/javascript" src="../js/deceasedInfo.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -33,6 +33,7 @@ notif.addEventListener('click', function(){
 log_out.addEventListener('click', function(){
     if(confirm("Confirm signing out Gravely")){
         localStorage.removeItem('cemetery-name');
+        localStorage.removeItem('deceased-id');
         signout();
         window.location.href = '../index.html';
     }

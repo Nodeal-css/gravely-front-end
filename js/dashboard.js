@@ -5,7 +5,7 @@ const age_btn = document.getElementById('age-btn');
 const vacant_btn = document.getElementById('vacant-btn');
 const graph_title = document.getElementById('graph-title');
 
-currentCemetery();
+
 
 burial_btn.addEventListener('click', function(){
     countBurial();
@@ -119,3 +119,5 @@ function currentCemetery(){
       console.log(e.message);
   });
 }
+
+currentCemetery();
