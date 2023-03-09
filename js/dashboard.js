@@ -5,6 +5,7 @@ const age_btn = document.getElementById('age-btn');
 const vacant_btn = document.getElementById('vacant-btn');
 const graph_title = document.getElementById('graph-title');
 
+currentCemetery();
 
 burial_btn.addEventListener('click', function(){
     countBurial();
@@ -109,3 +110,12 @@ function drawChart(data){
 }
 
 countBurial();
+
+function currentCemetery(){
+  findMyCemetery().then( function(data){
+      window.localStorage.setItem('cemetery-name', data.expand.cemetery_id.name);
+      //console.log(data.expand.cemetery_id.name);
+  }).catch( function(e){
+      console.log(e.message);
+  });
+}

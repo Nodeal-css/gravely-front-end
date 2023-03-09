@@ -16,7 +16,7 @@
     <div class="collapse navbar-collapse" id="navbarNav" style="float: right;">
       <ul class="navbar-nav">
         <li class="nav-item active">
-          <a class="nav-link text-light" href="index.html">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-light" href="../index.html">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-light" href="#">About</a>
@@ -29,17 +29,17 @@
   <main>
         <div class="bg-image pt-5" style="height: 25rem;background-image: url('../assets/body.png');background-size: cover; background-repeat: no-repeat; background-position: center center; ">
             <div style="width: 65%; margin: auto; color: white;">
-                <h3 class="text-center">'Cemetery's name here'</h3>
+                <h3 class="text-center">'St. Martha Cemetery'</h3>
                 <p class="text-center">Find deceased record</p>
                 <div class="row bg-white">
                     <div class="col" style="padding-inline: 0;">
-                        <input type="text" class="form-control form-control-lg" id="" placeholder="First name">
+                        <input type="text" class="form-control form-control-lg" id="fname" placeholder="First name">
                     </div>
                     <div class="col" style="padding-inline: 0;">
-                        <input type="text" class="form-control form-control-lg" id="" placeholder="Last name">
+                        <input type="text" class="form-control form-control-lg" id="lname" placeholder="Last name">
                     </div>
                     <div class="col" style="padding-inline: 0;">
-                        <input type="text" class="form-control form-control-lg" id="" placeholder="Middle Initial">
+                        <input type="text" class="form-control form-control-lg" id="mi" placeholder="Middle Initial">
                     </div>
                 </div>
                 <div class="row mt-3">
@@ -48,15 +48,15 @@
                         <label for="year-died"><small>Date died</small></label>
                     </div>
                     <div class="col" style="padding-inline: 5px;">
-                        <input type="date" class="form-control" id="date-bord" placeholder="Birthdate">
+                        <input type="date" class="form-control" id="date-born" placeholder="Birthdate">
                         <label for="year-died"><small>Birthday</small></label>
                     </div>
                     <div class="col" style="padding-inline: 5px;">
-                        <input type="date" class="form-control" id="date-bord" placeholder="Burial date">
+                        <input type="date" class="form-control" id="date-burial" placeholder="Burial date">
                         <label for="year-died"><small>Date of burial</small></label>
                     </div>
                 </div>
-                    <button type="button" class="btn btn-md text-light" style="background-color: rgb(220, 108, 75);">Find</button>
+                    <button type="button" id="btn-search" class="btn btn-md text-light" style="background-color: rgb(220, 108, 75);">Find</button>
             </div>
         </div>
         <div class="row m-5">
