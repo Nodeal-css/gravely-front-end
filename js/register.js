@@ -114,7 +114,7 @@ function input_validation(id){
 
 //search email if it already exists
 function checkEmailExist(input){
-    search("admin", 1, 100, { email: input }, "+created,email", "cemetery_id")
+    search("admin", 1, 1, { email: input }, "+created,email", "cemetery_id")
     .then( function(data){
         if(data.items.length > 0 && input != ""){
             alert("Email already existed, please try a new one.");

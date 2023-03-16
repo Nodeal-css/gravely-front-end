@@ -105,20 +105,25 @@
                     <button type="button" class="btn btn-primary px-2" id="search-deceased">
                         <i class="uil uil-search"></i>
                     </button>
-                    <button type="button" class="btn btn-success ml-2" data-toggle="modal" data-target="#add-deceased">insert</button>
+                    <button type="button" id="open-modal" class="btn btn-success ml-2" data-toggle="modal" data-target="#add-deceased">insert</button>
                 </div>
                 <div class="" style="float: right;">
                     <i class="uil uil-filter" style="font-size: 25px; color: rgb(220, 108, 75);" id="filter-btn"></i>
                 </div>
                 <div class="card" id="filter-tab" style="display: none;">
-                    <div class="card-body">
-                        <ul class="navbar-nav">
-                            <li class="nav-item"><a href="">Not in Grave</a></li>
-                            <li class="nav-item"><a href="">Exceeded 5 years</a></li>
-                            <li class="nav-item"><a href="">Sort earliest</a></li>
-                            <li class="nav-item"><a href="">Type of decease</a></li>
-                            <li class="nav-item"><a href="">Appartment Type</a></li>
-                        </ul>
+                    <div class="card-body list-group list-group-flush">
+                        <a href="#" class="list-group-item list-group-item-action py-2 ripple">
+                             <input type="radio" id="filter-option0" class="form-check-input" name="filter" checked><label for="filter-option0">All</label>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action py-2 ripple">
+                            <input type="radio" id="filter-option1" class="form-check-input" name="filter"><label for="filter-option1">Not in Grave</label>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action py-2 ripple">
+                            <input type="radio" id="filter-option2" class="form-check-input" name="filter"><label for="filter-option2">Exceed 5 years</label>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action py-2 ripple">
+                            <input type="radio" id="filter-option3" class="form-check-input" name="filter"><label for="filter-option3">Latest</label>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -155,11 +160,11 @@
                 </div>
                 <div style="float: right;">
                     <label for="num-rows">Number of rows</label>
-                    <select name="num-rows" id="num-rows" class="ml-2">
-                        <option value="25">25</option>
+                    <select name="num-rows" id="num-rows" class="ml-2 select">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
                         <option value="50">50</option>
                         <option value="100">100</option>
-                        <option value="150">150</option>
                         <option value="200">200</option>
                     </select>
                 </div>
@@ -226,10 +231,7 @@
                   <div class="form-group">
                     <label for="burial-type">Burial type:</label>
                     <select id="burial-type">
-                        <option value="" disabled>Choose type</option>
-                        <option value="pzcou9z7i198uhf" selected>Above ground</option>
-                        <option value="3gk7c2h67lhgbzr">In ground</option>
-                        <option value="yfr3d0hrq4cr7np">Cremation</option>
+
                     </select>
                   </div>
                   <div class="form-group">

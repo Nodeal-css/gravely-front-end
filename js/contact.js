@@ -2,8 +2,9 @@ const filter_btn = document.getElementById('filter-btn');
 const contact_list = document.getElementById('contact-list');
 const insert_contact = document.getElementById('insert-contact');
 const btn_search_contact = document.getElementById('search-contact');
+const num_rows = document.getElementById('num-rows');
 
-loadContactRecords();
+loadContactRecords(10);
 
 function loadList(data){
     contact_list.innerHTML = "";
@@ -42,6 +43,7 @@ insert_contact.addEventListener('click', function(){
         alert('Inserted a contact record');
         $("#add-contact").modal('hide');
         loadContactRecords();
+        clearInput();
     }).catch( function(err){
         console.log(err.message);
     });
@@ -53,8 +55,13 @@ btn_search_contact.addEventListener('click', function(){
     searchContactRecords(type, input);
 });
 
-function loadContactRecords(){
-    search('contract', 1, 100, { id: '' }, '+created,id', '')
+num_rows.addEventListener('input', function(){
+    loadContactRecords(document.getElementById('num-rows').value);
+    document.getElementById('search-input').value = "";
+});
+
+function loadContactRecords(rows){
+    search('contract', 1, rows, { id: '' }, '+created,id', '')
     .then( function(data){
         loadList(data.items);
     }).catch( function(e){
@@ -66,6 +73,7 @@ function searchContactRecords(field, input){
     search('contract', 1, 100, searchFieldHelper(field, input), '+created,' + field, '')
     .then( function(data){
         loadList(data.items);
+        document.getElementById('num-rows').value = '100';
     }).catch( function(e){
         console.log(e.message);
     });
@@ -95,4 +103,12 @@ function searchFieldHelper(field, input){
             break;
     }
     return obj;
+}
+
+function clearInput(){
+    document.getElementById('c-fname').value = "";
+    document.getElementById('c-lname').value = "";
+    document.getElementById('c-mi').value = ""; 
+    document.getElementById('c-address').value = "";
+    document.getElementById('c-tel').value = "";
 }

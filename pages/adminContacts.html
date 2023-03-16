@@ -109,12 +109,19 @@
                     <i class="uil uil-filter" style="font-size: 25px; color: rgb(220, 108, 75);" id="filter-btn"></i>
                 </div>
                 <div class="card" id="filter-tab" style="display: none;">
-                    <div class="card-body">
-                        <ul class="navbar-nav">
-                            <li class="nav-item"><a href="">Alphabetical</a></li>
-                            <li class="nav-item"><a href="">Oldest record</a></li>
-                            <li class="nav-item"><a href="">Exceed 5 years</a></li>
-                        </ul>
+                    <div class="card-body list-group list-group-flush">
+                        <a href="#" class="list-group-item list-group-item-action py-2 ripple">
+                            <input type="radio" name="filter" id="filter1" class="form-check-input" checked><label for="filter1">All</label>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action py-2 ripple">
+                            <input type="radio" name="filter" id="filter2" class="form-check-input"><label for="filter2">Latest</label>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action py-2 ripple">
+                            <input type="radio" name="filter" id="filter3" class="form-check-input"><label for="filter3">Alphabetical</label>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action py-2 ripple">
+                            <input type="radio" name="filter" id="filter3" class="form-check-input"><label for="filter3">5 Years</label>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -148,10 +155,10 @@
                 <div style="float: right;">
                     <label for="num-rows">Number of rows</label>
                     <select name="num-rows" id="num-rows" class="ml-2">
-                        <option value="25">25</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
                         <option value="50">50</option>
                         <option value="100">100</option>
-                        <option value="150">150</option>
                         <option value="200">200</option>
                     </select>
                 </div>
