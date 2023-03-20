@@ -11,6 +11,15 @@ var lng;
 var marker;
 var coord;
 
+var graves = []; //temporary store coords. will extract coords from database
+
+const customMarker = L.icon({ 
+    iconUrl: '../assets/pin.png',
+    iconSize: [28, 40],
+    iconAnchor: [13, 39],
+    popupAnchor: [0, -20]
+});
+
 L.tileLayer('https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=8QM9cnYU5pgNqcMDeMwN', {
         attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
 }).addTo(map);
@@ -42,6 +51,17 @@ map.addEventListener('mousemove', function(e){
     coordinates.innerHTML = "<small>Latitude: "+ lat +" Longitude: "+ lng +"</small>";
 });
 
+btn_save_location.addEventListener('click', function(){
+    console.log("lat: " + coord.latitude + " lng: " + coord.longitude);
+    graves.push({
+        lat: coord.latitude,
+        lng: coord.longitude
+    });
+    console.log(graves);
+    loadMarkers();
+    clearGraveForm();
+});
+
 document.getElementById('cem-map').addEventListener('contextmenu', function(event){
     event.preventDefault();
     let lat_txt = document.getElementById('lat-txt');
@@ -50,11 +70,14 @@ document.getElementById('cem-map').addEventListener('contextmenu', function(even
     if(marker != null){
         map.removeLayer(marker);
     }
-    marker = new L.marker([lat, lng]).addTo(map);
+    marker = new L.marker([lat, lng], {
+        title: "Marker for adding a grave location",
+    }).addTo(map); 
     coord = {
         "latitude": lat,
         "longitude": lng
     };
+    
     //show #grave-form
     grave_form.style.animation = "show_form 0.8s";
     grave_form.style.position = "absolute";
@@ -71,6 +94,7 @@ function clearGraveForm(){
     map.removeLayer(marker);
     document.getElementById('lat-txt').value = "";
     document.getElementById('lng-txt').value = "";
+    coord = {};
 }
 
 function displayMap(){
@@ -113,4 +137,27 @@ function focusOrigin(){
     });
 }
 
+//.bindPopup() <-- in bind pop up, create a function that receives the grave_id, that returns a string of html content containing grave and deceased info. If we want to load all the markers to the map.
+function loadGravePopup(grave_id){
+    // query to db based from id
+    return "<div class='card'>" +
+    "<div class='card-header'>" +
+        "<h4>Grave #"+ grave_id +"</h4>" +
+    "</div>" +
+    "<div class='card-body'>" +
+    "info" +
+    "</div>" +
+    "</div>";
+}
 
+function loadMarkers(){
+    if(customMarker != null){
+        map.removeLayer(customMarker);
+    }
+    for(let i = 0; i < graves.length; i++){
+        L.marker([graves[i].lat, graves[i].lng], {
+            icon: customMarker,
+            title: 'id: ' + i,
+        }).addTo(map).bindPopup(loadGravePopup(i));
+    }
+}
