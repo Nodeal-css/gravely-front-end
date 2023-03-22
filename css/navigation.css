@@ -48,7 +48,7 @@ body {
 
 /* Notifications */
 #notif-tab {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   width: 240px;

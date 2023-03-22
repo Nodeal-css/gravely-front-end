@@ -67,7 +67,7 @@ btn_gcash.addEventListener('click', function(){
 });
 
 reg.addEventListener('click', function(){
-    let account = {
+    const account = {
         "username": document.querySelector("#fname").value + '_' + document.querySelector("#lname").value,
         "email": document.querySelector("#email").value,
         "emailVisibility": true,
@@ -77,14 +77,14 @@ reg.addEventListener('click', function(){
         "lastname": document.querySelector("#lname").value,
         "mi": document.querySelector("#mi").value
     };
-    let cem = {
+    const cem = {
         "name": document.querySelector("#cem-name").value,
         "address": document.querySelector("#cem-address").value,
         "tel1": document.querySelector("#telephone-1").value,
         "tel2": document.querySelector("#telephone-2").value,
         "contact": document.querySelector("#contact").value
     };
-    let sub = {
+    const sub = {
         "payment": document.querySelector("#cost").value,
         "status": document.querySelector("#status").value,
         "expiry_date": document.querySelector("#expiry").value
