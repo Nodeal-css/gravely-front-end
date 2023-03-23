@@ -1,5 +1,6 @@
 
 const btn_update = document.getElementById('updateDisplay');
+const upload_pdf = document.getElementById('upload-pdf');
 
 loadInfo(getDeceasedId());
 
@@ -52,8 +53,21 @@ document.getElementById('close').onclick = function(){
     closeEdit();
 };
 
+upload_pdf.addEventListener('click', function(){
+    const data = document.getElementById('pdf-file').files[0];
+    let formdata = new FormData();
+    formdata.append('file', data);
+    formdata.append('deceased_id', getDeceasedId());
+    //console.log(formdata);
+    create(LEGAL_DOCUMENT, formdata).then( function(){
+        alert('PDF legal document has been uploaded.');
+    }).catch( function(e){
+        console.log(e.message);
+    })
+});
+
 function getDeceasedId(){
-    let id = window.localStorage.getItem('deceased-id');
+    const id = window.localStorage.getItem('deceased-id');
     return id;
 }
 

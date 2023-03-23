@@ -145,17 +145,17 @@
          <div class="pdfs">
            <div class ="pdfbutton">
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pdf-modal">
                     Add PDF
                 </button>
            </div>
         
             <!-- Modal -->
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal fade" id="pdf-modal" tabindex="-1" role="dialog" aria-labelledby="pdf-modalTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Add a pdf file</h5>
+                    <h5 class="modal-title" id="modal-Title">Add a pdf file</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -165,7 +165,7 @@
                             
                             
                             <div class="form-group">
-                            <input type="file" name="pdf_file" accept=".pdf" title="Upload PDF" required/>
+                            <input type="file" name="pdf_file" id="pdf-file" accept=".pdf" title="Upload PDF" required/>
                             </div>
                             <!-- <div class="form-group">
                             <input type="submit" class="btnRegister" name="submitpdf" value="Submit">
@@ -175,7 +175,7 @@
                     </div>
                     <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" id="upload-pdf" class="btn btn-primary">Save changes</button>
                     </div>
                     </div>
                   </div>
