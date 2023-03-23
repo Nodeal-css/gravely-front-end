@@ -150,25 +150,25 @@ function signout() {
 }
 
 function register_acc(user) {
-  return pb.collection('admin').create(user)
+  return pb.collection(ADMIN).create(user)
 }
 function subscribe(data) {
-  return pb.collection('subscription').create(data);
+  return pb.collection(SUBSCRIPTION).create(data);
 }
 function findMyCemetery() {
-  return pb.collection('admin').getOne(pb.authStore?.model.id, {
+  return pb.collection(ADMIN).getOne(pb.authStore?.model.id, {
     expand: 'cemetery_id'
   });
 }
 function createCemetery(cemetery) {
-  return pb.collection('cemetery').create(cemetery);
+  return pb.collection(CEMETERY).create(cemetery);
 }
 function updateCemetery(cemetery) {
   const { id, ...data } = cemetery
-  return pb.collection('cemetery').update(cemetery.id, data);
+  return pb.collection(CEMETERY).update(cemetery.id, data);
 }
 function updateAdmin(user) {
-  return pb.collection('admin').update(user.id, user);
+  return pb.collection(ADMIN).update(user.id, user);
 }
 
 /** 
@@ -211,7 +211,7 @@ function registerAdmin(user, cemetery, subscription) {
 }
 
 function findMyCemetery() {
-  return pb.collection('admin').getOne(pb.authStore?.model.id, {
+  return pb.collection(ADMIN).getOne(pb.authStore?.model.id, {
     expand: 'cemetery_id'
   })
 }
@@ -250,5 +250,15 @@ function objectToParams(obj) {
   }
   return filters
 }
+
 //sample use
-// search(DECEASED, 1, 100, { lastname: 'John', firstname: ''},  '-created,lastname,firstname', 'burial_type_id')
+// search(DECEASED, 1, 100, { lastname: '', firstname: 'Jac'},  '-created,lastname,firstname', 'burial_type_id')
+// remove(DECEASED, 'lfcb4wd34122c74').then(console.log)
+// function doupload() {
+//   let data = document.getElementById("file").files[0];
+//   let formData = new FormData()
+//   formData.append('file', data)
+//   formData.append('deceased_id', 'mi292b2llkz8twn')
+//   create(LEGAL_DOCUMENT, formData).then(console.log)
+//   alert('your file has been uploaded');
+// }
