@@ -262,4 +262,3 @@ function objectToParams(obj) {
 //   create(LEGAL_DOCUMENT, formData).then(console.log)
 //   alert('your file has been uploaded');
 // }
-// ./minio.exe server s3 --console-address ":9001"
