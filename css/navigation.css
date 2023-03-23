@@ -6,6 +6,7 @@ body {
 @media (min-width: 991.98px) {
   main {
     padding-left: 240px;
+    padding-top: 30px;
     margin: 2%;
   }
 }
@@ -47,7 +48,7 @@ body {
 
 /* Notifications */
 #notif-tab {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   width: 240px;

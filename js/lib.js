@@ -114,7 +114,6 @@ function remove(collectionName, recordId) {
   return pb.collection(collectionName).delete(recordId)
 }
 
-
 /** Signin
  * 
  * @param {*} data

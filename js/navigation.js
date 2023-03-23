@@ -1,10 +1,11 @@
 const menu = document.querySelector('.menu-btn');
 const notif = document.querySelector('#notif-btn');
 const log_out = document.getElementById('logout');
-var header = new Headers();
+const cem_name = window.localStorage.getItem('cemetery-name');
 var flag = false;
 
 check_session();
+currCemetery();
 
 //transfer this script to js file
 menu.addEventListener('click', function(){
@@ -31,6 +32,8 @@ notif.addEventListener('click', function(){
 
 log_out.addEventListener('click', function(){
     if(confirm("Confirm signing out Gravely")){
+        localStorage.removeItem('cemetery-name');
+        localStorage.removeItem('deceased-id');
         signout();
         window.location.href = '../index.html';
     }
@@ -44,4 +47,10 @@ function check_session(){
         return;
     }
     console.log('Session: active');
+}
+
+function currCemetery(){
+    if(document.getElementById('cem-name') != null){
+        document.getElementById('cem-name').innerHTML = cem_name;
+    }
 }

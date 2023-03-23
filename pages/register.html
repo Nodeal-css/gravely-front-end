@@ -56,12 +56,12 @@
             <h4>Sign up an admin account</h4>
             <small>First admin account of a cemetery should sign up</small>
                 <div class="form-outline mb-4 mt-5">
-                  <input type="text" id="fname" class="form-control form-control-lg" />
+                  <input type="text" id="fname" class="form-control form-control-lg" required/>
                   <label class="form-label" for="fname">First name</label>
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input type="text" id="lname" class="form-control form-control-lg" />
+                  <input type="text" id="lname" class="form-control form-control-lg" required/>
                   <label class="form-label" for="lname">Last name</label>
                 </div>
 
@@ -71,17 +71,17 @@
                 </div><br>
 
                 <div class="form-outline mb-4">
-                    <input type="email" id="email" class="form-control form-control-lg" />
+                    <input type="email" id="email" class="form-control form-control-lg" required/>
                     <label class="form-label" for="email">Email</label>
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input type="password" id="pass" class="form-control form-control-lg" minlength="8" />
+                  <input type="password" id="pass" placeholder="8 characters" class="form-control form-control-lg" minlength="8" required/>
                   <label class="form-label" for="pass">Password</label>
                 </div>
 
                 <div class="form-outline mb-4">
-                    <input type="password" id="re-pass" class="form-control form-control-lg" minlength="8" />
+                    <input type="password" id="re-pass" placeholder="8 characters" class="form-control form-control-lg" minlength="8" required/>
                     <label class="form-label" for="re-pass">Enter password again</label>
                 </div>
 
@@ -108,28 +108,28 @@
             <h4>Cemetery registration</h4>
             <small class="mb-5">please fill up details of the cemetery</small>
                 <div class="form-outline mb-4 mt-5">
-                  <input type="text" id="cem-name" class="form-control form-control-lg" />
+                  <input type="text" id="cem-name" class="form-control form-control-lg" required/>
                   <label class="form-label" for="cem-name">Name</label>
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input type="text" id="cem-address" class="form-control form-control-lg" />
+                  <input type="text" id="cem-address" class="form-control form-control-lg" required/>
                   <label class="form-label" for="cem-address">Address</label>
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input type="phone" id="telephone-1" class="form-control form-control-lg" maxlength="15"/>
+                  <input type="tel" id="telephone-1" class="form-control form-control-lg" maxlength="15" required/>
                   <label class="form-label" for="telephone-1">Telephone line 1</label>
                 </div>
 
                 <div class="form-outline mb-4">
-                    <input type="phone" id="telephone-2" class="form-control form-control-lg" maxlength="15"/>
+                    <input type="tel" id="telephone-2" class="form-control form-control-lg" maxlength="15" required/>
                     <label class="form-label" for="telephone-2">Telephone line 2</label>
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input type="number" id="contact" class="form-control form-control-lg" maxlength="11"/>
-                  <label class="form-label" for="contact">Contact</label>
+                  <input type="phone" id="contact" class="form-control form-control-lg" maxlength="11" required/>
+                  <label class="form-label" for="contact">Contact</label><!-- change to contact person -->
                 </div>
 
                 <div class="form-check d-flex mb-5">
