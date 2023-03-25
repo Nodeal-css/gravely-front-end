@@ -3,6 +3,8 @@ const btn_update = document.getElementById('updateDisplay');
 const upload_pdf = document.getElementById('upload-pdf');
 
 loadInfo(getDeceasedId());
+getDocuments(getDeceasedId());
+remove(LEGAL_DOCUMENT, '0biziljgr59ljqz');
 
 btn_update.addEventListener('click', function(){
     const person = {
@@ -61,6 +63,9 @@ upload_pdf.addEventListener('click', function(){
     //console.log(formdata);
     create(LEGAL_DOCUMENT, formdata).then( function(){
         alert('PDF legal document has been uploaded.');
+        $("#pdf-modal").modal('hide');
+        getDocuments(getDeceasedId());
+        document.getElementById('pdf-file').value = "";
     }).catch( function(e){
         console.log(e.message);
     })
@@ -110,4 +115,35 @@ function closeEdit(){
       // gender field
     document.getElementById('deathInput').setAttribute('type', 'text');
     document.getElementById('burialInput').setAttribute('type', 'text');
+}
+
+function getDocuments(input){
+    search(LEGAL_DOCUMENT, 1, 100, { deceased_id: input }, '+created,deceased_id', 'deceased_id')
+    .then( function(data){
+        console.log(data.items);
+        loadDocumentsList(data.items);
+    }).catch( function(e){
+        console.log(e.message);
+    })
+}
+
+function loadDocumentsList(data = []){
+    let pdf_list = document.getElementById('pdf-list');
+    let html = '<div class="row">';
+    for(let i = 0; i < data.length; i++){
+        if(i % 4 === 0){
+            html += '</div><div class="row">';
+        }
+        html += '<div style="cursor: pointer;" class="col-3" onclick="openPDF(\''+ data[i].id +'\',\''+ data[i].file +'\')">'+ 
+        '<img src="../assets/pdf-img.png" alt="pdf logo" width="230" height="280">' +
+        '<br>' +
+        data[i].file +'</div>';
+    }
+    html += '</div>';
+    pdf_list.innerHTML = html;
+}
+
+function openPDF(id, file_name){
+    const url = "http://127.0.0.1:8090/api/files/legal_document/"+ id +"/" + file_name;
+    window.open(url, "_blank");
 }
