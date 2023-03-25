@@ -1,10 +1,11 @@
 
 const btn_update = document.getElementById('updateDisplay');
 const upload_pdf = document.getElementById('upload-pdf');
+const burial_type = document.getElementById('burial-type-input');
 
 loadInfo(getDeceasedId());
 getDocuments(getDeceasedId());
-remove(LEGAL_DOCUMENT, '0biziljgr59ljqz');
+loadBurialTypes();
 
 btn_update.addEventListener('click', function(){
     const person = {
@@ -146,4 +147,17 @@ function loadDocumentsList(data = []){
 function openPDF(id, file_name){
     const url = "http://127.0.0.1:8090/api/files/legal_document/"+ id +"/" + file_name;
     window.open(url, "_blank");
+}
+
+function loadBurialTypes(){
+    search('burial_type', 1, 100, { id: '' }, '+created,id', '')
+    .then( function(data){
+        burial_type.innerHTML = "<option value='' disabled selected>Choose type</option>";
+        for(let i = 0; i < data.items.length; i++){
+            burial_type.innerHTML += "<option value="+ data.items[i].id +">"+ data.items[i].type +"</option>";
+        }
+        console.log(data.items);
+    }).catch( function(err){
+        console.log(err.message);
+    });
 }

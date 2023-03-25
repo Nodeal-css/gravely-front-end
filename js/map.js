@@ -2,19 +2,18 @@ const btn_menu = document.querySelector('.menu-btn');
 const map_origin_picker = document.getElementById('new-window-map');
 const btn_save_location = document.getElementById('btn-save-coord'); // we left here
 const grave_form = document.getElementById('grave-form');
+const grave_type = document.getElementById('grave-type');
 const cem_id = getSessionAdmin().cemetery_id;
 
-var map = L.map('cem-map', {
-    minZoom: 0
-});
 var flag1 = false;
 var lat;
 var lng;
 var marker;
 var coord;
 
-var graves = []; //temporary store coords. will extract coords from database
-
+var map = L.map('cem-map', {
+    minZoom: 0
+});
 const customMarker = L.icon({ 
     iconUrl: '../assets/pin.png',
     iconSize: [28, 40],
@@ -27,6 +26,8 @@ L.tileLayer('https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=8QM9cn
 }).addTo(map);
 
 displayMap();
+loadBurialTypes();
+loadMarkers();
 
 //transfer this script to js file
 btn_menu.addEventListener('click', function(){
@@ -55,13 +56,24 @@ map.addEventListener('mousemove', function(e){
 
 btn_save_location.addEventListener('click', function(){
     console.log("lat: " + coord.latitude + " lng: " + coord.longitude);
-    graves.push({
-        lat: coord.latitude,
-        lng: coord.longitude
+    let formdata = new FormData();
+    formdata.append('cemetery_id', cem_id);
+    formdata.append('grave_type', document.getElementById('grave-type').value);
+    formdata.append('location_description', document.getElementById('location-inp').value);
+    formdata.append('status', document.getElementById('status-inp').value);
+    formdata.append('price', document.getElementById('price-inp').value);
+    formdata.append('column', document.getElementById('row-inp').value);
+    formdata.append('latitude', coord.latitude);
+    formdata.append('longitude', coord.longitude);
+    create('grave', formdata).then( function(){
+        alert('A grave location has been added.');
+        clearGraveForm();
+        loadMarkers();
+    }).catch( function(e){
+        console.log(e.message);
     });
-    console.log(graves);
-    loadMarkers();
-    clearGraveForm();
+
+    
 });
 
 document.getElementById('cem-map').addEventListener('contextmenu', function(event){
@@ -96,6 +108,11 @@ function clearGraveForm(){
     map.removeLayer(marker);
     document.getElementById('lat-txt').value = "";
     document.getElementById('lng-txt').value = "";
+    document.getElementById('grave-type').value = "";
+    document.getElementById('location-inp').value = "";
+    document.getElementById('status-inp').value = "";
+    document.getElementById('price-inp').value = "";
+    document.getElementById('row-inp').value = "";
     coord = {};
 }
 
@@ -161,7 +178,7 @@ function loadGravePopup(grave_id){
 '</div>' +
 '<div id="popup-grave" class="card" style="width: 19rem;">' +
     '<div class="card-header text-center">' +
-        '<p class="card-title">Grave: #23</p>' +
+        '<p class="card-title">Grave: #'+ grave_id +'</p>' +
     '</div>' +
     '<div class="card-body text-center row">' +
         '<div class="col text-right">' +
@@ -203,10 +220,28 @@ function loadMarkers(){
     if(customMarker != null){
         map.removeLayer(customMarker);
     }
-    for(let i = 0; i < graves.length; i++){
-        L.marker([graves[i].lat, graves[i].lng], {
-            icon: customMarker,
-            title: 'id: ' + i,
-        }).addTo(map).bindPopup(loadGravePopup(i));
-    }
+    search('grave', 1, 500, { cemetery_id: cem_id }, '+created,cemetery_id', '')
+    .then( function(data){
+        for(let i = 0; i < data.items.length; i++){
+            L.marker([data.items[i].latitude, data.items[i].longitude], {
+                icon: customMarker,
+                title: 'id: ' + i,
+            }).addTo(map).bindPopup(loadGravePopup(data.items[i].id));
+        }
+    }).catch( function(e){
+        console.log(e.message);
+    });
+}
+
+function loadBurialTypes(){
+    search('grave_type', 1, 100, { id: '' }, '+created,id', '')
+    .then( function(data){
+        grave_type.innerHTML = "<option value='' disabled selected>Choose type</option>";
+        for(let i = 0; i < data.items.length; i++){
+            grave_type.innerHTML += "<option value="+ data.items[i].id +">"+ data.items[i].type +"</option>";
+        }
+        console.log(data.items);
+    }).catch( function(err){
+        console.log(err.message);
+    });
 }
