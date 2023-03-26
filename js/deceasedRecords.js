@@ -163,6 +163,15 @@ function getBurialType(burial_id){
         case 'yfr3d0hrq4cr7np':
             type = "Cremation";
             break;
+        case '78wkk9veroh5ghi':
+            type = "Inhumation";
+            break;
+        case '05yv7yvw72m6i76':
+            type = "Mummification";
+            break;
+        case 'qtribu329jeeom9':
+            type = "Mass burial";
+            break;
     }
     return type;
 }

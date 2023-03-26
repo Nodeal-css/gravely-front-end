@@ -78,7 +78,7 @@ function getDeceasedId(){
 }
 
 function loadInfo(deceased_id){
-    search('deceased', 1, 100, { id: deceased_id }, '+created,id', 'burial_type_id')
+    search('deceased', 1, 1, { id: deceased_id }, '+created,id', 'burial_type_id')
     .then( function(data){
         //console.log(data);
         document.getElementById('fNameInput').value = data.items[0].firstname;

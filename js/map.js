@@ -183,7 +183,7 @@ function loadGravePopup(grave_id, description, status, price, row, type){
             '<p class="card-text">'+ description +'</p>' +
             '<p class="card-text">'+ status +'</p>' +
             '<p class="card-text">'+ namesOfGraves[type] +'</p>' +
-            '<p class="card-text">'+ price +'</p>' +
+            '<p class="card-text">₱ '+ price +'</p>' +
             '<p class="card-text">'+ row +'</p>' +
         '</div>' +
     '</div>' +
