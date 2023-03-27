@@ -262,3 +262,114 @@ function objectToParams(obj) {
 //   create(LEGAL_DOCUMENT, formData).then(console.log)
 //   alert('your file has been uploaded');
 // }
+
+// For Payment
+const CLIENT_ID = 'Aa-Czh3m-Jr9ISTCf7ye7HJWIAPrSPSe4NPERuwLOhb0qKvdnqiYuaVWsQj0in4CcgUtrFRfb6Ln2175'
+const SECRET_KEY = 'ED6Qh_nB5l2wutveNxjbSIMfzAwdk2W-WdETOkuM0ZjgOXM_1bORUqF05EGW_bHtDMJL1ILG-HIHWbJn'
+const PLAN_ID = 'P-36G65051UA968292WMQOUPLI'
+const RETURN_URL = '[CHANGE_ME]'
+const CANCEL_URL = '[CHANGE_ME]'
+const AUTHORIZATION = btoa(`${CLIENT_ID}:${SECRET_KEY}`)
+
+const resource = 'https://api-m.sandbox.paypal.com/v1/billing/subscriptions'
+
+// USER INPUT
+const subscriber = {
+  name: {
+    given_name: 'John',
+    surname: 'Doe'
+  },
+  email_address: 'customer@example.com'
+}
+
+// Use this on click event ↴
+subscribe(subscriber).then(function (response) {
+  window.location.replace(response.links[0].href) // redirect to paypal payment
+})
+
+/** Subscribing for the plan
+* @param subscriber: Information of the user who wants to subscribe the plan.
+*   Example: {
+*     name: { give_name: John, surname: Doe }
+*     email_address: test@test.com
+*     shipping_address: { // Optional
+*       name: { full_name: John Doe }
+*       address: {
+*         address_line_1: 2211 N First Street
+*         address_line_2: Building 17
+*         admin_area_2: San Jose
+*         admin_area_1: CA
+*         postal_code: 95131
+*         country_code: US
+*       }
+*     }
+*   }
+*
+* @return response: Refer here: https://developer.paypal.com/docs/api/subscriptions/v1/#subscriptions-create-response
+*/      
+function subscribe (subscriber) {
+  const ONE_HOUR = 3600
+  const MILLISECONDS = 1000
+  const ADVANCE_ONE_HOUR = Date.now() + ONE_HOUR * MILLISECONDS
+
+  const body = JSON.stringify({
+    plan_id: PLAN_ID,
+    start_time: new Date(ADVANCE_ONE_HOUR),
+    quantity: '1',
+    subscriber: subscriber,
+    application_context: {
+      brand_name: 'Gravely',
+      locale: 'en-US',
+      user_action: 'SUBSCRIBE_NOW',
+      payment_method: {
+        payer_selected: 'PAYPAL',
+        payee_preferred: 'UNRESTRICTED'
+      },
+      return_url: RETURN_URL,
+      cancel_url: CANCEL_URL
+    }
+  })
+
+  return fetch(resource, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Basic ${AUTHORIZATION}`,
+      'Content-Type': 'application/json'
+    },
+    body: body
+  }).then(function (response) { return response.json() })
+}
+
+/** Success on payment for subscription
+*  Load this function on success payment page and document ready.
+*
+*  @return subscription_id: Unique subscription id
+*  @return ba_token: Approval Token
+*  @return token: Success Token
+*/
+function successPayment () {
+  const query = new URLSearchParams(window.location.search)
+
+  return {
+    subscription_id: query.get('subscription_id'),
+    ba_token: query.get('ba_token'),
+    token: query.get('token')
+  }
+}
+
+/** Cancel on payment for subscription
+*  Load this function on cancel payment page and document ready.
+*
+*  @return subscription_id: Unique subscription id
+*  @return ba_token: Approval Token
+*  @return token: Cancel Token
+*/
+function cancelPayment () {
+  const query = new URLSearchParams(window.location.search)
+
+  return {
+    subscription_id: query.get('subscription_id'),
+    ba_token: query.get('ba_token'),
+    token: query.get('token')
+  }
+}
