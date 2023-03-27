@@ -1,34 +1,25 @@
 const btn_menu = document.querySelector('.menu-btn');
 const map_origin_picker = document.getElementById('new-window-map');
-const btn_save_location = document.getElementById('btn-save-coord'); // we left here
+const btn_save_location = document.getElementById('btn-save-coord');
 const grave_form = document.getElementById('grave-form');
+const grave_type = document.getElementById('grave-type');
 const cem_id = getSessionAdmin().cemetery_id;
 
-var map = L.map('cem-map', {
-    minZoom: 0
-});
 var flag1 = false;
 var lat;
 var lng;
-var marker;
 var coord;
-
-var graves = []; //temporary store coords. will extract coords from database
-
-const customMarker = L.icon({ 
-    iconUrl: '../assets/pin.png',
-    iconSize: [28, 40],
-    iconAnchor: [13, 39],
-    popupAnchor: [0, -20]
+var marker;
+var map = L.map('cem-map', {
+    minZoom: 0
 });
+var graveMarker = L.layerGroup().addTo(map);
 
-L.tileLayer('https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=8QM9cnYU5pgNqcMDeMwN', {
-        attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
-}).addTo(map);
-
+mapInit();
 displayMap();
+loadBurialTypes();
+loadMarkers();
 
-//transfer this script to js file
 btn_menu.addEventListener('click', function(){
     let cem_map = document.getElementById('cem-map');
     if(flag1){
@@ -55,13 +46,24 @@ map.addEventListener('mousemove', function(e){
 
 btn_save_location.addEventListener('click', function(){
     console.log("lat: " + coord.latitude + " lng: " + coord.longitude);
-    graves.push({
-        lat: coord.latitude,
-        lng: coord.longitude
+    let formdata = new FormData();
+    formdata.append('cemetery_id', cem_id);
+    formdata.append('grave_type', document.getElementById('grave-type').value);
+    formdata.append('location_description', document.getElementById('location-inp').value);
+    formdata.append('status', document.getElementById('status-inp').value);
+    formdata.append('price', document.getElementById('price-inp').value);
+    formdata.append('column', document.getElementById('row-inp').value);
+    formdata.append('latitude', coord.latitude);
+    formdata.append('longitude', coord.longitude);
+    create('grave', formdata).then( function(){
+        alert('A grave location has been added.');
+        clearGraveForm();
+        loadMarkers();
+    }).catch( function(e){
+        console.log(e.message);
     });
-    console.log(graves);
-    loadMarkers();
-    clearGraveForm();
+
+    
 });
 
 document.getElementById('cem-map').addEventListener('contextmenu', function(event){
@@ -85,9 +87,15 @@ document.getElementById('cem-map').addEventListener('contextmenu', function(even
     grave_form.style.position = "absolute";
     grave_form.style.right = "0px";
     //display coordinates in grave-form
-    lat_txt.value = lat;
-    lng_txt.value = lng;
+    lat_txt.value = coord.latitude;
+    lng_txt.value = coord.longitude;
 });
+
+function mapInit(){
+    L.tileLayer('https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=8QM9cnYU5pgNqcMDeMwN', {
+        attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
+    }).addTo(map);
+}
 
 function clearGraveForm(){
     grave_form.style.animation = "hide_form 0.8s";
@@ -96,6 +104,11 @@ function clearGraveForm(){
     map.removeLayer(marker);
     document.getElementById('lat-txt').value = "";
     document.getElementById('lng-txt').value = "";
+    document.getElementById('grave-type').value = "";
+    document.getElementById('location-inp').value = "";
+    document.getElementById('status-inp').value = "";
+    document.getElementById('price-inp').value = "";
+    document.getElementById('row-inp').value = "";
     coord = {};
 }
 
@@ -116,8 +129,8 @@ function displayMap(){
 }
 
 function changeDisplay(istrue){
-    focusOrigin();
     if(istrue){
+        focusOrigin();
         document.getElementById('cem-map').style.display = 'block';
         document.getElementById('no-map').style.display = 'none';
         console.log('display map: true');
@@ -140,73 +153,91 @@ function focusOrigin(){
 }
 
 //.bindPopup() <-- in bind pop up, create a function that receives the grave_id, that returns a string of html content containing grave and deceased info. If we want to load all the markers to the map.
-function loadGravePopup(grave_id){
+function loadGravePopup(grave_id, description, status, price, row, type){
     // query to db based from id
-    return '<div id="popup-deceased" class="card" style="width: 19rem; display: none;">' +
-    '<img class="card-img-top" src="../assets/grave-img.jpg" alt="Card image cap" style="height: 9rem;">' +
-    '<div class="card-body">' +
-        '<h5 class="card-title">Your name</h5>' +
-        '<p class="card-text"><small>Memorial... rest in peace, in loving memory of</small></p>' +
-    '</div>' +
-    '<ul class="list-group list-group-flush">' +
-        '<li class="list-group-item"><small>Field1</small></li>' +
-        '<li class="list-group-item"><small>Field2</small></li>' +
-        '<li class="list-group-item"><a href="#" title="Click to view more deceased information.">more..</a></li>' +
-    '</ul>' +
-    '<div class="card-body text-center">' +
-        '<button class="btn btn-outline-primary btn-sm" title="Click to view more contract information." onclick="document.querySelector(\'#popup-contract\').style.display=\'block\';document.querySelector(\'#popup-deceased\').style.display=\'none\';">Contract</button>' +
-        '<button class="btn btn-outline-success btn-sm" title="Click to view grave details." onclick="document.querySelector(\'#popup-grave\').style.display=\'block\';document.querySelector(\'#popup-deceased\').style.display=\'none\'">Grave</button>' +
-        '<button class="btn btn-outline-danger btn-sm" title="This will remove the deceased record of this specified location.">Remove</button>' +
-    '</div>' +
-'</div>' +
-'<div id="popup-grave" class="card" style="width: 19rem;">' +
+    const namesOfGraves = {
+        'rpwv0bsvnqp4li0': 'Flat grave marker',
+        'b6hedzq2godl4q8': 'Upright grave marker',
+        'r7u39oriry1pij5': 'Headstone',
+        '06qu5rii5ye55wm': 'Footstone',
+        'av67hd01wy9ud91': 'Mausoleum',
+        '8pc93vz0xt1j4jj': 'Tomb',
+        'b087tzicqoehxlw': 'Crypt',
+        'rm4446wpn3l6bzu': 'Burial Vault',
+        'i4fx09hpcwkumg7': 'Natural Burial'
+    };
+
+    return '<div id="popup-grave" class="card" style="width: 19rem;">' +
     '<div class="card-header text-center">' +
-        '<p class="card-title">Grave: #23</p>' +
+        '<p class="card-title">Grave: #'+ grave_id +'</p>' +
     '</div>' +
     '<div class="card-body text-center row">' +
         '<div class="col text-right">' +
-            '<p class="card-text">Field1: </p>' +
-            '<p class="card-text">Field2: </p>' +
-            '<p class="card-text">Field3: </p>' +
+            '<p class="card-text">Description: </p>' +
+            '<p class="card-text">Status: </p>' +
+            '<p class="card-text">Type: </p>' +
+            '<p class="card-text">Price: </p>' +
+            '<p class="card-text">Row: </p>' +
         '</div>' +
         '<div class="col text-left">' +
-            '<p class="card-text">info1: </p>' +
-            '<p class="card-text">info2: </p>' +
-            '<p class="card-text">info3: </p>' +
+            '<p class="card-text">'+ description +'</p>' +
+            '<p class="card-text">'+ status +'</p>' +
+            '<p class="card-text">'+ namesOfGraves[type] +'</p>' +
+            '<p class="card-text">₱ '+ price +'</p>' +
+            '<p class="card-text">'+ row +'</p>' +
         '</div>' +
     '</div>' +
     '<div class="card-footer text-center">' +
         '<button class="btn btn-outline-primary btn-sm" title="Insert a deceased record to this specific location." onclick="document.querySelector(\'#popup-deceased\').style.display=\'block\';document.querySelector(\'#popup-grave\').style.display=\'none\';"><i class="uil uil-plus-circle"></i> Deceased</button>' +
         '<button class="btn btn-outline-success btn-sm" title="Insert a contract record for this specific location." onclick="document.querySelector(\'#popup-contract\').style.display=\'block\';document.querySelector(\'#popup-grave\').style.display=\'none\';"><i class="uil uil-plus-circle"></i> Contract</button>' +
-        '<button class="btn btn-outline-danger btn-sm" title="Delete grave location."><i class="uil uil-trash"></i> Remove</button>' +
-    '</div>' +
-'</div>' +
-'<div id="popup-contract" class="card" style="width: 19rem; display: none;">' +
-    '<div class="card-header">' +
-        '<p>Contract</p>' +
-    '</div>' +
-    '<ul class="list-group list-group-flush">' +
-        '<li class="list-group-item">Field1: </li>' +
-        '<li class="list-group-item">Field2: </li>' +
-        '<li class="list-group-item">Field3: </li>' +
-        '<li class="list-group-item">Field4:</li>' +
-    '</ul>' +
-    '<div class="card-body text-center">' +
-        '<button class="btn btn-outline-primary btn-sm" title="View deceased record of this location." onclick="document.querySelector(\'#popup-deceased\').style.display=\'block\';document.querySelector(\'#popup-contract\').style.display=\'none\';">Deceased</button>' +
-        '<button class="btn btn-outline-success btn-sm" title="View grave info." onclick="document.querySelector(\'#popup-grave\').style.display=\'block\';document.querySelector(\'#popup-contract\').style.display=\'none\';">Grave</button>' +
-        '<button class="btn btn-outline-danger btn-sm" title="Remove Contract record of this specific location.">Remove</button>' +
+        '<button class="btn btn-outline-danger btn-sm" title="Delete grave location." onclick="deleteGrave(\''+ grave_id +'\');"><i class="uil uil-trash"></i> Remove</button>' +
     '</div>' +
 '</div>';
 }
 
 function loadMarkers(){
-    if(customMarker != null){
-        map.removeLayer(customMarker);
-    }
-    for(let i = 0; i < graves.length; i++){
-        L.marker([graves[i].lat, graves[i].lng], {
-            icon: customMarker,
-            title: 'id: ' + i,
-        }).addTo(map).bindPopup(loadGravePopup(i));
+    const customMarker = L.icon({ 
+        iconUrl: '../assets/pin.png',
+        iconSize: [28, 40],
+        iconAnchor: [13, 39],
+        popupAnchor: [0, -20]
+    });
+
+    search('grave', 1, 500, { cemetery_id: cem_id }, '+created,cemetery_id', '')
+    .then( function(data){
+        graveMarker.clearLayers();
+        for(let i = 0; i < data.items.length; i++){
+            L.marker([data.items[i].latitude, data.items[i].longitude], {
+                icon: customMarker,
+                title: 'location: ' + data.items[i].location_description,
+            }).addTo(graveMarker).bindPopup(loadGravePopup(data.items[i].id, data.items[i].location_description, data.items[i].status, data.items[i].price, data.items[i].column, data.items[i].grave_type));
+        }
+    }).catch( function(e){
+        console.log(e.message);
+    });
+}
+
+function loadBurialTypes(){
+    search('grave_type', 1, 100, { id: '' }, '+created,id', '')
+    .then( function(data){
+        grave_type.innerHTML = "<option value='' disabled selected>Choose type</option>";
+        for(let i = 0; i < data.items.length; i++){
+            grave_type.innerHTML += "<option value="+ data.items[i].id +">"+ data.items[i].type +"</option>";
+        }
+        console.log(data.items);
+    }).catch( function(err){
+        console.log(err.message);
+    });
+}
+
+function deleteGrave(grave_id){
+    if(confirm("Are you sure you want to delete this pinned location?")){
+        remove(GRAVE, grave_id).then( function(){
+            alert('Grave has been removed.');
+            map.closePopup();
+            loadMarkers();
+        }).catch( function(e){
+            console.log(e.message);
+        });
     }
 }

@@ -9,7 +9,7 @@ loadContactRecords(10);
 function loadList(data){
     contact_list.innerHTML = "";
     for(let i = 0; i < data.length; i++){
-        contact_list.innerHTML += '<tr>' +
+        contact_list.innerHTML += '<tr style="cursor: pointer;" onclick="contractInfo(\''+ data[i].id +'\');">' +
         '<th scope="row">'+ (i + 1) +'.</th>' +
         '<td>'+ data[i].fname +'</td>' + // firstname
         '<td>'+ data[i].lname +'</td>' + // lastname
@@ -111,4 +111,9 @@ function clearInput(){
     document.getElementById('c-mi').value = ""; 
     document.getElementById('c-address').value = "";
     document.getElementById('c-tel').value = "";
+}
+
+function contractInfo(id){
+    window.localStorage.setItem('contract-id', id);
+    window.location.href = "../pages/adminContactInfo.html";
 }
