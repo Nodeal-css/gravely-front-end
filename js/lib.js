@@ -263,7 +263,8 @@ function objectToParams(obj) {
 //   alert('your file has been uploaded');
 // }
 
-/*
+
+
 // For Payment
 const CLIENT_ID = 'Aa-Czh3m-Jr9ISTCf7ye7HJWIAPrSPSe4NPERuwLOhb0qKvdnqiYuaVWsQj0in4CcgUtrFRfb6Ln2175'
 const SECRET_KEY = 'ED6Qh_nB5l2wutveNxjbSIMfzAwdk2W-WdETOkuM0ZjgOXM_1bORUqF05EGW_bHtDMJL1ILG-HIHWbJn'
@@ -283,10 +284,11 @@ const subscriber = {
   email_address: 'customer@example.com'
 }
 
-// Use this on click event ↴
+/* Use this on click event ↴
 subscribe(subscriber).then(function (response) {
   window.location.replace(response.links[0].href) // redirect to paypal payment
 })
+*/
 
 /** Subscribing for the plan
 * @param subscriber: Information of the user who wants to subscribe the plan.
@@ -365,6 +367,7 @@ function successPayment () {
 *  @return ba_token: Approval Token
 *  @return token: Cancel Token
 */
+
 function cancelPayment () {
   const query = new URLSearchParams(window.location.search)
 
@@ -374,3 +377,4 @@ function cancelPayment () {
     token: query.get('token')
   }
 }
+

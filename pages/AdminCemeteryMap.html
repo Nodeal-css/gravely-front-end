@@ -133,7 +133,13 @@
             <small><b>Grave details</b></small><br>
             <small>Location desc: <input type="text" id="location-inp" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;"></small><br>
             <small>Price: <input type="number" id="price-inp" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;"></small><br>
-            <small>Status: <input type="text" id="status-inp" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;"></small><br>
+            <small>Status: <select name="" id="status-inp" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;">
+                <option value="" selected disabled>Choose Status</option>
+                <option value="Vacant">Vacant</option>
+                <option value="Occupied">Occupied</option>
+                <option value="Not available">Not available</option>
+                <option value="Under repair">Under repair</option>
+            </select></small><br>
             <small>Grave type: <select name="grave-type" id="grave-type" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;"></select></small><br>
             <small>Row: <input type="number" id="row-inp" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;"></small><br>
             <small>Latitude: <input type="text" id="lat-txt" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;" readonly></small><br>
@@ -158,6 +164,59 @@
             </div>
         </div>
         <!-- End of properties for map-->
+
+        <!-- Start of information about deceased and contracts -->
+        <div id="grave-information" style="display: none;">
+            <div id="deceased-info" class="card">
+                <img src="../assets/grave-img.jpg" class="card-img-top" alt="Image of the grave">
+                <div class="card-header">
+                    <strong>Deceased</strong>
+                </div>
+                    Memorial: 
+                <div class="card-body row">
+                    <div class="col-6 text-right">
+                        <small>name: </small><br><br>
+                        <small>date of bural: </small><br>
+                        <small>birth date: </small><br>
+                        <small>cause of death: </small> <br>
+                        <small><a href="#" title="Open to view more details">more...</a></small>
+                    </div>
+                    <div class="col-6 text-left" id="deceased-info-details">
+                        <small>Garry M. Shellbef</small> <br>
+                        <small>mm/dd/yyyy</small> <br>
+                        <small>mm/dd/yyyy</small> <br>
+                        <small>Accident</small>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <button class="btn btn-sm btn-danger" title="Click, if you wish to remove deceased record to this specific location.">Remove</button>
+                    <button class="btn btn-sm btn-warning" title="Click, if you wish to transfer this record to other location.">Transfer</button>
+                </div>
+            </div><br><hr><br>
+            <div id="contract-info" class="card">
+                <div class="card-header">
+                    <strong class="card-title">Contract person</strong>
+                </div>
+                <div class="card-body row">
+                    <div class="col text-right">
+                        <small>Name: </small><br>
+                        <small>Address: </small><br>
+                        <small>Phone: </small><br>
+                        <small><a href="#" title="Click, to view more contract information.">more...</a></small>
+                    </div>
+                    <div class="col text-left" id="contract-info-details">
+                        <small>Greg P. Smith:</small> <br>
+                        <small>USA: </small><br>
+                        <small>09887231231: </small><br>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <button class="btn btn-sm btn-danger" title="Click, if you want to remove this information">Remove</button>
+                </div>
+            </div>
+        </div>
+        <!-- End of information about deceased and contracts -->
+
     </main>
 
 <!-- Footer -->

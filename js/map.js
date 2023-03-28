@@ -57,7 +57,7 @@ btn_save_location.addEventListener('click', function(){
     formdata.append('longitude', coord.longitude);
     create('grave', formdata).then( function(){
         alert('A grave location has been added.');
-        clearGraveForm();
+        clearGraveForm(true);
         loadMarkers();
     }).catch( function(e){
         console.log(e.message);
@@ -68,6 +68,7 @@ btn_save_location.addEventListener('click', function(){
 
 document.getElementById('cem-map').addEventListener('contextmenu', function(event){
     event.preventDefault();
+    map.closePopup();
     let lat_txt = document.getElementById('lat-txt');
     let lng_txt = document.getElementById('lng-txt');
 
@@ -91,14 +92,27 @@ document.getElementById('cem-map').addEventListener('contextmenu', function(even
     lng_txt.value = coord.longitude;
 });
 
+map.on('popupopen', function(){
+    let container = document.getElementById('grave-information');
+    container.style.display = 'block';
+    clearGraveForm(false);
+});
+
+map.on('popupclose', function() {
+    let container = document.getElementById('grave-information');
+    container.style.display = 'none';
+});
+
 function mapInit(){
     L.tileLayer('https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=8QM9cnYU5pgNqcMDeMwN', {
         attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
     }).addTo(map);
 }
 
-function clearGraveForm(){
-    grave_form.style.animation = "hide_form 0.8s";
+function clearGraveForm(bool){
+    if(bool){
+        grave_form.style.animation = "hide_form 0.8s";
+    }
     grave_form.style.position = "fixed";
     grave_form.style.right = "-300px";
     map.removeLayer(marker);
@@ -169,15 +183,15 @@ function loadGravePopup(grave_id, description, status, price, row, type){
 
     return '<div id="popup-grave" class="card" style="width: 19rem;">' +
     '<div class="card-header text-center">' +
-        '<p class="card-title">Grave: #'+ grave_id +'</p>' +
+        '<p class="card-title"><strong>Grave: </strong>#'+ grave_id +'</p>' +
     '</div>' +
     '<div class="card-body text-center row">' +
         '<div class="col text-right">' +
-            '<p class="card-text">Description: </p>' +
-            '<p class="card-text">Status: </p>' +
-            '<p class="card-text">Type: </p>' +
-            '<p class="card-text">Price: </p>' +
-            '<p class="card-text">Row: </p>' +
+            '<p class="card-text"><strong>Description: </strong></p>' +
+            '<p class="card-text"><strong>Status: </strong></p>' +
+            '<p class="card-text"><strong>Type: </strong></p>' +
+            '<p class="card-text"><strong>Price: </strong></p>' +
+            '<p class="card-text"><strong>Row: </strong></p>' +
         '</div>' +
         '<div class="col text-left">' +
             '<p class="card-text">'+ description +'</p>' +
@@ -187,9 +201,7 @@ function loadGravePopup(grave_id, description, status, price, row, type){
             '<p class="card-text">'+ row +'</p>' +
         '</div>' +
     '</div>' +
-    '<div class="card-footer text-center">' +
-        '<button class="btn btn-outline-primary btn-sm" title="Insert a deceased record to this specific location." onclick="document.querySelector(\'#popup-deceased\').style.display=\'block\';document.querySelector(\'#popup-grave\').style.display=\'none\';"><i class="uil uil-plus-circle"></i> Deceased</button>' +
-        '<button class="btn btn-outline-success btn-sm" title="Insert a contract record for this specific location." onclick="document.querySelector(\'#popup-contract\').style.display=\'block\';document.querySelector(\'#popup-grave\').style.display=\'none\';"><i class="uil uil-plus-circle"></i> Contract</button>' +
+    '<div class="card-footer text-right">' +
         '<button class="btn btn-outline-danger btn-sm" title="Delete grave location." onclick="deleteGrave(\''+ grave_id +'\');"><i class="uil uil-trash"></i> Remove</button>' +
     '</div>' +
 '</div>';
@@ -241,3 +253,4 @@ function deleteGrave(grave_id){
         });
     }
 }
+
