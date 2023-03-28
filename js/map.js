@@ -113,9 +113,11 @@ function clearGraveForm(bool){
     if(bool){
         grave_form.style.animation = "hide_form 0.8s";
     }
+    if(marker != null){
+        map.removeLayer(marker);
+    }
     grave_form.style.position = "fixed";
     grave_form.style.right = "-300px";
-    map.removeLayer(marker);
     document.getElementById('lat-txt').value = "";
     document.getElementById('lng-txt').value = "";
     document.getElementById('grave-type').value = "";
@@ -203,6 +205,7 @@ function loadGravePopup(grave_id, description, status, price, row, type){
     '</div>' +
     '<div class="card-footer text-right">' +
         '<button class="btn btn-outline-danger btn-sm" title="Delete grave location." onclick="deleteGrave(\''+ grave_id +'\');"><i class="uil uil-trash"></i> Remove</button>' +
+        '<br><small>Click, if you wish to delete this pinned location.</small>' + 
     '</div>' +
 '</div>';
 }
