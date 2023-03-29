@@ -4,6 +4,9 @@ const btn_save_location = document.getElementById('btn-save-coord');
 const grave_form = document.getElementById('grave-form');
 const grave_type = document.getElementById('grave-type');
 const cem_id = getSessionAdmin().cemetery_id;
+const burialType = document.getElementById('burial-type');
+const insert_deceased = document.getElementById('create-deceased');
+const insert_contact = document.getElementById('insert-contact');
 
 var flag1 = false;
 var lat;
@@ -17,8 +20,9 @@ var graveMarker = L.layerGroup().addTo(map);
 
 mapInit();
 displayMap();
-loadBurialTypes();
+loadGraveTypes();
 loadMarkers();
+loadBurialTypes();
 
 btn_menu.addEventListener('click', function(){
     let cem_map = document.getElementById('cem-map');
@@ -92,11 +96,6 @@ document.getElementById('cem-map').addEventListener('contextmenu', function(even
     lng_txt.value = coord.longitude;
 });
 
-map.on('popupopen', function(){
-    let container = document.getElementById('grave-information');
-    container.style.display = 'block';
-    clearGraveForm(false);
-});
 
 map.on('popupclose', function() {
     let container = document.getElementById('grave-information');
@@ -168,6 +167,7 @@ function focusOrigin(){
     });
 }
 
+
 //.bindPopup() <-- in bind pop up, create a function that receives the grave_id, that returns a string of html content containing grave and deceased info. If we want to load all the markers to the map.
 function loadGravePopup(grave_id, description, status, price, row, type){
     // query to db based from id
@@ -225,14 +225,27 @@ function loadMarkers(){
             L.marker([data.items[i].latitude, data.items[i].longitude], {
                 icon: customMarker,
                 title: 'location: ' + data.items[i].location_description,
-            }).addTo(graveMarker).bindPopup(loadGravePopup(data.items[i].id, data.items[i].location_description, data.items[i].status, data.items[i].price, data.items[i].column, data.items[i].grave_type));
+                name: data.items[i].id
+            }).addTo(graveMarker)
+            .bindPopup(loadGravePopup(data.items[i].id, data.items[i].location_description, data.items[i].status, data.items[i].price, data.items[i].column, data.items[i].grave_type))
+            .on('click', function(){
+                console.log('id: ' + data.items[i].id);
+                let container = document.getElementById('grave-information');
+                container.style.display = 'block';
+                clearGraveForm(false);
+
+                document.getElementById('open-deceased-modal').addEventListener('click', async () => {
+                    document.getElementById('d-fname').value = data.items[i].id;
+                });
+            });
         }
     }).catch( function(e){
         console.log(e.message);
     });
 }
 
-function loadBurialTypes(){
+
+function loadGraveTypes(){
     search('grave_type', 1, 100, { id: '' }, '+created,id', '')
     .then( function(data){
         grave_type.innerHTML = "<option value='' disabled selected>Choose type</option>";
@@ -257,3 +270,81 @@ function deleteGrave(grave_id){
     }
 }
 
+
+// Insertion for deceased Record
+function loadBurialTypes(){
+    search('burial_type', 1, 100, { id: '' }, '+created,id', '')
+    .then( function(data){
+        burialType.innerHTML = "<option value='' disabled selected>Choose type</option>";
+        for(let i = 0; i < data.items.length; i++){
+            burialType.innerHTML += "<option value="+ data.items[i].id +">"+ data.items[i].type +"</option>";
+        }
+    }).catch( function(err){
+        console.log(err.message);
+    });
+}
+
+insert_deceased.addEventListener('click', function(){
+    let form = new FormData();
+    form.append('firstname', document.getElementById('d-fname').value);
+    form.append('lastname', document.getElementById('d-lname').value);
+    form.append('mi', document.getElementById('d-mi').value);
+    form.append('cause_of_death', document.getElementById('cause-of-death').value);
+    form.append('memorial', document.getElementById('memorial').value);
+    form.append('date_death', document.getElementById('dod').value);
+    form.append('date_burial', document.getElementById('d-burial').value);
+    form.append('date_birth', document.getElementById('dob').value);
+    form.append('burial_type_id', document.getElementById('burial-type').value);
+    form.append('gender', document.getElementById('gender').value);
+    form.append('image', document.getElementById('image-file').files[0]);
+
+    create('deceased', form).then( function(data){
+        alert('Inserted deceased record');
+        console.log(data.id);
+        $('#add-deceased').modal('hide');
+        clearInput(['d-fname', 'd-lname', 'd-mi', 'cause-of-death', 'memorial', 'dod', 'd-burial', 'dob', 'burial-type', 'gender', 'image-file']);
+
+        //reload the dispay for deceased
+    }).catch( function(err){
+        console.log(err);
+    });
+
+});
+
+function clearInput(id = []){
+    for(let i = 0; i < id.length; i++){
+        document.getElementById(id[i]).value = "";
+    }
+}
+
+function updateGrave(input = {}, collectionName){
+    update(collectionName, input).then( function(){
+
+    }).catch( function(e){
+        console.log(e.message);
+    });
+}
+// END: Insertion for deceased Record
+
+
+// Insertion for Contract record
+insert_contact.addEventListener('click', function(){
+    let contact = {
+        "fname": document.getElementById('c-fname').value,
+        "lname": document.getElementById('c-lname').value,
+        "mi": document.getElementById('c-mi').value, 
+        "address": document.getElementById('c-address').value,
+        "tel": document.getElementById('c-tel').value
+    };
+
+    create('contract', contact).then( function(){
+        console.log('Inserted a contact record');
+        alert('Inserted a contact record');
+        $("#add-contact").modal('hide');
+        clearInput(['c-fname', 'c-lname', 'c-mi', 'c-address', 'c-tel']);
+
+        //reload the display for contract
+    }).catch( function(err){
+        console.log(err.message);
+    });
+});

@@ -1,6 +1,5 @@
 const filter_btn = document.getElementById('filter-btn');
 const contact_list = document.getElementById('contact-list');
-const insert_contact = document.getElementById('insert-contact');
 const btn_search_contact = document.getElementById('search-contact');
 const num_rows = document.getElementById('num-rows');
 
@@ -27,26 +26,6 @@ filter_btn.addEventListener('click', function(){
         return;
     }
     document.getElementById('filter-tab').style.display = 'block';
-});
-
-insert_contact.addEventListener('click', function(){
-    let contact = {
-        "fname": document.getElementById('c-fname').value,
-        "lname": document.getElementById('c-lname').value,
-        "mi": document.getElementById('c-mi').value, 
-        "address": document.getElementById('c-address').value,
-        "tel": document.getElementById('c-tel').value
-    };
-
-    create('contract', contact).then( function(){
-        console.log('Inserted a contact record');
-        alert('Inserted a contact record');
-        $("#add-contact").modal('hide');
-        loadContactRecords();
-        clearInput();
-    }).catch( function(err){
-        console.log(err.message);
-    });
 });
 
 btn_search_contact.addEventListener('click', function(){
@@ -103,14 +82,6 @@ function searchFieldHelper(field, input){
             break;
     }
     return obj;
-}
-
-function clearInput(){
-    document.getElementById('c-fname').value = "";
-    document.getElementById('c-lname').value = "";
-    document.getElementById('c-mi').value = ""; 
-    document.getElementById('c-address').value = "";
-    document.getElementById('c-tel').value = "";
 }
 
 function contractInfo(id){

@@ -1,9 +1,7 @@
 const deceasedList = document.getElementById('deceased-list');
 const filter_btn = document.getElementById('filter-btn');
-const insert_deceased = document.getElementById('create-deceased');
 const btn_search_deceased = document.getElementById('search-deceased');
 const burialType = document.getElementById('burial-type');
-const openModal = document.getElementById('open-modal');
 const num_rows = document.getElementById('num-rows');
 
 loadDeceasedRecords(10);
@@ -26,9 +24,6 @@ function loadList(data){
     }
 }
 
-openModal.addEventListener('click', function(){
-    loadBurialTypes();
-});
 
 filter_btn.addEventListener('click', function(){
     if(document.getElementById('filter-tab').style.display == 'block'){
@@ -38,30 +33,6 @@ filter_btn.addEventListener('click', function(){
     document.getElementById('filter-tab').style.display = 'block';
 });
 
-insert_deceased.addEventListener('click', function(){
-    let img = document.getElementById('image-file').value;
-    let deceased = {
-        "firstname": document.getElementById('d-fname').value,
-        "lastname":document.getElementById('d-lname').value,
-        "mi": document.getElementById('d-mi').value,
-        "cause_of_death": document.getElementById('cause-of-death').value,
-        "memorial": document.getElementById('memorial').value,
-        "date_death": document.getElementById('dod').value,
-        "date_burial": document.getElementById('d-burial').value,
-        "date_birth": document.getElementById('dob').value,
-        "burial_type_id": document.getElementById('burial-type').value
-    };
-
-    create('deceased', deceased).then( function(){
-        console.log('Record has been added');
-        alert('Inserted deceased record');
-        $('#add-deceased').modal('hide');
-        clearInput();
-        loadDeceasedRecords();
-    }).catch( function(err){
-        console.log(err);
-    });
-});
 
 btn_search_deceased.addEventListener('click', function(){
     let field = document.getElementById('search-type').value;
@@ -73,19 +44,6 @@ num_rows.addEventListener('input', function(){
     loadDeceasedRecords(document.getElementById('num-rows').value);
     document.getElementById('search-input').value = "";
 });
-
-function loadBurialTypes(){
-    search('burial_type', 1, 100, { id: '' }, '+created,id', '')
-    .then( function(data){
-        burialType.innerHTML = "<option value='' disabled selected>Choose type</option>";
-        for(let i = 0; i < data.items.length; i++){
-            burialType.innerHTML += "<option value="+ data.items[i].id +">"+ data.items[i].type +"</option>";
-        }
-        console.log(data.items);
-    }).catch( function(err){
-        console.log(err.message);
-    });
-}
 
 
 function loadDeceasedRecords(rows){
@@ -176,16 +134,5 @@ function getBurialType(burial_id){
     return type;
 }
 
-function clearInput(){
-    document.getElementById('d-fname').value = "";
-    document.getElementById('d-lname').value = "";
-    document.getElementById('d-mi').value = "";
-    document.getElementById('cause-of-death').value = "";
-    document.getElementById('memorial').value = "";
-    document.getElementById('dod').value = "";
-    document.getElementById('d-burial').value = "";
-    document.getElementById('dob').value = "";
-    document.getElementById('burial-type').value = "";
-}
 
 

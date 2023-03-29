@@ -1,7 +1,12 @@
 const inputID = ['firstname', 'lastname', 'mi', 'address', 'phone'];
 const update_btn = document.getElementById('update');
+const delete_btn = document.getElementById('delete-contract');
 
 loadInfo(getContractID());
+
+window.addEventListener('beforeunload', function(){
+    this.window.localStorage.removeItem('contract-id');
+});
 
 document.getElementById('edit').onclick = function() {
     for(let i = 0; i < inputID.length; i++){
@@ -34,6 +39,18 @@ update_btn.addEventListener('click', function(){
     });
 });
 
+delete_btn.addEventListener('click', function(){
+    if(confirm('Do you want to delete this record?')){
+        remove(CONTRACT, getContractID()).then( function(){
+            alert('Contract has been removed');
+            window.location.href = "../pages/adminContacts.html";
+            window.localStorage.removeItem('contract-id');
+        }).catch( function(e){
+            console.log(e.message);
+        });
+    }
+});
+
 function closeEditBTN(){
     for(let i = 0; i < inputID.length; i++){
         document.getElementById(inputID[i]).setAttribute('readonly', true);
@@ -44,17 +61,22 @@ function closeEditBTN(){
 }
 
 function loadInfo(input){
-    //console.log('contract_id: ' + id);
-    search(CONTRACT, 1, 1, { id: input }, '+created,id', '')
-    .then( function(data){
-        document.getElementById('firstname').value = data.items[0].fname;
-        document.getElementById('lastname').value = data.items[0].lname;
-        document.getElementById('mi').value = data.items[0].mi;
-        document.getElementById('address').value = data.items[0].address;
-        document.getElementById('phone').value = data.items[0].tel;
-    }).catch( function(e){
-        console.log(e.message);
-    });
+    if(input === null){
+        alert('Contract has been deleted.');
+        window.location.href = "adminContacts.html";
+        return;
+    }else{
+        search(CONTRACT, 1, 1, { id: input }, '+created,id', '')
+        .then( function(data){
+            document.getElementById('firstname').value = data.items[0].fname;
+            document.getElementById('lastname').value = data.items[0].lname;
+            document.getElementById('mi').value = data.items[0].mi;
+            document.getElementById('address').value = data.items[0].address;
+            document.getElementById('phone').value = data.items[0].tel;
+        }).catch( function(e){
+            console.log(e.message);
+        });
+    }
 }
 
 function getContractID(){

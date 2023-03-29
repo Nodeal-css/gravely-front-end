@@ -2,10 +2,15 @@
 const btn_update = document.getElementById('updateDisplay');
 const upload_pdf = document.getElementById('upload-pdf');
 const burial_type = document.getElementById('burial-type-input');
+const delete_btn = document.getElementById('delete-deceased');
 
 loadInfo(getDeceasedId());
 getDocuments(getDeceasedId());
 loadBurialTypes();
+
+window.addEventListener('beforeunload', function(){
+    this.window.localStorage.removeItem('deceased-id');
+});
 
 btn_update.addEventListener('click', function(){
     const person = {
@@ -72,28 +77,46 @@ upload_pdf.addEventListener('click', function(){
     })
 });
 
+delete_btn.addEventListener('click', function(){
+    if(confirm('Do you wish to remove this record?')){
+        remove(DECEASED, getDeceasedId()).then( function(){
+            alert('Record has been deleted.');
+            window.location.href = "../pages/adminDeceasedRecords.html";
+            window.localStorage.removeItem('deceased-id');
+        }).catch( function(e){
+            console.log(e.message);
+        });
+    }
+});
+
 function getDeceasedId(){
     const id = window.localStorage.getItem('deceased-id');
     return id;
 }
 
 function loadInfo(deceased_id){
-    search('deceased', 1, 1, { id: deceased_id }, '+created,id', 'burial_type_id')
-    .then( function(data){
-        //console.log(data);
-        document.getElementById('fNameInput').value = data.items[0].firstname;
-        document.getElementById('miInput').value = data.items[0].mi;
-        document.getElementById('lNameInput').value = data.items[0].lastname;
-        document.getElementById('birthInput').placeholder = data.items[0].date_birth;
-        // gender field
-        document.getElementById('deathInput').placeholder = data.items[0].date_death;
-        document.getElementById('burialInput').placeholder = data.items[0].date_burial;
-        document.getElementById('cDeathInput').value = data.items[0].cause_of_death;
-        document.getElementById('memorialInput').value = data.items[0].memorial;
-        document.getElementById('burial-type-input').value = data.items[0].burial_type_id;
-    }).catch( function(e){
-        console.log(e.message);
-    });
+    if(deceased_id === null){
+        alert('Deceased record has been deleted');
+        window.location.href = "../pages/adminDeceasedRecords.html";
+        return;
+    }else{
+        search('deceased', 1, 1, { id: deceased_id }, '+created,id', 'burial_type_id')
+        .then( function(data){
+            //console.log(data);
+            document.getElementById('fNameInput').value = data.items[0].firstname;
+            document.getElementById('miInput').value = data.items[0].mi;
+            document.getElementById('lNameInput').value = data.items[0].lastname;
+            document.getElementById('birthInput').placeholder = data.items[0].date_birth;
+            // gender field
+            document.getElementById('deathInput').placeholder = data.items[0].date_death;
+            document.getElementById('burialInput').placeholder = data.items[0].date_burial;
+            document.getElementById('cDeathInput').value = data.items[0].cause_of_death;
+            document.getElementById('memorialInput').value = data.items[0].memorial;
+            document.getElementById('burial-type-input').value = data.items[0].burial_type_id;
+        }).catch( function(e){
+            console.log(e.message);
+        });
+    }
 }
 
 function closeEdit(){
