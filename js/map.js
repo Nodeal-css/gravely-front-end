@@ -317,6 +317,8 @@ function clearInput(id = []){
     }
 }
 
+//We left from this part     |
+//                           V
 function updateGrave(input = {}, collectionName){
     update(collectionName, input).then( function(){
 
