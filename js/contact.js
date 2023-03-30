@@ -13,7 +13,7 @@ function loadList(data){
         '<td>'+ data[i].fname +'</td>' + // firstname
         '<td>'+ data[i].lname +'</td>' + // lastname
         '<td>'+ data[i].mi +'</td>' + // mi
-        '<td>'+ data[i].created +'</td>' + // date recorded
+        '<td>'+ data[i].created.substring(0, 10) +'</td>' + // date recorded
         '<td>'+ data[i].address +'</td>' + // address
         '<td>'+ data[i].tel +'</td>' + // tel
     '</tr>';

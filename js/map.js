@@ -8,6 +8,7 @@ const burialType = document.getElementById('burial-type');
 const insert_deceased = document.getElementById('create-deceased');
 const insert_contact = document.getElementById('insert-contact');
 
+
 var flag1 = false;
 var lat;
 var lng;
@@ -100,6 +101,7 @@ document.getElementById('cem-map').addEventListener('contextmenu', function(even
 map.on('popupclose', function() {
     let container = document.getElementById('grave-information');
     container.style.display = 'none';
+    loadMarkers();
 });
 
 function mapInit(){
@@ -224,18 +226,21 @@ function loadMarkers(){
         for(let i = 0; i < data.items.length; i++){
             L.marker([data.items[i].latitude, data.items[i].longitude], {
                 icon: customMarker,
-                title: 'location: ' + data.items[i].location_description,
-                name: data.items[i].id
+                title: 'location: ' + data.items[i].location_description
             }).addTo(graveMarker)
             .bindPopup(loadGravePopup(data.items[i].id, data.items[i].location_description, data.items[i].status, data.items[i].price, data.items[i].column, data.items[i].grave_type))
             .on('click', function(){
-                console.log('id: ' + data.items[i].id);
                 let container = document.getElementById('grave-information');
                 container.style.display = 'block';
                 clearGraveForm(false);
+                loadDeceased(data.items[i].deceased_id);
+                loadContract(data.items[i].contract_id);
 
-                document.getElementById('open-deceased-modal').addEventListener('click', async () => {
-                    document.getElementById('d-fname').value = data.items[i].id;
+                $('#open-deceased-modal').on('click', function() {
+                    window.localStorage.setItem('grave-id-insert', data.items[i].id);
+                });
+                $('#open-contract-modal').on('click', function() {
+                    window.localStorage.setItem('grave-id-insert', data.items[i].id);
                 });
             });
         }
@@ -243,6 +248,13 @@ function loadMarkers(){
         console.log(e.message);
     });
 }
+
+document.getElementById("close-deceased").addEventListener('click', function(){
+    window.localStorage.removeItem('grave-id-insert');
+});
+document.getElementById("close-contract").addEventListener('click', function(){
+    window.localStorage.removeItem('grave-id-insert');
+});
 
 
 function loadGraveTypes(){
@@ -304,12 +316,15 @@ insert_deceased.addEventListener('click', function(){
         $('#add-deceased').modal('hide');
         clearInput(['d-fname', 'd-lname', 'd-mi', 'cause-of-death', 'memorial', 'dod', 'd-burial', 'dob', 'burial-type', 'gender', 'image-file']);
 
-        //reload the dispay for deceased
+        updateGraveDeceased(window.localStorage.getItem('grave-id-insert'), data.id);
+        window.localStorage.removeItem('grave-id-insert');
+        loadDeceased(data.id);
     }).catch( function(err){
         console.log(err);
     });
 
 });
+
 
 function clearInput(id = []){
     for(let i = 0; i < id.length; i++){
@@ -317,14 +332,36 @@ function clearInput(id = []){
     }
 }
 
-//We left from this part     |
-//                           V
-function updateGrave(input = {}, collectionName){
-    update(collectionName, input).then( function(){
-
+function updateGraveDeceased(grave_id, input){
+    update(GRAVE, { id: grave_id, deceased_id: input}).then( function(){
+        console.log('Grave has included deceased: ' + input);
     }).catch( function(e){
         console.log(e.message);
     });
+}
+
+function loadDeceased(deceased_id){
+    //if deceased is found : turn of filter
+    if(deceased_id === ""){
+        document.getElementById('deceased-info').classList.add('blur-element');
+        document.getElementById('open-deceased-modal').style.display = 'block';
+        return;
+    }else{
+        document.getElementById('deceased-info').classList.remove('blur-element');
+        document.getElementById('open-deceased-modal').style.display = 'none';
+        search(DECEASED, 1, 1, { id: deceased_id }, '+created,id', 'burial_type_id')
+        .then( function(data){
+            let info = document.getElementById('deceased-info-details');
+            info.innerHTML = '<small>'+ data.items[0].firstname + ' ' + data.items[0].mi + ' ' + data.items[0].lastname +'</small>' +
+            '<br><br><small>'+ data.items[0].date_burial.substring(0, 10) +'</small>' +
+            '<br><small>'+ data.items[0].date_birth.substring(0, 10) +'</small>' +
+            '<br><small>'+ data.items[0].cause_of_death +'</small>' + 
+            '<br><small><a href="#" title="Open to view more details">more...</a></small>';
+            document.getElementById('memorial-message').innerHTML = 'Memorial: ' + data.items[0].memorial;
+        }).catch( function(e){
+            console.log(e.message);
+        }); 
+    }
 }
 // END: Insertion for deceased Record
 
@@ -339,14 +376,44 @@ insert_contact.addEventListener('click', function(){
         "tel": document.getElementById('c-tel').value
     };
 
-    create('contract', contact).then( function(){
+    create('contract', contact).then( function(data){
         console.log('Inserted a contact record');
         alert('Inserted a contact record');
         $("#add-contact").modal('hide');
         clearInput(['c-fname', 'c-lname', 'c-mi', 'c-address', 'c-tel']);
 
-        //reload the display for contract
+        updateGraveContract(window.localStorage.getItem('grave-id-insert'), data.id);
+        window.localStorage.removeItem('grave-id-insert');
+        loadContract(data.id);
     }).catch( function(err){
         console.log(err.message);
     });
 });
+
+function updateGraveContract(grave_id, input){
+    update(GRAVE, { id: grave_id, contract_id: input}).then( function(){
+        console.log('Grave has included contract: ' + input);
+    }).catch( function(e){
+        console.log(e.message);
+    });
+}
+
+function loadContract(contract_id){
+    if(contract_id === ""){
+        document.getElementById('contract-info').classList.add('blur-element');
+        document.getElementById('open-contract-modal').style.display = 'block';
+        return;
+    }else{
+        document.getElementById('contract-info').classList.remove('blur-element');
+        document.getElementById('open-contract-modal').style.display = 'none';
+        search(CONTRACT, 1, 1, { id: contract_id }, '+created,id', '')
+        .then( function(data){
+            let html = document.getElementById('contract-info-details');
+            html.innerHTML = '<small>'+ data.items[0].fname + ' ' + data.items[0].mi + ' ' + data.items[0].lname +'</small>' +
+            '<br><small>'+ data.items[0].address +'</small>' +
+            '<br><small>'+ data.items[0].tel +'</small>';
+        }).catch( function(e){
+            console.log(e.message);
+        });
+    }
+}

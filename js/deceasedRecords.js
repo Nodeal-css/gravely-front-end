@@ -9,14 +9,18 @@ loadDeceasedRecords(10);
 function loadList(data){
     deceasedList.innerHTML = "";
     for(let i = 0; i < data.length; i++){
+        let currDate = new Date();
+        let bdate = new Date(data[i].date_birth.substring(0, 10));
         deceasedList.innerHTML += '<tr onClick="deceasedInfo(\''+ data[i].id +'\');" style="cursor: pointer;">' +
         '<th scope="row">'+ (i + 1) +'.</th>' +
         '<td>'+ data[i].firstname +'</td>' +
         '<td>'+ data[i].lastname +'</td>' +
         '<td>'+ data[i].mi +'</td>' +
-        '<td>'+ data[i].date_birth +'</td>' +
-        '<td>'+ data[i].date_death +'</td>' +
-        '<td>'+ data[i].date_burial +'</td>' +
+        '<td>'+ data[i].gender +'</td>' +
+        '<td>'+ (currDate.getFullYear() - bdate.getFullYear()) +'</td>' +
+        '<td>'+ data[i].date_birth.substring(0, 10) +'</td>' +
+        '<td>'+ data[i].date_death.substring(0, 10) +'</td>' +
+        '<td>'+ data[i].date_burial.substring(0, 10) +'</td>' +
         '<td>'+ data[i].cause_of_death +'</td>' +
         '<td>'+ data[i].memorial +'</td>' +
         '<td>'+ getBurialType(data[i].burial_type_id) +'</td>' +

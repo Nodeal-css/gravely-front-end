@@ -174,15 +174,16 @@
                 <div class="card-header">
                     <strong>Deceased</strong>
                 </div>
-                <div class="blur-element" id="deceased-info">
-                    Memorial:
+                <div id="deceased-info">
+                    <div class="text-center" id="memorial-message">
+                        Memorial:
+                    </div>
                     <div class="card-body row">
                         <div class="col-6 text-right">
                             <small>name: </small><br><br>
                             <small>date of bural: </small><br>
                             <small>birth date: </small><br>
                             <small>cause of death: </small> <br>
-                            <small><a href="#" title="Open to view more details">more...</a></small>
                         </div>
                         <div class="col-6 text-left" id="deceased-info-details">
                             <small>Garry M. Shellbef</small> <br>
@@ -202,7 +203,7 @@
                 <div class="card-header">
                     <strong class="card-title">Contract person</strong>
                 </div>
-                <div class="blur-element" id="contract-info">
+                <div id="contract-info">
                     <div class="card-body row">
                         <div class="col text-right">
                             <small>Name: </small><br>
@@ -220,7 +221,7 @@
                         <button class="btn btn-sm btn-danger" title="Click, if you want to remove this information">Remove</button>
                     </div>
                 </div>
-                    <button class="btn btn-primary btn-md centered-button" data-toggle="modal" data-target="#add-contact"><i class="uil uil-plus-circle"></i> Contracts</button>
+                    <button id="open-contract-modal" class="btn btn-primary btn-md centered-button" data-toggle="modal" data-target="#add-contact"><i class="uil uil-plus-circle"></i> Contracts</button>
             </div>
         </div>
         <!-- End of information about deceased and contracts -->
@@ -242,14 +243,11 @@
 
 
 <!-- Modal for inserting deceased record -->
-<div class="modal fade" tabindex="-1" role="dialog" id="add-deceased">
+<div class="modal fade" tabindex="-1" role="dialog" id="add-deceased" data-backdrop="static">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title"><i class="uil uil-plus-circle mr-2" style="color: rgb(220, 108, 75);"></i>Deceased record</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
         </div>
         <div class="modal-body">
             <div class="form-group text-center shadow mx-5">
@@ -312,7 +310,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" id="create-deceased">Save</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" id="close-deceased" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
@@ -320,14 +318,12 @@
   <!-- End of modal -->
 
   <!-- Start of modal for inserting a Contract record to a location -->
-      <div class="modal fade" tabindex="-1" role="dialog" id="add-contact">
+      <div class="modal fade" tabindex="-1" role="dialog" id="add-contact" data-backdrop="static">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title"><i class="uil uil-plus-circle mr-2" style="color: rgb(220, 108, 75);"></i>Contact</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+
             </div>
             <div class="modal-body">
               <div>
@@ -356,7 +352,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-primary" id="insert-contact">Save</button>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" id="close-contract" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
           </div>
         </div>
