@@ -29,7 +29,12 @@
   <main>
         <div class="bg-image pt-5" style="height: 25rem;background-image: url('../assets/body.png');background-size: cover; background-repeat: no-repeat; background-position: center center; ">
             <div style="width: 65%; margin: auto; color: white;">
-                <h3 class="text-center">'St. Martha Cemetery'</h3>
+                <h3 class="text-center">
+                    <select name="" id="cemetery" class="form-control" style="width: 50%; margin: auto;">
+                        <option value="" selected disabled>Choose Cemetery</option>
+
+                    </select>
+                </h3>
                 <p class="text-center">Find deceased record</p>
                 <div class="row bg-white">
                     <div class="col" style="padding-inline: 0;">
@@ -67,7 +72,7 @@
             </div>
             <div class="col-6">
                 <div style="overflow: auto;">
-                    <table class="table table-responsive table-borderless" style="width: 1200px;">
+                    <table class="table table-responsive table-borderless" style="width: 1200px;max-height: 20rem;">
                         <thead>
                             <tr class="bg-light">
                                 <th scope="col" width="5%">no.</th>

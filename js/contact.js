@@ -1,21 +1,23 @@
 const filter_btn = document.getElementById('filter-btn');
 const contact_list = document.getElementById('contact-list');
 const btn_search_contact = document.getElementById('search-contact');
-const num_rows = document.getElementById('num-rows');
+const next_page = document.getElementById('page+');
+const prev_page = document.getElementById('page-');
+var page = 1;
 
-loadContactRecords(10);
+searchContactRecords("fname", " ", page);
 
 function loadList(data){
     contact_list.innerHTML = "";
-    for(let i = 0; i < data.length; i++){
-        contact_list.innerHTML += '<tr style="cursor: pointer;" onclick="contractInfo(\''+ data[i].id +'\');">' +
+    for(let i = 0; i < Object.keys(data).length; i++){
+        contact_list.innerHTML += '<tr style="cursor: pointer;" onclick="contractInfo(\''+ data[i]['id'] +'\');">' +
         '<th scope="row">'+ (i + 1) +'.</th>' +
-        '<td>'+ data[i].fname +'</td>' + // firstname
-        '<td>'+ data[i].lname +'</td>' + // lastname
-        '<td>'+ data[i].mi +'</td>' + // mi
-        '<td>'+ data[i].created.substring(0, 10) +'</td>' + // date recorded
-        '<td>'+ data[i].address +'</td>' + // address
-        '<td>'+ data[i].tel +'</td>' + // tel
+        '<td>'+ data[i]['fname'] +'</td>' + // firstname
+        '<td>'+ data[i]['lname'] +'</td>' + // lastname
+        '<td>'+ data[i]['mi'] +'</td>' + // mi
+        '<td>'+ data[i]['created'].substring(0, 10) +'</td>' + // date recorded
+        '<td>'+ data[i]['address'] +'</td>' + // address
+        '<td>'+ data[i]['tel'] +'</td>' + // tel
     '</tr>';
     }
 }
@@ -29,33 +31,63 @@ filter_btn.addEventListener('click', function(){
 });
 
 btn_search_contact.addEventListener('click', function(){
-    let type = document.getElementById('search-type').value;
+    page = 1;
+    getFindInputs(page);
+    document.getElementById('page-list').innerHTML = "Page " + page;
+});
+
+next_page.addEventListener('click', function(){
+    page++;
+    getFindInputs(page);
+    document.getElementById('page-list').innerHTML = "Page " + page;
+});
+prev_page.addEventListener('click', function(){
+    if(page != 1){
+        page--;
+    }
+    getFindInputs(page);
+    document.getElementById('page-list').innerHTML = "Page " + page;
+});
+
+function getFindInputs(currpage){
+    let field = document.getElementById('search-type').value;
     let input = document.getElementById('search-input').value;
-    searchContactRecords(type, input);
-});
-
-num_rows.addEventListener('input', function(){
-    loadContactRecords(document.getElementById('num-rows').value);
-    document.getElementById('search-input').value = "";
-});
-
-function loadContactRecords(rows){
-    search('contract', 1, rows, { id: '' }, '+created,id', '')
-    .then( function(data){
-        loadList(data.items);
-    }).catch( function(e){
-        console.log(e.message);
-    })
+    searchContactRecords(field, input, currpage);
 }
 
-function searchContactRecords(field, input){
-    search('contract', 1, 100, searchFieldHelper(field, input), '+created,' + field, '')
-    .then( function(data){
-        loadList(data.items);
-        document.getElementById('num-rows').value = '100';
+function searchContactRecords(field, input, currpage){
+    Promise.all([
+        search('grave', 1, 1500, { cemetery_id: getSessionAdmin().cemetery_id }, '+created,cemetery_id'),
+        search('contract', currpage, 50, searchFieldHelper(field, input), '+created,' + field, '')
+    ]).then( function(result){
+        const gravedata = new Set(convertArray(result[0], false));
+        const contractdata = new Set(convertArray(result[1], true));
+        const contract = result[1];
+        const common = {};
+        var x = 0;
+        for(const item of contractdata){
+            if(gravedata.has(item)){
+                common[x] = contract.items[x];
+            }
+            x++;
+        }
+        //console.log(common);
+        loadList(common);
     }).catch( function(e){
         console.log(e.message);
     });
+}
+
+function convertArray(arr, flag){
+    var res = [];
+    for(let i = 0; i < arr.items.length; i++){
+        if(flag){
+            res[i] = arr.items[i].id;
+            continue;
+        }
+        res[i] = arr.items[i].contract_id;
+    }
+    return res;
 }
 
 //switch case function to specify the field of searching
