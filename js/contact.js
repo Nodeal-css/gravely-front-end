@@ -5,7 +5,7 @@ const next_page = document.getElementById('page+');
 const prev_page = document.getElementById('page-');
 var page = 1;
 
-searchContactRecords("fname", " ", page);
+searchContactRecords("id", " ", page);
 
 function loadList(data){
     contact_list.innerHTML = "";
@@ -67,7 +67,7 @@ function searchContactRecords(field, input, currpage){
         var x = 0;
         for(const item of contractdata){
             if(gravedata.has(item)){
-                common[x] = contract.items[x];
+                common[Object.keys(common).length] = contract.items[x];
             }
             x++;
         }

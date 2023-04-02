@@ -4,9 +4,11 @@ const btn_search_deceased = document.getElementById('search-deceased');
 const burialType = document.getElementById('burial-type');
 const next_page = document.getElementById('page+');
 const prev_page = document.getElementById('page-');
+var filterField = "burial_type_id";
+var filterInput = ' ';
 var page = 1;
 
-searchDeceasedRecords("firstname", " ", page);
+searchDeceasedRecords("firstname", " ", page, "burial_type_id", ' ');
 
 function loadList(data){
     deceasedList.innerHTML = "";
@@ -29,6 +31,7 @@ function loadList(data){
         '</tr>';
     }
 }
+
 
 
 filter_btn.addEventListener('click', function(){
@@ -62,7 +65,7 @@ prev_page.addEventListener('click', function(){
 function getFindInputs(currpage){
     let field = document.getElementById('search-type').value;
     let input = document.getElementById('search-input').value;
-    searchDeceasedRecords(field, input, currpage);
+    searchDeceasedRecords(field, input, currpage, filterField, filterInput);
 }
 /*
 function loadDeceasedRecords(rows){
@@ -76,11 +79,13 @@ function loadDeceasedRecords(rows){
 
 
 //get parameters such as search type, and input
-function searchDeceasedRecords(search_field, search_input, curr_page){
+function searchDeceasedRecords(search_field, search_input, curr_page, searchFieldFilter, searchInputFilter){
     //console.log(searchFieldHelper(search_field, search_input));
+    const input1 = searchFieldHelper(search_field, search_input);
+    const input2 = searchFieldHelper(searchFieldFilter, searchInputFilter);
     Promise.all([
         search('grave', 1, 1500, { cemetery_id: getSessionAdmin().cemetery_id }, '+created,cemetery_id'),
-        search('deceased', curr_page, 50, searchFieldHelper(search_field, search_input), '+created,'+ search_field, 'burial_type_id')
+        search('deceased', curr_page, 50, {...input1, ...input2}, '+created,'+ search_field + ','+ searchFieldFilter, 'burial_type_id')
     ]).then( function(result){
         const arrset1 = new Set(convertArray(result[0], false));
         const arrset2 = new Set(convertArray(result[1], true));
@@ -89,7 +94,7 @@ function searchDeceasedRecords(search_field, search_input, curr_page){
         let x = 0;
         for(const item of arrset2){
             if(arrset1.has(item)){
-                common[x] = deceased.items[x]; 
+                common[Object.keys(common).length] = deceased.items[x]; 
             }
             x++;
         }
@@ -138,6 +143,15 @@ function searchFieldHelper(field, input){
         case 'date_burial':
             obj = { date_burial: input};
             break;
+        case 'cause_of_death':
+            obj = { cause_of_death: input };
+            break;
+        case 'burial_type_id':
+            obj = { burial_type_id: input };
+            break;
+        case 'gender':
+            obj = { gender: input };
+            break;
         default:
             obj = { firstname: input};
             break;
@@ -151,6 +165,8 @@ function deceasedInfo(id){
     window.location.href = "../pages/adminDeceasedInfo.html";
 }
 
+
+
 function getBurialType(burial_id){
     let type = "";
     switch(burial_id){
@@ -163,18 +179,19 @@ function getBurialType(burial_id){
         case 'yfr3d0hrq4cr7np':
             type = "Cremation";
             break;
-        case '78wkk9veroh5ghi':
-            type = "Inhumation";
+        case '2bm4m8nfsdjn8dl':
+            type = "Natural Burial";
             break;
-        case '05yv7yvw72m6i76':
-            type = "Mummification";
-            break;
-        case 'qtribu329jeeom9':
-            type = "Mass burial";
+        case 'jrwvfbropifz3n2':
+            type = "Muslim Burial";
             break;
     }
     return type;
 }
+
+
+
+
 
 
 

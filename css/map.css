@@ -56,6 +56,12 @@ th,td {
     transform: translate(-50%, -50%);
 }
 
+#legend-btn{
+    right: 0;
+    position: absolute;
+    z-index: 601;
+}
+
 @keyframes show_form {
     0% {right: -300px;}
     100% {right: 0px;}

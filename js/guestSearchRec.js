@@ -50,6 +50,7 @@ function loadList(data){
     }
 }
 
+// undefined [' date_birth'] <-----------------------------------------------
 function searchDeceasedRecords(input){
     Promise.all([
         search(GRAVE, 1, 1500, { cemetery_id: cemetery_option.value }, '+created,cemetery_id', 'cemetery_id'),

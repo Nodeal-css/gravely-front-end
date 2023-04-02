@@ -13,7 +13,7 @@
 <body>
 <!-- start of header -->
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(220, 108, 75); z-index: 2; width: 100%; position: fixed; top: 0;">
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(220, 108, 75); z-index: 601; width: 100%; position: fixed; top: 0;">
         <div class="menu-btn">
             <i id="menu" class="uil uil-bars" style="font-size: 30px;color: white;"></i>
         </div>
@@ -94,6 +94,7 @@
                         <option value="firstname" selected>First name</option>
                         <option value="lastname">Last name</option>
                         <option value="mi">Middle initial</option>
+                        <option value="cause_of_death">Cause of Death</option>
                         <option value="date_birth">Birthday</option>
                         <option value="date_death">Date of Death</option>
                         <option value="date_burial">Burial date</option>
@@ -111,17 +112,23 @@
                 </div>
                 <div class="card" id="filter-tab" style="display: none;">
                     <div class="card-body list-group list-group-flush">
-                        <a href="#" class="list-group-item list-group-item-action py-2 ripple">
-                             <input type="radio" id="filter-option0" class="form-check-input" name="filter" checked><label for="filter-option0">All</label>
+                        <a class="list-group-item list-group-item-action py-2 ripple" id="filter-all" onclick="classList.add('active');">
+                            <span>All</span>
                         </a>
-                        <a href="#" class="list-group-item list-group-item-action py-2 ripple">
-                            <input type="radio" id="filter-option1" class="form-check-input" name="filter"><label for="filter-option1">Not in Grave</label>
+                        <a class="list-group-item list-group-item-action py-2 ripple" id="filter-male" onclick="classList.add('active');">
+                            <span>Male</span>
                         </a>
-                        <a href="#" class="list-group-item list-group-item-action py-2 ripple">
-                            <input type="radio" id="filter-option2" class="form-check-input" name="filter"><label for="filter-option2">Exceed 5 years</label>
+                        <a class="list-group-item list-group-item-action py-2 ripple" id="filter-female" onclick="classList.add('active');">
+                            <span>Female</span>
                         </a>
-                        <a href="#" class="list-group-item list-group-item-action py-2 ripple">
-                            <input type="radio" id="filter-option3" class="form-check-input" name="filter"><label for="filter-option3">Latest</label>
+                        <a class="list-group-item list-group-item-action py-2 ripple" id="filter-burial-date" onclick="classList.add('active');">
+                            <span>Burial date <i class="uil uil-arrow-up"></i></span>
+                        </a>
+                        <a class="list-group-item list-group-item-action py-2 ripple" id="filter-above-ground" onclick="classList.add('active');">
+                            <span>Above Ground</span>
+                        </a>
+                        <a class="list-group-item list-group-item-action py-2 ripple" id="filter-in-ground" onclick="classList.add('active');">
+                            <span>In Ground</span>
                         </a>
                     </div>
                 </div>
@@ -143,7 +150,7 @@
                         <th scope="col" width="10%">Burial date</th>
                         <th scope="col" width="15%">Cause of Death</th>
                         <th scope="col" width="15%">Memorial</th>
-                        <th scope="col" width="15%">Grave type</th>
+                        <th scope="col" width="15%">Burial type</th>
                     </tr>
                 </thead>
                 <tbody id="deceased-list">
@@ -178,6 +185,7 @@
     <script type="text/javascript" src="../js/lib.js"></script>
     <script type="text/javascript" src="../js/navigation.js"></script>
     <script type="text/javascript" src="../js/deceasedRecords.js"></script>
+    <script type="text/javascript" src="../js/filter.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
