@@ -90,12 +90,12 @@
         <div class="card" id="legend" style="position: absolute; z-index: 599; width: 100%; right: 0; display: none;">
             <div class="card-body">
                 <div class="text-right">
-                  <i class="uil uil-times-circle" title="Close map legend" style="font-size: 19px; color: rgb(220, 108, 75);" onclick="document.getElementById('legend').style.display='none';document.getElementById('legend-btn').style.display='block';"></i>
+                  <i class="uil uil-times-circle" title="Close map legend" style="cursor: pointer;font-size: 19px; color: rgb(220, 108, 75);" onclick="document.getElementById('legend').style.display='none';document.getElementById('legend-btn').style.display='block';"></i>
                 </div>
                 <div style="float: right; width: 55rem;">
                     <div class="row">
-                      <div class="col"><i class="uil uil-map-marker" style="color: rgb(25, 36, 196);"></i><small>Vacant</small></div>
-                      <div class="col"><i class="uil uil-map-marker" style="color: rgb(97, 0, 0);"></i><small>Occupied</small></div>
+                      <div class="col"><i class="uil uil-map-marker" style="color: rgb(172, 255, 122);"></i><small>Vacant</small></div>
+                      <div class="col"><i class="uil uil-map-marker" style="color: rgb(244, 138, 138);"></i><small>Occupied</small></div>
                         <div class="col"><i class="uil uil-map-marker" style="color: rgb(25, 130, 35);"></i><small>Mausoleum</small></div>
                         <div class="col"><i class="uil uil-map-marker" style="color: rgb(96, 12, 175);"></i><small>Crypt</small></div>
                         <div class="col"><i class="uil uil-map-marker" style="color: rgb(231, 119, 28);"></i><small>Burial Vault</small></div>
@@ -151,7 +151,7 @@
               </div>
             </div>
             <div style="float: right;">
-                  <small>Update cemetery address  |  View graves by status</small>
+                  <small><a href="#">Update cemetery address</a>  |  <a href="#" id="view-markers-status">View graves by status</a></small>
             </div>
         </div>
         <!-- End of properties for map-->
@@ -182,8 +182,7 @@
                         </div>
                     </div>
                     <div class="card-footer text-center">
-                        <button class="btn btn-sm btn-danger" title="Click, if you wish to remove deceased record to this specific location.">Remove</button>
-                        <button class="btn btn-sm btn-warning" title="Click, if you wish to transfer this record to other location.">Transfer</button>
+                        
                     </div>
                 </div>
                     <button id="open-deceased-modal" class="btn btn-primary btn-md centered-button" title="Add a deceased record from this location." data-toggle="modal" data-target="#add-deceased"><i class="uil uil-plus-circle"></i> Deceased</button>
@@ -198,7 +197,7 @@
                             <small>Name: </small><br><br>
                             <small>Address: </small><br><br>
                             <small>Phone: </small><br>
-                            <small><a href="#" title="Click, to view more contract information.">more...</a></small>
+                            
                         </div>
                         <div class="col text-left" id="contract-info-details">
                             <small>Greg P. Smith:</small> <br>
@@ -207,7 +206,7 @@
                         </div>
                     </div>
                     <div class="card-footer text-center">
-                        <button class="btn btn-sm btn-danger" title="Click, if you want to remove this information">Remove</button>
+                        
                     </div>
                 </div>
                     <button id="open-contract-modal" class="btn btn-primary btn-md centered-button" data-toggle="modal" data-target="#add-contact"><i class="uil uil-plus-circle"></i> Contracts</button>
@@ -347,6 +346,29 @@
         </div>
       </div>
 <!-- End of modal: inserting contacts -->
+
+<!-- Start modal for changing grave status -->
+    <div class="modal fade" tabindex="-1" id="modal-change-status" role="dialog" data-backdrop="static">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">Change Status</div>
+            <div class="modal-body">
+                <label for="change-status">Status:</label>
+                <select name="" id="change-status" class="form-control">
+                    <option value="Vacant">Vacant</option>
+                    <option value="Occupied">Occupied</option>
+                    <option value="Not available">Not available</option>
+                    <option value="Under repair">Under repair</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-md" id="save-status">Save</button>
+                <button class="btn btn-danger btn-md" id="close-modal-status" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+      </div>
+    </div>
+<!-- End of modal for changing grave status -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pocketbase/0.10.1/pocketbase.umd.min.js" integrity="sha512-5fhlKWYvJkEBjEmVznt+oi09HehBG8AhveES3kSosa9VEKnOPJfMWV7cl+e5zAc0Tkn10w+CSfi4lrXcDWc4TQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="text/javascript" src="../js/lib.js"></script>

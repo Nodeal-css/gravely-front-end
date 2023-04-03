@@ -3,10 +3,12 @@ const btn_update = document.getElementById('updateDisplay');
 const upload_pdf = document.getElementById('upload-pdf');
 const burial_type = document.getElementById('burial-type-input');
 const delete_btn = document.getElementById('delete-deceased');
+const locate = document.getElementById('locate');
 
+loadBurialTypes();
 loadInfo(getDeceasedId());
 getDocuments(getDeceasedId());
-loadBurialTypes();
+
 
 window.addEventListener('beforeunload', function(){
     this.window.localStorage.removeItem('deceased-id');
@@ -90,6 +92,16 @@ delete_btn.addEventListener('click', function(){
     }
 });
 
+locate.addEventListener('click', function(){
+    search(GRAVE, 1, 1, { deceased_id: getDeceasedId() }, '+created,deceased_id', '')
+    .then( function(data){
+        window.localStorage.setItem('grave-id-search', data.items[0].id);
+        location.href = '../pages/AdminCemeteryMap.html';
+    }).catch( function(e){
+        console.log(e.message);
+    });
+});
+
 function getDeceasedId(){
     const id = window.localStorage.getItem('deceased-id');
     return id;
@@ -97,7 +109,7 @@ function getDeceasedId(){
 
 function loadInfo(deceased_id){
     if(deceased_id === null){
-        alert('Deceased record has been deleted');
+        alert('Deceased Info not found, returning to list page.');
         window.location.href = "../pages/adminDeceasedRecords.html";
         return;
     }else{

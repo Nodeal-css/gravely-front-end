@@ -21,9 +21,24 @@ var graveMarker = L.layerGroup().addTo(map);
 
 mapInit();
 displayMap();
+checkSearchExist();
 loadGraveTypes();
-loadMarkers();
 loadBurialTypes();
+
+
+//Check if the user is searching a specific location from deceased info
+function checkSearchExist(){
+    const grave_id = localStorage.getItem('grave-id-search');
+    if(grave_id === null){
+        loadMarkers();
+    }else{
+        locateByGraveId(grave_id);
+    }
+}
+
+window.addEventListener('beforeunload', function(){
+    this.window.localStorage.removeItem('grave-id-search');
+});
 
 btn_menu.addEventListener('click', function(){
     let cem_map = document.getElementById('cem-map');
@@ -131,7 +146,7 @@ function clearGraveForm(bool){
 
 function displayMap(){
     var temp = 0;
-    search('map', 1, 100, { cemetery_id: cem_id }, '+created,cemetery_id', '')
+    search('map', 1, 1, { cemetery_id: cem_id }, '+created,cemetery_id', '')
     .then( function(data){
         temp = data.items.length;
         if(temp > 0){
@@ -197,7 +212,7 @@ function loadGravePopup(grave_id, description, status, price, row, type, decease
         '</div>' +
         '<div class="col text-left">' +
             '<p class="card-text">'+ description +'</p>' +
-            '<p class="card-text">'+ status +'</p>' +
+            '<p class="card-text">'+ status +' <button data-toggle="modal" data-target="#modal-change-status" onclick="setGraveStatus(\''+ grave_id +'\', \''+ status +'\');">Change</button></p>' +
             '<p class="card-text">'+ namesOfGraves[type] +'</p>' +
             '<p class="card-text">₱ '+ price +'</p>' +
             '<p class="card-text">'+ row +'</p>' +
@@ -209,6 +224,27 @@ function loadGravePopup(grave_id, description, status, price, row, type, decease
     '</div>' +
 '</div>';
 }
+
+function setGraveStatus(id, status){
+    window.localStorage.setItem('grave-id-status', id);
+    document.getElementById('change-status').value = status;
+}
+
+document.getElementById('close-modal-status').addEventListener('click', function(){
+    window.localStorage.removeItem('grave-id-status');
+});
+
+document.getElementById('save-status').addEventListener('click', function(){
+    update(GRAVE, { id: localStorage.getItem('grave-id-status'), status: document.getElementById('change-status').value })
+    .then( function(){
+        $('#modal-change-status').modal('hide');
+        map.closePopup();
+        alert('Status has been changed.');
+        window.localStorage.removeItem('grave-id-status');
+    }).catch( function(e){
+        console.log(e.message);
+    });
+});
 
 function loadMarkers(){
     const temp = {
@@ -251,13 +287,13 @@ function loadMarkers(){
 
     };
 
-    search('grave', 1, 500, { cemetery_id: cem_id }, '+created,cemetery_id', '')
+    search('grave', 1, 1500, { cemetery_id: cem_id }, '+created,cemetery_id', '')
     .then( function(data){
         graveMarker.clearLayers();
         for(let i = 0; i < data.items.length; i++){
             L.marker([data.items[i].latitude, data.items[i].longitude], {
                 icon: L.icon(temp[data.items[i].grave_type]),
-                title: 'location: ' + data.items[i].location_description
+                title: 'Description: ' + data.items[i].location_description
             }).addTo(graveMarker)
             .bindPopup(loadGravePopup(data.items[i].id, data.items[i].location_description, data.items[i].status, data.items[i].price, data.items[i].column, data.items[i].grave_type, data.items[i].deceased_id, data.items[i].contract_id))
             .on('click', function(){
@@ -276,6 +312,40 @@ function loadMarkers(){
             });
         }
     }).catch( function(e){
+        console.log(e.message);
+    });
+}
+
+function locateByGraveId(graveID){
+    const iconPin = L.icon({
+        iconUrl: '../assets/find.png',
+        iconSize: [28, 40],
+        iconAnchor: [13, 39],
+        popupAnchor: [0, -20]
+    });
+
+    search(GRAVE, 1, 1, { id: graveID }, '+created,id', '')
+    .then(function(data){
+        graveMarker.clearLayers();
+        L.marker([data.items[0].latitude, data.items[0].longitude], {
+            icon: iconPin,
+            title: 'Description: ' + data.items[0].location_description
+        }).addTo(graveMarker)
+        .bindPopup(loadGravePopup(data.items[0].id, data.items[0].location_description, data.items[0].status, data.items[0].price, data.items[0].column, data.items[0].grave_type, data.items[0].deceased_id, data.items[0].contract_id))
+        .on('click', function(){
+            let container = document.getElementById('grave-information');
+            container.style.display = 'block';
+            loadDeceased(data.items[0].deceased_id);
+            loadContract(data.items[0].contract_id);
+
+            $('#open-deceased-modal').on('click', function() {
+                window.localStorage.setItem('grave-id-insert', data.items[i].id);
+            });
+            $('#open-contract-modal').on('click', function() {
+                window.localStorage.setItem('grave-id-insert', data.items[i].id);
+            });
+        });
+    }).catch(function(e){
         console.log(e.message);
     });
 }
@@ -389,13 +459,19 @@ function loadDeceased(deceased_id){
             '<br><br><small>'+ data.items[0].date_burial.substring(0, 10) +'</small>' +
             '<br><small>'+ data.items[0].date_birth.substring(0, 10) +'</small>' +
             '<br><small>'+ data.items[0].cause_of_death +'</small>' + 
-            '<br><small><a href="#" title="Open to view more details">more...</a></small>';
+            '<br><small><a href="#" onclick="openDeceasedInfo(\''+ deceased_id +'\');" title="Open to view more details">more...</a></small>';
             document.getElementById('memorial-message').innerHTML = 'Memorial: ' + data.items[0].memorial;
         }).catch( function(e){
             console.log(e.message);
         }); 
     }
 }
+
+function openDeceasedInfo(id){
+    window.localStorage.setItem('deceased-id', id);
+    location.href = "../pages/adminDeceasedInfo.html";
+}
+
 // END: Insertion for deceased Record
 
 
@@ -444,9 +520,15 @@ function loadContract(contract_id){
             let html = document.getElementById('contract-info-details');
             html.innerHTML = '<small>'+ data.items[0].fname + ' ' + data.items[0].mi + ' ' + data.items[0].lname +'</small>' +
             '<br><small>'+ data.items[0].address +'</small><br>' +
-            '<br><small>'+ data.items[0].tel +'</small>';
+            '<br><small>'+ data.items[0].tel +'</small>' + 
+            '<br><small><a href="#" onclick="openContractInfo(\''+ contract_id +'\');" title="Open to view more details">more...</a></small>';
         }).catch( function(e){
             console.log(e.message);
         });
     }
+}
+
+function openContractInfo(id){
+    window.localStorage.setItem('contract-id', id);
+    location.href = "../pages/adminContactInfo.html";
 }

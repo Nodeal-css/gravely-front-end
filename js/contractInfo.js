@@ -1,6 +1,7 @@
 const inputID = ['firstname', 'lastname', 'mi', 'address', 'phone'];
 const update_btn = document.getElementById('update');
 const delete_btn = document.getElementById('delete-contract');
+const locate = document.getElementById('locate');
 
 loadInfo(getContractID());
 
@@ -51,6 +52,16 @@ delete_btn.addEventListener('click', function(){
     }
 });
 
+locate.addEventListener('click', function(){
+    search(GRAVE, 1, 1, { contract_id: getContractID() }, '+created,contract_id', '')
+    .then( function(data){
+        window.localStorage.setItem('grave-id-search', data.items[0].id);
+        location.href = "../pages/AdminCemeteryMap.html";
+    }).catch( function(e){
+        console.log(e.message);
+    });
+});
+
 function closeEditBTN(){
     for(let i = 0; i < inputID.length; i++){
         document.getElementById(inputID[i]).setAttribute('readonly', true);
@@ -62,7 +73,7 @@ function closeEditBTN(){
 
 function loadInfo(input){
     if(input === null){
-        alert('Contract has been deleted.');
+        alert('Contract not found, returning to list of contracts.');
         window.location.href = "adminContacts.html";
         return;
     }else{
