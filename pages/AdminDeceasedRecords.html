@@ -112,23 +112,35 @@
                 </div>
                 <div class="card" id="filter-tab" style="display: none;">
                     <div class="card-body list-group list-group-flush">
-                        <a class="list-group-item list-group-item-action py-2 ripple" id="filter-all" onclick="classList.add('active');">
+                        <a class="list-group-item list-group-item-action py-2 ripple" style="cursor: pointer;" id="filter-all" onclick="classList.add('active');">
                             <span>All</span>
                         </a>
-                        <a class="list-group-item list-group-item-action py-2 ripple" id="filter-male" onclick="classList.add('active');">
+                        <a class="list-group-item list-group-item-action py-2 ripple" style="cursor: pointer;" id="filter-male" onclick="classList.add('active');">
                             <span>Male</span>
                         </a>
-                        <a class="list-group-item list-group-item-action py-2 ripple" id="filter-female" onclick="classList.add('active');">
+                        <a class="list-group-item list-group-item-action py-2 ripple" style="cursor: pointer;" id="filter-female" onclick="classList.add('active');">
                             <span>Female</span>
                         </a>
-                        <a class="list-group-item list-group-item-action py-2 ripple" id="filter-burial-date" onclick="classList.add('active');">
+                        <a class="list-group-item list-group-item-action py-2 ripple" style="cursor: pointer;" id="filter-burial-date" onclick="classList.add('active');">
                             <span>Burial date <i class="uil uil-arrow-up"></i></span>
                         </a>
-                        <a class="list-group-item list-group-item-action py-2 ripple" id="filter-above-ground" onclick="classList.add('active');">
+                        <a class="list-group-item list-group-item-action py-2 ripple" style="cursor: pointer;" id="filter-above-ground" onclick="classList.add('active');">
                             <span>Above Ground</span>
                         </a>
-                        <a class="list-group-item list-group-item-action py-2 ripple" id="filter-in-ground" onclick="classList.add('active');">
+                        <a class="list-group-item list-group-item-action py-2 ripple" style="cursor: pointer;" id="filter-in-ground" onclick="classList.add('active');">
                             <span>In Ground</span>
+                        </a>
+                        <a class="list-group-item list-group-item-action py-2 ripple" style="cursor: pointer;" id="filter-cremation" onclick="classList.add('active');">
+                            <span>Cremation</span>
+                        </a>
+                        <a class="list-group-item list-group-item-action py-2 ripple" style="cursor: pointer;" id="filter-muslim-burial" onclick="classList.add('active');">
+                            <span>Muslim Burial</span>
+                        </a>
+                        <a class="list-group-item list-group-item-action py-2 ripple" style="cursor: pointer;" id="filter-natural-burial" onclick="classList.add('active');">
+                            <span>Natural Burial</span>
+                        </a>
+                        <a class="list-group-item list-group-item-action py-2 ripple" style="cursor: pointer;" id="filter-5-years" onclick="classList.add('active');">
+                            <span>+5 years</span>
                         </a>
                     </div>
                 </div>
@@ -162,7 +174,7 @@
         <div class="card mt-2">
             <div class="card-body" style="display: table;">
                 <div class="ml-3" style="float: left;">
-                    
+                    <span id="items-per-page">50 items</span>
                 </div>
                 <div style="float: right;">
                     <span id="page-list">Page 1</span><a id="page-" class="ml-4 mr-3" style="cursor: pointer;">< </a><a id="page+" style="cursor: pointer;"> ></a>

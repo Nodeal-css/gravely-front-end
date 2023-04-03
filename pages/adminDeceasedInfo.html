@@ -86,54 +86,58 @@
 
 <main id="main-content">
     <div class="contain">
-       <div class="info">
-         <div>
-          <img src="../assets/grave-logo.png" alt="grave img">
-         </div>
-         <div class ="info_detail">
-          <form> 
-            <div class="info1">
-              <label style="padding-right:7px;">First name:  </label>
-              <input id="fNameInput"type="text" readonly value="John" ><br>
-              <label style="padding-right:7px;">Last name:  </label>
-              <input id="lNameInput"type="text" readonly value="Newman" ><br>
-              <label>Middle initial:  </label>
-              <input id="miInput"type="text" readonly value="M." ><br>
-              <label style="padding-right:25px;">Birth date: </label>
-              <input id="birthInput" type="text"  readonly><br>
-              <label>Date of Death: </label>
-              <input id ="deathInput"type="text" readonly><br>
-             
-             </div> 
-             <div class="info2">
-              <label style="padding-right:15px;">Date of burial: </label>
-              <input id="burialInput" type="text" readonly><br>
-                <label >Cause of death: </label>
-                <input id="cDeathInput" type="text" readonly value="Heart attack"><br>
-                <label style="padding-right: 40px;">Memorial: </label>
-                <input id ="memorialInput" type="text"  readonly value="Rest in peace"><br>
-                <label style="padding-right:30px;">Burial type: </label>
-                <select id="burial-type-input" readonly>
-                  
-                </select><br>
-            </div>
-          
-            <div class="btns">
+      <div class="info">
+        <div>
+         <img id="deceased-img" src="../assets/grave-logo.png" alt="grave img" style="object-fit: none;">
+        </div>
+        <div class ="info_detail">
+         <form> 
+           <div class="info1">
+             <label style="padding-right:7px;">First name:  </label>
+             <input class="form-control" id="fNameInput"type="text" readonly value="John" >
+             <label style="padding-right:7px;">Last name:  </label>
+             <input class="form-control" id="lNameInput"type="text" readonly value="Newman" >
+             <label>Middle initial:  </label>
+             <input class="form-control"id="miInput"type="text" readonly value="M." >
+             <label style="padding-right:25px;">Birth date: </label>
+             <input class="form-control"id="birthInput" type="text"  readonly>
+             <label>Date of Death: </label>
+             <input class="form-control"id ="deathInput"type="text" readonly>
+            
+            </div> 
+            <div class="info2">
+              <label for="gender">Gender</label><br>
+              <select style ="width:300px; height:37px; text-align:center;" name="" id="gender">
+                <option value='' disabled selected>Choose type</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select><br>
+             <label style="padding-right:15px;" for="burialInput">Date of burial: </label>
+             <input class="form-control" id="burialInput" type="text" readonly>
+               <label >Cause of death: </label>
+               <input class="form-control" id="cDeathInput" type="text" readonly value="Heart attack">
+               <label style="padding-right: 40px;">Memorial: </label>
+               <textarea class="form-control" rows="4" id ="memorialInput" type="text" style="resize:none;"  readonly value="Rest in peace"></textarea>
+               <label style="display:flex;">Burial type: </label>
+               <select style ="width:300px; height:37px; text-align:center;" id="burial-type-input" readonly>
+
+               </select><br>
+           </div>
+         
+           <div class="btns">
               <button type="button" class="btn btn-primary" id="updateDisplay" name="update" style="display:none; margin-right:10px">Update</button>
               <button type="button" class="btn btn-primary" id="edit"><i class="uil uil-edit"></i></button>
               <button type="button" class="btn btn-primary" id="close" style="display:none;"><i class="uil uil-times"></i></button>
-              <button type="button" class="btn btn-danger ml-3" id="delete-deceased" title="Click the button, if you wish to remove this record."><i class="uil uil-trash-alt" style="font-size: 15px;"></i></button>
-            </div>
-          </form>
-         
-          </div>
+              <button type="button" class="btn btn-danger ml-3" id="delete-deceased" title="Click, if you want to delete the record."><i style="font-size: 15px;" class="uil uil-trash-alt"></i></button>
+           </div>
+         </form>
+        
+         </div>
 
-        </div>
+       </div>
     
-
-
-
     </div>
+    <br><br><br><br><br>
     <div class="divider" style="width:100%; height:50px; background-color:#ebeff2;">
 
     </div>

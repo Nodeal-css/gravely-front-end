@@ -10,14 +10,14 @@ document.getElementById('filter-all').addEventListener('click', function(){
 document.getElementById('filter-male').addEventListener('click', function(){
     page = 1;
     filterField = "gender";
-    filterInput = 'Male';
+    filterInput = 'M';
     getFindInputs(page);
     removeActive('filter-male');
 });
 document.getElementById('filter-female').addEventListener('click', function(){
     page = 1;
     filterField = "gender";
-    filterInput = 'Female';
+    filterInput = 'F';
     getFindInputs(page);
     removeActive('filter-female');
 });
@@ -42,9 +42,37 @@ document.getElementById('filter-in-ground').addEventListener('click', function()
     getFindInputs(page);
     removeActive('filter-in-ground');
 });
+document.getElementById('filter-cremation').addEventListener('click', function(){
+    page = 1;
+    filterField = "burial_type_id";
+    filterInput = 'yfr3d0hrq4cr7np';
+    getFindInputs(page);
+    removeActive('filter-cremation');
+});
+document.getElementById('filter-muslim-burial').addEventListener('click', function(){
+    page = 1;
+    filterField = "burial_type_id";
+    filterInput = 'jrwvfbropifz3n2';
+    getFindInputs(page);
+    removeActive('filter-muslim-burial');
+});
+document.getElementById('filter-natural-burial').addEventListener('click', function(){
+    page = 1;
+    filterField = "burial_type_id";
+    filterInput = '2bm4m8nfsdjn8dl';
+    getFindInputs(page);
+    removeActive('filter-natural-burial');
+});
+document.getElementById('filter-5-years').addEventListener('click', function(){
+    let elements = document.querySelectorAll('[data-group="exceedYears"]');
+    elements.forEach(element => {
+        element.classList.add('table-info');
+    });
+    removeActive('filter-5-years');
+});
 
 function removeActive(except){
-    const id = ['filter-all', 'filter-male', 'filter-female', 'filter-burial-date', 'filter-above-ground', 'filter-in-ground'];
+    const id = ['filter-all', 'filter-male', 'filter-female', 'filter-burial-date', 'filter-above-ground', 'filter-in-ground', 'filter-cremation', 'filter-muslim-burial', 'filter-natural-burial', 'filter-5-years'];
     for(let i = 0; i < id.length; i++){
         if(except !== id[i]){
             document.getElementById(id[i]).classList.remove('active');

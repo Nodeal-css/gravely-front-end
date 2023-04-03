@@ -243,7 +243,7 @@ function objectToParams(obj) {
   let filters = ''
   for (let key in obj) {
     if (filters != '' && obj[key].trim() != '') {
-        filters += "||";
+        filters += "&&";
     }
     if (obj[key].trim() != '')
     filters += key + "?~" + "'"+obj[key] +"'";

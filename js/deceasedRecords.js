@@ -15,20 +15,38 @@ function loadList(data){
     for(let i = 0; i < Object.keys(data).length; i++){
         let currDate = new Date();
         let bdate = new Date(data[i]['date_birth'].substring(0, 10));
+        let burial = new Date(data[i]['date_burial'].substring(0, 10));
+        if((currDate.getFullYear() - burial.getFullYear()) >= 5){
+            deceasedList.innerHTML += '<tr data-group="exceedYears" onClick="deceasedInfo(\''+ data[i]['id'] +'\');" style="cursor: pointer;">' +
+            '<th scope="row">'+ (i + 1) +'.</th>' +
+            '<td>'+ data[i]['firstname'] +'</td>' +
+            '<td>'+ data[i]['lastname'] +'</td>' +
+            '<td>'+ data[i]['mi'] +'</td>' +
+            '<td>'+ data[i]['gender'] +'</td>' +
+            '<td>'+ (currDate.getFullYear() - bdate.getFullYear()) +'</td>' +
+            '<td>'+ data[i]['date_birth'].substring(0, 10) +'</td>' +
+            '<td>'+ data[i]['date_death'].substring(0, 10) +'</td>' +
+            '<td>'+ data[i]['date_death'].substring(0, 10) +'</td>' +
+            '<td>'+ data[i]['cause_of_death'] +'</td>' +
+            '<td>'+ data[i]['memorial'] +'</td>' +
+            '<td>'+ getBurialType(data[i]['burial_type_id']) +'</td>' +
+            '</tr>';
+            continue;
+        }
         deceasedList.innerHTML += '<tr onClick="deceasedInfo(\''+ data[i]['id'] +'\');" style="cursor: pointer;">' +
-        '<th scope="row">'+ (i + 1) +'.</th>' +
-        '<td>'+ data[i]['firstname'] +'</td>' +
-        '<td>'+ data[i]['lastname'] +'</td>' +
-        '<td>'+ data[i]['mi'] +'</td>' +
-        '<td>'+ data[i]['gender'] +'</td>' +
-        '<td>'+ (currDate.getFullYear() - bdate.getFullYear()) +'</td>' +
-        '<td>'+ data[i]['date_birth'].substring(0, 10) +'</td>' +
-        '<td>'+ data[i]['date_death'].substring(0, 10) +'</td>' +
-        '<td>'+ data[i]['date_burial'].substring(0, 10) +'</td>' +
-        '<td>'+ data[i]['cause_of_death'] +'</td>' +
-        '<td>'+ data[i]['memorial'] +'</td>' +
-        '<td>'+ getBurialType(data[i]['burial_type_id']) +'</td>' +
-        '</tr>';
+            '<th scope="row">'+ (i + 1) +'.</th>' +
+            '<td>'+ data[i]['firstname'] +'</td>' +
+            '<td>'+ data[i]['lastname'] +'</td>' +
+            '<td>'+ data[i]['mi'] +'</td>' +
+            '<td>'+ data[i]['gender'] +'</td>' +
+            '<td>'+ (currDate.getFullYear() - bdate.getFullYear()) +'</td>' +
+            '<td>'+ data[i]['date_birth'].substring(0, 10) +'</td>' +
+            '<td>'+ data[i]['date_death'].substring(0, 10) +'</td>' +
+            '<td>'+ data[i]['date_death'].substring(0, 10) +'</td>' +
+            '<td>'+ data[i]['cause_of_death'] +'</td>' +
+            '<td>'+ data[i]['memorial'] +'</td>' +
+            '<td>'+ getBurialType(data[i]['burial_type_id']) +'</td>' +
+            '</tr>';
     }
 }
 
@@ -99,6 +117,8 @@ function searchDeceasedRecords(search_field, search_input, curr_page, searchFiel
             x++;
         }
         loadList(common);
+        document.getElementById('items-per-page').innerHTML = Object.keys(common).length + " item/s";
+        //console.log('Items: ' + Object.keys(common).length);
     }).catch( function(err){
         console.log(err.message);
     });

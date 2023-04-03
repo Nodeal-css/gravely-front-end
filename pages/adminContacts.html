@@ -109,17 +109,11 @@
                 </div>
                 <div class="card" id="filter-tab" style="display: none;">
                     <div class="card-body list-group list-group-flush">
-                        <a href="#" class="list-group-item list-group-item-action py-2 ripple">
-                            <input type="radio" name="filter" id="filter1" class="form-check-input" checked><label for="filter1">All</label>
+                        <a class="list-group-item list-group-item-action py-2 ripple" style="cursor: pointer;" id="filter-all" onclick="classList.add('active');">
+                          <span>All</span>
                         </a>
-                        <a href="#" class="list-group-item list-group-item-action py-2 ripple">
-                            <input type="radio" name="filter" id="filter2" class="form-check-input"><label for="filter2">Latest</label>
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action py-2 ripple">
-                            <input type="radio" name="filter" id="filter3" class="form-check-input"><label for="filter3">Alphabetical</label>
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action py-2 ripple">
-                            <input type="radio" name="filter" id="filter3" class="form-check-input"><label for="filter3">5 Years</label>
+                        <a class="list-group-item list-group-item-action py-2 ripple" style="cursor: pointer;" id="filter-5years" onclick="classList.add('active');">
+                          <span>+5 years</span>
                         </a>
                     </div>
                 </div>
@@ -214,6 +208,7 @@
     <script type="text/javascript" src="../js/lib.js"></script>
     <script type="text/javascript" src="../js/navigation.js"></script>
     <script type="text/javascript" src="../js/contact.js"></script>
+    <script type="text/javascript" src="../js/filterContract.js"></script>
     <!-- Js file for this page -->
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

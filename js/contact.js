@@ -3,22 +3,38 @@ const contact_list = document.getElementById('contact-list');
 const btn_search_contact = document.getElementById('search-contact');
 const next_page = document.getElementById('page+');
 const prev_page = document.getElementById('page-');
+var filterField = "created";
+var filterInput = ' ';
 var page = 1;
 
-searchContactRecords("id", " ", page);
+searchContactRecords("id", " ", page, 'fname', ' ');
 
 function loadList(data){
     contact_list.innerHTML = "";
     for(let i = 0; i < Object.keys(data).length; i++){
+        let currdate = new Date();
+        let created = new Date(data[i]['created'].substring(0, 10));
+        if((currdate.getFullYear() - created.getFullYear()) >= 5){
+            contact_list.innerHTML += '<tr data-group="exceedYears" style="cursor: pointer;" onclick="contractInfo(\''+ data[i]['id'] +'\');">' +
+                '<th scope="row">'+ (i + 1) +'.</th>' +
+                '<td>'+ data[i]['fname'] +'</td>' + // firstname
+                '<td>'+ data[i]['lname'] +'</td>' + // lastname
+                '<td>'+ data[i]['mi'] +'</td>' + // mi
+                '<td>'+ data[i]['created'].substring(0, 10) +'</td>' + // date recorded
+                '<td>'+ data[i]['address'] +'</td>' + // address
+                '<td>'+ data[i]['tel'] +'</td>' + // tel
+            '</tr>';
+            continue;
+        }
         contact_list.innerHTML += '<tr style="cursor: pointer;" onclick="contractInfo(\''+ data[i]['id'] +'\');">' +
-        '<th scope="row">'+ (i + 1) +'.</th>' +
-        '<td>'+ data[i]['fname'] +'</td>' + // firstname
-        '<td>'+ data[i]['lname'] +'</td>' + // lastname
-        '<td>'+ data[i]['mi'] +'</td>' + // mi
-        '<td>'+ data[i]['created'].substring(0, 10) +'</td>' + // date recorded
-        '<td>'+ data[i]['address'] +'</td>' + // address
-        '<td>'+ data[i]['tel'] +'</td>' + // tel
-    '</tr>';
+                '<th scope="row">'+ (i + 1) +'.</th>' +
+                '<td>'+ data[i]['fname'] +'</td>' + // firstname
+                '<td>'+ data[i]['lname'] +'</td>' + // lastname
+                '<td>'+ data[i]['mi'] +'</td>' + // mi
+                '<td>'+ data[i]['created'].substring(0, 10) +'</td>' + // date recorded
+                '<td>'+ data[i]['address'] +'</td>' + // address
+                '<td>'+ data[i]['tel'] +'</td>' + // tel
+            '</tr>';
     }
 }
 
@@ -52,13 +68,15 @@ prev_page.addEventListener('click', function(){
 function getFindInputs(currpage){
     let field = document.getElementById('search-type').value;
     let input = document.getElementById('search-input').value;
-    searchContactRecords(field, input, currpage);
+    searchContactRecords(field, input, currpage, filterField, filterInput);
 }
 
-function searchContactRecords(field, input, currpage){
+function searchContactRecords(field, input, currpage, searchFilterField, searchFilterInput){
+    const input1 = searchFieldHelper(field, input);
+    const input2 = searchFieldHelper(searchFilterField, searchFilterInput);
     Promise.all([
         search('grave', 1, 1500, { cemetery_id: getSessionAdmin().cemetery_id }, '+created,cemetery_id'),
-        search('contract', currpage, 50, searchFieldHelper(field, input), '+created,' + field, '')
+        search('contract', currpage, 50, {...input1, ...input2}, '+created,' + field + ',' + searchFilterField, '')
     ]).then( function(result){
         const gravedata = new Set(convertArray(result[0], false));
         const contractdata = new Set(convertArray(result[1], true));
@@ -108,6 +126,9 @@ function searchFieldHelper(field, input){
             break;
         case 'address':
             obj = { address: input};
+            break;
+        case 'created':
+            obj = { created: input};
             break;
         default:
             obj = { fname: input};

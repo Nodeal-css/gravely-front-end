@@ -443,7 +443,7 @@ function loadContract(contract_id){
         .then( function(data){
             let html = document.getElementById('contract-info-details');
             html.innerHTML = '<small>'+ data.items[0].fname + ' ' + data.items[0].mi + ' ' + data.items[0].lname +'</small>' +
-            '<br><small>'+ data.items[0].address +'</small>' +
+            '<br><small>'+ data.items[0].address +'</small><br>' +
             '<br><small>'+ data.items[0].tel +'</small>';
         }).catch( function(e){
             console.log(e.message);

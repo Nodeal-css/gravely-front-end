@@ -18,6 +18,7 @@ btn_update.addEventListener('click', function(){
         firstname: document.getElementById('fNameInput').value,
         lastname: document.getElementById('lNameInput').value,
         mi: document.getElementById('miInput').value,
+        gender: document.getElementById('gender').value,
         date_birth: document.getElementById('birthInput').value,
         date_death: document.getElementById('deathInput').value,
         date_burial: document.getElementById('burialInput').value,
@@ -107,12 +108,13 @@ function loadInfo(deceased_id){
             document.getElementById('miInput').value = data.items[0].mi;
             document.getElementById('lNameInput').value = data.items[0].lastname;
             document.getElementById('birthInput').placeholder = data.items[0].date_birth;
-            // gender field
+            document.getElementById('gender').value = data.items[0].gender;
             document.getElementById('deathInput').placeholder = data.items[0].date_death;
             document.getElementById('burialInput').placeholder = data.items[0].date_burial;
             document.getElementById('cDeathInput').value = data.items[0].cause_of_death;
             document.getElementById('memorialInput').value = data.items[0].memorial;
             document.getElementById('burial-type-input').value = data.items[0].burial_type_id;
+            document.getElementById('deceased-img').setAttribute('src', 'http://127.0.0.1:8090/api/files/deceased/'+ data.items[0].id +'/' + data.items[0].image);
         }).catch( function(e){
             console.log(e.message);
         });
@@ -158,10 +160,12 @@ function loadDocumentsList(data = []){
         if(i % 4 === 0){
             html += '</div><div class="row">';
         }
-        html += '<div style="cursor: pointer;" class="col-3" onclick="openPDF(\''+ data[i].id +'\',\''+ data[i].file +'\')">'+ 
-        '<img src="../assets/pdf-img.png" alt="pdf logo" width="230" height="280">' +
+        html += '<div class="col-3 text-center">'+ 
+        '<img src="../assets/pdf-img.png" alt="pdf logo" width="230" height="280" style="cursor: pointer;" onclick="openPDF(\''+ data[i].id +'\',\''+ data[i].file +'\')">' +
         '<br>' +
-        data[i].file +'</div>';
+        data[i].file.substring(0, data[i].file.length - 15) +
+        '<br><button class="btn btn-danger btn-sm" onclick="deletePDF(\''+ data[i].id +'\');">Remove</button>' + 
+        '</div>';
     }
     html += '</div>';
     pdf_list.innerHTML = html;
@@ -183,4 +187,15 @@ function loadBurialTypes(){
     }).catch( function(err){
         console.log(err.message);
     });
+}
+
+function deletePDF(id){
+    if(confirm('Are you sure you want to delete this file?')){
+        remove(LEGAL_DOCUMENT, id).then(function(){
+            alert('File has been deleted.');
+            getDocuments(getDeceasedId());
+        }).catch(function(e){
+            console.log(e.message);
+        });
+    }
 }
