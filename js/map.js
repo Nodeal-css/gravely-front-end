@@ -29,7 +29,7 @@ loadBurialTypes();
 //Check if the user is searching a specific location from deceased info
 function checkSearchExist(){
     const grave_id = localStorage.getItem('grave-id-search');
-    if(grave_id === null){
+    if(grave_id == null){
         loadMarkers();
     }else{
         locateByGraveId(grave_id);
@@ -61,10 +61,14 @@ map.addEventListener('mousemove', function(e){
     let coordinates = document.getElementById('coord-display'); // properties display
     lat = e.latlng.lat;
     lng = e.latlng.lng;
-    coordinates.innerHTML = "<small>Latitude: "+ lat +" Longitude: "+ lng +"</small>";
+    coordinates.innerHTML = "<small>Latitude: "+ lat +"<br>Longitude: "+ lng +"</small>";
 });
 
 btn_save_location.addEventListener('click', function(){
+    if(!input_validation(['location-inp', 'price-inp', 'row-inp', 'grave-type'])){
+        alert('There are invalid input fields. Please fill all text boxes.');
+        return;
+    }
     console.log("lat: " + coord.latitude + " lng: " + coord.longitude);
     let formdata = new FormData();
     formdata.append('cemetery_id', cem_id);
@@ -75,6 +79,7 @@ btn_save_location.addEventListener('click', function(){
     formdata.append('column', document.getElementById('row-inp').value);
     formdata.append('latitude', coord.latitude);
     formdata.append('longitude', coord.longitude);
+
     create('grave', formdata).then( function(){
         alert('A grave location has been added.');
         clearGraveForm(true);
@@ -118,6 +123,7 @@ map.on('popupclose', function() {
     container.style.display = 'none';
     loadMarkers();
 });
+
 
 function mapInit(){
     L.tileLayer('https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=8QM9cnYU5pgNqcMDeMwN', {
@@ -177,7 +183,6 @@ function changeDisplay(istrue){
 function focusOrigin(){
     search('map', 1, 100, { cemetery_id: cem_id }, '+created,cemetery_id', 'cemetery_id')
     .then( function(data){
-        //console.log('\npointing to\nlat: ' + data.items[0].latitude + '\nlng: ' + data.items[0].longitude + "\n");
         map.setView([data.items[0].latitude, data.items[0].longitude], 17);
         L.control.locate().addTo(map);
     }).catch( function(err){
@@ -187,7 +192,7 @@ function focusOrigin(){
 
 
 //.bindPopup() <-- in bind pop up, create a function that receives the grave_id, that returns a string of html content containing grave and deceased info. If we want to load all the markers to the map.
-function loadGravePopup(grave_id, description, status, price, row, type, deceased, contract){
+function loadGravePopup(grave_id, description, status, price, row, type, deceased, contract, lat, lng){
     // query to db based from id
     const namesOfGraves = {
         'av67hd01wy9ud91': 'Mausoleum',
@@ -198,9 +203,9 @@ function loadGravePopup(grave_id, description, status, price, row, type, decease
         '3dey7aenzrkckgi': 'Family plot'
     };
 
-    return '<div id="popup-grave" class="card" style="width: 19rem;">' +
+    return '<div id="popup-grave" class="card" style="width: 19rem;display:block;">' +
     '<div class="card-header text-center">' +
-        '<p class="card-title"><strong>Grave </strong></p>' +
+        '<p class="card-title"><strong>Grave properties:</strong></p>' +
     '</div>' +
     '<div class="card-body text-center row">' +
         '<div class="col text-right">' +
@@ -212,18 +217,20 @@ function loadGravePopup(grave_id, description, status, price, row, type, decease
         '</div>' +
         '<div class="col text-left">' +
             '<p class="card-text">'+ description +'</p>' +
-            '<p class="card-text">'+ status +' <button data-toggle="modal" data-target="#modal-change-status" onclick="setGraveStatus(\''+ grave_id +'\', \''+ status +'\');">Change</button></p>' +
+            '<p class="card-text">'+ status +' <button data-toggle="modal" data-target="#modal-change-status" style="background-color: gray;border: 0 solid;color:white;" onclick="setGraveStatus(\''+ grave_id +'\', \''+ status +'\');">Edit</button></p>' +
             '<p class="card-text">'+ namesOfGraves[type] +'</p>' +
             '<p class="card-text">₱ '+ price +'</p>' +
             '<p class="card-text">'+ row +'</p>' +
         '</div>' +
     '</div>' +
     '<div class="card-footer text-right">' +
+        '<button class="btn btn-outline-warning btn-sm" title="Drag the location of grave." onclick="updateGraveCoordinates(\''+ 'grave' +'\', \''+ grave_id +'\', \''+ lat +'\', \''+ lng +'\');">Transfer</button>' + 
         '<button class="btn btn-outline-danger btn-sm" title="Delete grave location." onclick="deleteGrave(\''+ grave_id +'\', \''+ deceased + '\', \''+ contract + '\');"><i class="uil uil-trash"></i> Remove</button>' +
         '<br><small>Click, if you wish to delete this pinned location.</small>' + 
     '</div>' +
 '</div>';
 }
+
 
 function setGraveStatus(id, status){
     window.localStorage.setItem('grave-id-status', id);
@@ -295,7 +302,7 @@ function loadMarkers(){
                 icon: L.icon(temp[data.items[i].grave_type]),
                 title: 'Description: ' + data.items[i].location_description
             }).addTo(graveMarker)
-            .bindPopup(loadGravePopup(data.items[i].id, data.items[i].location_description, data.items[i].status, data.items[i].price, data.items[i].column, data.items[i].grave_type, data.items[i].deceased_id, data.items[i].contract_id))
+            .bindPopup(loadGravePopup(data.items[i].id, data.items[i].location_description, data.items[i].status, data.items[i].price, data.items[i].column, data.items[i].grave_type, data.items[i].deceased_id, data.items[i].contract_id, data.items[i].latitude, data.items[i].longitude))
             .on('click', function(){
                 let container = document.getElementById('grave-information');
                 container.style.display = 'block';
@@ -331,7 +338,7 @@ function locateByGraveId(graveID){
             icon: iconPin,
             title: 'Description: ' + data.items[0].location_description
         }).addTo(graveMarker)
-        .bindPopup(loadGravePopup(data.items[0].id, data.items[0].location_description, data.items[0].status, data.items[0].price, data.items[0].column, data.items[0].grave_type, data.items[0].deceased_id, data.items[0].contract_id))
+        .bindPopup(loadGravePopup(data.items[0].id, data.items[0].location_description, data.items[0].status, data.items[0].price, data.items[0].column, data.items[0].grave_type, data.items[0].deceased_id, data.items[0].contract_id, data.items[0].latitude, data.items[0].longitude))
         .on('click', function(){
             let container = document.getElementById('grave-information');
             container.style.display = 'block';
@@ -339,15 +346,19 @@ function locateByGraveId(graveID){
             loadContract(data.items[0].contract_id);
 
             $('#open-deceased-modal').on('click', function() {
-                window.localStorage.setItem('grave-id-insert', data.items[i].id);
+                window.localStorage.setItem('grave-id-insert', data.items[0].id);
             });
             $('#open-contract-modal').on('click', function() {
-                window.localStorage.setItem('grave-id-insert', data.items[i].id);
+                window.localStorage.setItem('grave-id-insert', data.items[0].id);
             });
         });
     }).catch(function(e){
         console.log(e.message);
     });
+}
+
+function updateGraveCoordinates(collection, graveID, lat, lng){
+    window.open("../pages/adminUpdateCoordinates.html?collection="+ collection + "&id=" + graveID +"&lat="+ lat + "&lng=" + lng, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=120,left=140,width=970,height=450");
 }
 
 document.getElementById("close-deceased").addEventListener('click', function(){
@@ -382,7 +393,6 @@ function deleteGrave(grave_id, deceased_id, contract_id){
         
         alert('Grave has been removed.');
         map.closePopup();
-        loadMarkers();
     }
 }
 
@@ -413,9 +423,13 @@ insert_deceased.addEventListener('click', function(){
     form.append('gender', document.getElementById('gender').value);
     form.append('image', document.getElementById('image-file').files[0]);
 
+    if(!input_validation(['d-fname', 'd-lname', 'd-mi', 'cause-of-death', 'memorial', 'dod', 'd-burial', 'dob', 'burial-type', 'gender', 'image-file'])){
+        alert('There are invalid input fields. Please fill all text boxes.');
+        return;
+    }
+
     create('deceased', form).then( function(data){
         alert('Inserted deceased record');
-        console.log(data.id);
         $('#add-deceased').modal('hide');
         clearInput(['d-fname', 'd-lname', 'd-mi', 'cause-of-death', 'memorial', 'dod', 'd-burial', 'dob', 'burial-type', 'gender', 'image-file']);
 
@@ -485,6 +499,11 @@ insert_contact.addEventListener('click', function(){
         "tel": document.getElementById('c-tel').value
     };
 
+    if(!input_validation(['c-fname', 'c-lname', 'c-mi', 'c-address', 'c-tel'])){
+        alert('There are invalid input fields. Please fill all text boxes.');
+        return;
+    }
+
     create('contract', contact).then( function(data){
         console.log('Inserted a contact record');
         alert('Inserted a contact record');
@@ -531,4 +550,22 @@ function loadContract(contract_id){
 function openContractInfo(id){
     window.localStorage.setItem('contract-id', id);
     location.href = "../pages/adminContactInfo.html";
+}
+
+
+/* 
+*  This method will check if the format of input is not followed, or if it is empty. 
+*  @return true if input is valid,
+*  @return false otherwise
+*/
+function input_validation(id = []){
+    let flag = true;
+    for(let i = 0; i < id.length; i++){
+        let input = document.getElementById(id[i]);
+        if(!input.checkValidity()){
+            flag = false;
+            break;
+        }
+    }
+    return flag;
 }

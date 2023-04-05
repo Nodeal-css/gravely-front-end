@@ -124,10 +124,10 @@
         <!-- Start grave form -->
         <div id="grave-form">
             <small><b>Grave details</b></small><br>
-            <small>Location desc: <input type="text" id="location-inp" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;"></small><br>
-            <small>Price: <input type="number" id="price-inp" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;"></small><br>
-            <small>Grave type: <select name="grave-type" id="grave-type" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;"></select></small><br>
-            <small>Row: <input type="number" id="row-inp" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;"></small><br>
+            <small>Location desc: <input type="text" id="location-inp" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;" required></small><br>
+            <small>Price: <input type="number" id="price-inp" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;" required></small><br>
+            <small>Grave type: <select name="grave-type" id="grave-type" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;" required></select></small><br>
+            <small>Row: <input type="number" id="row-inp" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;" required></small><br>
             <small>Latitude: <input type="text" id="lat-txt" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;" readonly></small><br>
             <small>Longitude: <input type="text" id="lng-txt" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;" readonly></small><br>
             <div class="row">
@@ -143,15 +143,15 @@
         <!-- End grave form -->
 
         <!-- Properties for map-->
-        <div class="container" style="display: table;">
-            <div style="color: rgb(141, 141, 141); float:left;">
+        <div class="container row" style="width: 100%;">
+            <div class="col" style="color: rgb(141, 141, 141);">
               <small><b>Coordinates</b></small><br>
               <div id="coord-display">
 
               </div>
             </div>
-            <div style="float: right;">
-                  <small><a href="#">Update cemetery address</a>  |  <a href="#" id="view-markers-status">View graves by status</a></small>
+            <div class="col">
+                  <small><a href="#">Update cemetery coordinates</a>  |  <a href="#" id="view-markers-status">View graves by status</a></small>
             </div>
         </div>
         <!-- End of properties for map-->
@@ -240,35 +240,35 @@
         <div class="modal-body">
             <div class="form-group text-center shadow mx-5">
                 <label for="image-file">Image: <br><i class="uil uil-image-upload" style="font-size: 35px; color: rgb(220, 108, 75);"></i><br> <small>Drop down an image or click to upload.</small></label>
-                <input type="file" class="form-control-file mx-5 px-2" accept=".jpg, .png" id="image-file" placeholder="Image" >
+                <input type="file" class="form-control-file mx-5 px-2" accept=".jpg, .png" id="image-file" placeholder="Image" required>
             </div>
         <div class="row">
           <div class="col">
             <div class="form-group">
                 <label for="d-fname">First name:</label>
-                <input type="text" class="form-control" id="d-fname" placeholder="Enter name" >
+                <input type="text" class="form-control" id="d-fname" placeholder="Enter name" required>
               </div>
               <div class="form-group">
                 <label for="d-lname">Last name:</label>
-                <input type="text" class="form-control" id="d-lname" placeholder="Enter last name" >
+                <input type="text" class="form-control" id="d-lname" placeholder="Enter last name" required>
               </div>
               <div class="form-group">
                 <label for="d-mi">Middle initial:</label>
-                <input type="text" class="form-control" id="d-mi" placeholder="Enter middle name" >
+                <input type="text" class="form-control" id="d-mi" placeholder="Enter middle name" maxlength="2">
               </div>
               <div class="form-group">
                 <label for="cause-of-death">Cause of death:</label>
-                <input type="text" class="form-control" id="cause-of-death" placeholder="Enter cause of death" >
+                <input type="text" class="form-control" id="cause-of-death" placeholder="Enter cause of death" required>
               </div>
               <div class="form-group">
                 <label for="memorial">Memorial:</label>
-                <textarea class="form-control" id="memorial" placeholder="Enter memorial" ></textarea>
+                <textarea class="form-control" id="memorial" placeholder="Enter memorial" required></textarea>
               </div>
           </div>
           <div class="col">
             <div class="form-group">
                 <label for="">Gender</label>
-                <select name="" id="gender" class="form-control">
+                <select name="" id="gender" class="form-control" required>
                     <option value="" selected disabled>Choose</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
@@ -276,19 +276,19 @@
             </div>
             <div class="form-group">
                 <label for="dod">Date of death:</label>
-                <input type="date" class="form-control" id="dod" placeholder="" >
+                <input type="date" class="form-control" id="dod" placeholder="" required>
               </div>
               <div class="form-group">
                 <label for="d-burial">Date of burial:</label>
-                <input type="date" class="form-control" id="d-burial" placeholder="" >
+                <input type="date" class="form-control" id="d-burial" placeholder="" required>
               </div>
               <div class="form-group">
                 <label for="dob">Date of birth:</label>
-                <input type="date" class="form-control" id="dob" placeholder="Enter last name" >
+                <input type="date" class="form-control" id="dob" placeholder="Enter last name" required>
               </div>
               <div class="form-group">
                 <label for="burial-type">Burial type:</label>
-                <select id="burial-type" class="form-control">
+                <select id="burial-type" class="form-control" required>
 
                 </select>
               </div>
@@ -317,23 +317,23 @@
               <div>
                 <div class="form-group">
                     <label for="c-fname">First name:</label>
-                    <input type="text" class="form-control" id="c-fname" placeholder="Enter name" >
+                    <input type="text" class="form-control" id="c-fname" placeholder="Enter first name" required>
                   </div>
                   <div class="form-group">
                     <label for="c-lname">Last name:</label>
-                    <input type="text" class="form-control" id="c-lname" placeholder="Enter last name" >
+                    <input type="text" class="form-control" id="c-lname" placeholder="Enter last name" required>
                   </div>
                   <div class="form-group">
                     <label for="c-mi">Middle initial:</label>
-                    <input type="text" class="form-control" id="c-mi" placeholder="Enter middle initial" >
+                    <input type="text" class="form-control" id="c-mi" placeholder="Enter middle initial" maxlength="2">
                   </div>
                   <div class="form-group">
                     <label for="c-address">Address:</label>
-                    <input type="text" class="form-control" id="c-address" placeholder="Enter address" >
+                    <input type="text" class="form-control" id="c-address" placeholder="Enter address" required>
                   </div>
                   <div class="form-group">
                     <label for="c-tel">Phone:</label>
-                    <input type="phone" class="form-control" id="c-tel" placeholder="Enter phone no." >
+                    <input type="phone" class="form-control" id="c-tel" placeholder="Enter phone no." required>
                   </div>
               </div>
               <!-- firstname, lastname, mi, memorial, date_death, date_burial, date_birth, cause_of_death, burial_type-->

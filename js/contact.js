@@ -91,6 +91,7 @@ function searchContactRecords(field, input, currpage, searchFilterField, searchF
         }
         //console.log(common);
         loadList(common);
+        document.getElementById('items-per-page').innerHTML = Object.keys(common).length + " Item/s";
     }).catch( function(e){
         console.log(e.message);
     });

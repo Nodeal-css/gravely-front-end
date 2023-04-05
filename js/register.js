@@ -153,8 +153,3 @@ function showSubscription(){
     admin_panel.classList.remove("active");
     document.querySelector('#cemetery-name').value = document.querySelector('#cem-name').value;
 }
-/*
-    Assignment:
-    - Create a form validation for registering admin, cemetery and subscription
-    - Fix the given date of expiry, users must not able to edit it.(done)
-*/
