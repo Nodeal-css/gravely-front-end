@@ -8,7 +8,7 @@
   .contain{
   width:100%;
   background-color: #ffffff;
-  height:420px;
+  min-height:420px;
   }
   .info{
   
@@ -46,12 +46,8 @@
   
   
   .info_detail input{
-    width:200px;
-    outline:none;
-    border:none;
-    background-color:   #ffffff;
+    width:300px;
     cursor:pointer;
-    border-bottom: 1px solid black;
     text-align: center;
   }
   

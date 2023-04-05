@@ -85,6 +85,18 @@
     </header>
 
 <main id="main-content">
+
+
+    <div class="breadcrumbs mt-2"> 
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item"><a href="../pages/adminDeceasedRecords.html">Deceased Records</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Deceased Information</li>
+        </ol>
+      </nav>
+    </div> 
+
     <div class="contain">
        <div class="info">
          <div>
@@ -93,27 +105,27 @@
          <div class ="info_detail">
           <form> 
             <div class="info1">
-              <label style="padding-right:7px;">First name:  </label>
-              <input id="fNameInput"type="text" readonly value="John" ><br>
-              <label style="padding-right:7px;">Last name:  </label>
-              <input id="lNameInput"type="text" readonly value="Newman" ><br>
+              <label>First name:  </label>
+              <input class="form-control "id="fNameInput"type="text" readonly value="John" >
+              <label>Last name:  </label>
+              <input class="form-control" id="lNameInput"type="text" readonly value="Newman" >
               <label>Middle initial:  </label>
-              <input id="miInput"type="text" readonly value="M." ><br>
-              <label style="padding-right:25px;">Birth date: </label>
-              <input id="birthInput" type="text"  readonly><br>
+              <input class="form-control" id="miInput"type="text" readonly value="M." >
+              <label>Birth date: </label>
+              <input class="form-control" id="birthInput" type="text"  readonly>
               <label>Date of Death: </label>
-              <input id ="deathInput"type="text" readonly><br>
+              <input class="form-control" id ="deathInput"type="text" readonly>
              
              </div> 
              <div class="info2">
-              <label style="padding-right:15px;">Date of burial: </label>
-              <input id="burialInput" type="text" readonly><br>
-                <label >Cause of death: </label>
-                <input id="cDeathInput" type="text" readonly value="Heart attack"><br>
-                <label style="padding-right: 40px;">Memorial: </label>
-                <input id ="memorialInput" type="text"  readonly value="Rest in peace"><br>
-                <label style="padding-right:30px;">Burial type: </label>
-                <select id="burial-type-input" readonly>
+              <label>Date of burial: </label>
+              <input class="form-control" id="burialInput" type="text" readonly>
+              <label >Cause of death: </label>
+              <input class="form-control" id="cDeathInput" type="text" readonly value="Heart attack">
+              <label>Memorial: </label>
+              <textarea class="form-control"  rows="4" id ="memorialInput" type="text"  style="resize:none" readonly value="Rest in peace"></textarea>
+              <label style="display:flex;">Burial type: </label>
+              <select style ="width:300px; height:37px; text-align:center;" id="burial-type-input" readonly>
                   
                 </select><br>
             </div>
