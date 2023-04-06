@@ -94,14 +94,18 @@
                 </div>
                 <div style="float: right; width: 55rem;">
                     <div class="row">
-                      <div class="col"><i class="uil uil-map-marker" style="color: rgb(172, 255, 122);"></i><small>Vacant</small></div>
-                      <div class="col"><i class="uil uil-map-marker" style="color: rgb(244, 138, 138);"></i><small>Occupied</small></div>
-                        <div class="col"><i class="uil uil-map-marker" style="color: rgb(25, 130, 35);"></i><small>Mausoleum</small></div>
-                        <div class="col"><i class="uil uil-map-marker" style="color: rgb(96, 12, 175);"></i><small>Crypt</small></div>
-                        <div class="col"><i class="uil uil-map-marker" style="color: rgb(231, 119, 28);"></i><small>Burial Vault</small></div>
-                        <div class="col"><i class="uil uil-map-marker" style="color: rgb(104, 61, 5);"></i><small>Niche</small></div>
-                        <div class="col"><i class="uil uil-map-marker" style="color: rgb(194, 54, 12);"></i><small>Tombstone</small></div>
-                        <div class="col"><i class="uil uil-map-marker" style="color: rgb(44, 144, 211);"></i><small>Family Plot</small></div>
+                      <div class="col">
+                        <i class="uil uil-map-marker" style="color: rgb(25, 130, 35);"></i><small>Mausoleum</small><br>
+                        <i class="uil uil-map-marker" style="color: rgb(96, 12, 175);"></i><small>Crypt</small>
+                      </div>
+                      <div class="col">
+                        <i class="uil uil-map-marker" style="color: rgb(231, 119, 28);"></i><small>Burial Vault</small><br>
+                        <i class="uil uil-map-marker" style="color: rgb(104, 61, 5);"></i><small>Niche</small>
+                      </div>
+                      <div class="col">
+                        <i class="uil uil-map-marker" style="color: rgb(194, 54, 12);"></i><small>Tombstone</small><br>
+                        <i class="uil uil-map-marker" style="color: rgb(44, 144, 211);"></i><small>Family Plot</small>
+                      </div>
                     </div>
                 </div>
             </div>
@@ -151,7 +155,7 @@
               </div>
             </div>
             <div class="col">
-                  <small><a href="#">Update cemetery coordinates</a>  |  <a href="#" id="view-markers-status">View graves by status</a></small>
+                  <small><a href="#" id="change-cemetery-location" title="Click if you want to change the location of the cemetery.">Update cemetery coordinates</a>  |  <a href="#" id="view-markers-status" title="Click to view markers by status.">View graves by status</a></small>
             </div>
         </div>
         <!-- End of properties for map-->
@@ -239,7 +243,8 @@
         </div>
         <div class="modal-body">
             <div class="form-group text-center shadow mx-5">
-                <label for="image-file">Image: <br><i class="uil uil-image-upload" style="font-size: 35px; color: rgb(220, 108, 75);"></i><br> <small>Drop down an image or click to upload.</small></label>
+                <img src="../assets/grave-logo.png" alt="Grave's image" id="img-preview" width="50" height="50"><br>
+                <small>Drop down an image or click to upload.</small>
                 <input type="file" class="form-control-file mx-5 px-2" accept=".jpg, .png" id="image-file" placeholder="Image" required>
             </div>
         <div class="row">

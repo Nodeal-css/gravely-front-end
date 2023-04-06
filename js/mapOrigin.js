@@ -59,6 +59,8 @@ btnSave.addEventListener('click', function(){
                         create('map', input_map).then( function(){
                                 alert("Map origin has been set, \nclose this window and return to admin page.");
                                 window.close();
+                                console.log(coords);
+                                coords = {};
                         }).catch( function(err){
                                 console.log(err.message);
                         });
@@ -67,9 +69,6 @@ btnSave.addEventListener('click', function(){
         }else{
                 mapOrig.removeLayer(marker);
         }
-        console.log(coords);
-        coords = {};
-        
 });
 
 function getAddress(latitude, longitude){

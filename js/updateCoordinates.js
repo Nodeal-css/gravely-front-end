@@ -8,7 +8,6 @@ var marker;
 var coords;
 
 check_session();
-//getURLparameters();
 pointCoordinates()
 
 
@@ -26,6 +25,8 @@ function check_session(){
 function pointCoordinates(){
     var lat = params.get('lat');
     var lng = params.get('lng');
+
+    console.log('Collection: ' + params.get('collection'));
     mapOrig.setView([lat, lng], 17);
     const iconPin = L.icon({
         iconUrl: '../assets/find.png',
@@ -68,33 +69,48 @@ document.getElementById('orig-map').addEventListener('contextmenu', function(eve
 
 btnSave.addEventListener('click', function(){
         const collection = params.get('collection');
-        const grave_id = params.get('id');
+        const rec_id = params.get('id');
         if(confirm("Are you sure this is the right location?")){
                 if(coords == null){
                     alert('You have not picked a new location.');
                     return;
                 }
-                const input_grave = {
-                    id: grave_id,
-                    latitude: coords.latitude,
-                    longitude: coords.longitude
+                if(collection == 'grave'){
+                        const input_grave = {
+                                id: rec_id,
+                                latitude: coords.latitude,
+                                longitude: coords.longitude
+                        }
+                        update(collection, input_grave).then( function(){
+                                alert("New grave location has been set, \nclose this window and return to admin page.");
+                                window.close();
+                                console.log(coords);
+                                coords = {};
+                        }).catch( function(err){
+                                console.log(err.message);
+                        });
                 }
-                update(collection, input_grave).then( function(){
-                        alert("New grave location has been set, \nclose this window and return to admin page.");
-                        window.close();
-                }).catch( function(err){
-                        console.log(err.message);
-                });
+                if(collection == 'map'){
+                        const input = {
+                                id: rec_id,
+                                latitude: coords.latitude,
+                                longitude: coords.longitude,
+                                address: document.getElementById('address-input').value
+                        }
+                        update(collection, input).then( function(){
+                                alert('New cemetery location has been set, \nclose this window and refresh the admin page.');
+                                window.close();
+                                coords = {};
+                        }).catch( function(e){
+                                console.log(e.message);
+                        })
+                }
         }else{
                 mapOrig.removeLayer(marker);
         }
-        console.log(coords);
-        coords = {};
-        
 });
 
 function getAddress(latitude, longitude){
-        var addr;
         fetch(`https://nominatim.openstreetmap.org/reverse?lat=${ latitude }&lon=${ longitude }&format=json`, {
                 headers: {
                         'User-Agent': 'ID of your APP/service/website/etc. v0.1'

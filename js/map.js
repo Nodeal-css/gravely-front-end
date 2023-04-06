@@ -53,7 +53,17 @@ btn_menu.addEventListener('click', function(){
 });
 
 map_origin_picker.addEventListener('click', function(){
-    window.open("../pages/adminChooseMapOrigin.html", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=120,left=140,width=970,height=450");
+    search(MAP, 1, 1, { cemetery_id: cem_id }, '+created,cemetery_id', '')
+    .then( function(data){
+        if(data.items.length > 0){
+            alert('Cemetery map origin has been set, please reload the webpage.');
+        }else{
+            window.open("../pages/adminChooseMapOrigin.html", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=120,left=140,width=970,height=450");
+        }
+    }).catch( function(e){
+        console.log(e.message);
+    });
+    
 });
 
 
@@ -117,6 +127,70 @@ document.getElementById('cem-map').addEventListener('contextmenu', function(even
     lng_txt.value = coord.longitude;
 });
 
+document.getElementById('view-markers-status').addEventListener('click', function(){
+    const markerStatus = {
+        'Vacant': {
+            iconUrl: '../assets/vacant.png',
+            iconAnchor: [13, 39],
+            iconSize: [28, 40],
+            popupAnchor: [0, -20]
+        },
+        'Occupied': {
+            iconUrl: '../assets/occupied.png',
+            iconSize: [28, 40],
+            iconAnchor: [13, 39],
+            popupAnchor: [0, -20]
+        },
+        'Not available': {
+            iconUrl: '../assets/unavailable.png',
+            iconSize: [28, 40],
+            iconAnchor: [13, 39],
+            popupAnchor: [0, -20]
+        },
+        'Under repair': {
+            iconUrl: '../assets/repair.png',
+            iconSize: [28, 40],
+            iconAnchor: [13, 39],
+            popupAnchor: [0, -20]
+        }
+    };
+
+    search(GRAVE, 1, 1500, { cemetery_id: cem_id }, '+created,cemetery_id', '')
+    .then( function(data){
+        graveMarker.clearLayers();
+        for(let i = 0; i < data.items.length; i++){
+            L.marker([data.items[i].latitude, data.items[i].longitude], {
+                icon: L.icon(markerStatus[data.items[i].status]),
+                title: 'Status: ' + data.items[i].status
+            }).addTo(graveMarker)
+            .bindPopup(loadGravePopup(data.items[i].id, data.items[i].location_description, data.items[i].status, data.items[i].price, data.items[i].column, data.items[i].grave_type, data.items[i].deceased_id, data.items[i].contract_id, data.items[i].latitude, data.items[i].longitude))
+            .on('click', function(){
+                let container = document.getElementById('grave-information');
+                container.style.display = 'block';
+                clearGraveForm(false);
+                loadDeceased(data.items[i].deceased_id);
+                loadContract(data.items[i].contract_id);
+
+                $('#open-deceased-modal').on('click', function() {
+                    window.localStorage.setItem('grave-id-insert', data.items[i].id);
+                    document.getElementById('image-file').addEventListener('change', function(){
+                        const file = document.getElementById('image-file').files[0];
+                        const reader = new FileReader();
+                        reader.readAsDataURL(file);
+                        reader.onload = function(){
+                            document.getElementById('img-preview').src = reader.result;
+                        }
+                    });
+                });
+                $('#open-contract-modal').on('click', function() {
+                    window.localStorage.setItem('grave-id-insert', data.items[i].id);
+                });
+            });
+        }
+    }).catch( function(e){
+        console.log(e.message);
+    });
+});
 
 map.on('popupclose', function() {
     let container = document.getElementById('grave-information');
@@ -312,6 +386,14 @@ function loadMarkers(){
 
                 $('#open-deceased-modal').on('click', function() {
                     window.localStorage.setItem('grave-id-insert', data.items[i].id);
+                    document.getElementById('image-file').addEventListener('change', function(){
+                        const file = document.getElementById('image-file').files[0];
+                        const reader = new FileReader();
+                        reader.readAsDataURL(file);
+                        reader.onload = function(){
+                            document.getElementById('img-preview').src = reader.result;
+                        }
+                    });
                 });
                 $('#open-contract-modal').on('click', function() {
                     window.localStorage.setItem('grave-id-insert', data.items[i].id);
@@ -361,11 +443,28 @@ function updateGraveCoordinates(collection, graveID, lat, lng){
     window.open("../pages/adminUpdateCoordinates.html?collection="+ collection + "&id=" + graveID +"&lat="+ lat + "&lng=" + lng, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=120,left=140,width=970,height=450");
 }
 
+document.getElementById('change-cemetery-location').addEventListener('click', function(){
+    search(MAP, 1, 1, { cemetery_id: cem_id }, '+created,cemetery_id', '')
+    .then( function(data){
+        const collection = "map";
+        const id = cem_id;
+        const lat = data.items[0].latitude;
+        const lng = data.items[0].longitude;
+        window.open("../pages/adminUpdateCoordinates.html?collection="+ collection + "&id=" + data.items[0].id +"&lat="+ lat + "&lng=" + lng, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=120,left=140,width=970,height=450");
+    }).catch( function(e){
+        console.log(e.message);
+    });
+});
+
 document.getElementById("close-deceased").addEventListener('click', function(){
     window.localStorage.removeItem('grave-id-insert');
+    document.getElementById('img-preview').src = "../assets/grave-logo.png";
+    clearInput(['d-fname', 'd-lname', 'd-mi', 'cause-of-death', 'memorial', 'dod', 'd-burial', 'dob', 'burial-type', 'gender', 'image-file']);
 });
 document.getElementById("close-contract").addEventListener('click', function(){
     window.localStorage.removeItem('grave-id-insert');
+    clearInput(['c-fname', 'c-lname', 'c-mi', 'c-address', 'c-tel']);
+
 });
 
 
@@ -432,6 +531,7 @@ insert_deceased.addEventListener('click', function(){
         alert('Inserted deceased record');
         $('#add-deceased').modal('hide');
         clearInput(['d-fname', 'd-lname', 'd-mi', 'cause-of-death', 'memorial', 'dod', 'd-burial', 'dob', 'burial-type', 'gender', 'image-file']);
+        document.getElementById('img-preview').src = "../assets/grave-logo.png";
 
         updateGraveDeceased(window.localStorage.getItem('grave-id-insert'), data.id);
         window.localStorage.removeItem('grave-id-insert');
