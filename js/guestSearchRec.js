@@ -53,27 +53,22 @@ function loadList(data){
 // undefined [' date_birth'] <-----------------------------------------------
 function searchDeceasedRecords(input){
     Promise.all([
-        search(GRAVE, 1, 1500, { cemetery_id: cemetery_option.value }, '+created,cemetery_id', 'cemetery_id'),
-        search(DECEASED, 1, 1500, input, '+created,firstname,lastname,mi,date_death,date_birth,date_burial', 'burial_type_id')
+        search(GRAVE, 1, 1500, { cemetery_id: cemetery_option.value }, '-created,cemetery_id', 'cemetery_id'),
+        search(DECEASED, 1, 1500, input, '-created,firstname,lastname,mi,date_death,date_birth,date_burial', 'burial_type_id')
     ])
     .then( function(result){
         const graveData = new Set(convertArray(result[0], false));
         const deceasedData = new Set(convertArray(result[1], true));
         const deceased = result[1];
-        const common = {}
-        if(cemetery_option.value === ""){
-            for(let i = 0; i < deceased.items.length; i++){
-                common[i] = deceased.items[i];
+        const common = {};
+        var x = 0;
+        for(const item of deceasedData){
+            if(graveData.has(item)){
+                common[Object.keys(common).length] = deceased.items[x];
             }
-        }else{
-            var x = 0;
-            for(const item of deceasedData){
-                if(graveData.has(item)){
-                    common[x] = deceased.items[x];
-                }
-                x++;
-            }
+        x++;
         }
+        
         loadList(common);
     }).catch( function(e){
         console.log(e.message);
