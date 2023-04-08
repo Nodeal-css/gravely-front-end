@@ -31,7 +31,7 @@ notif.addEventListener('click', function(){
 })
 
 log_out.addEventListener('click', function(){
-    if(confirm("Confirm signing out Gravely")){
+    if(confirm("Do you really want to sign out?")){
         localStorage.removeItem('cemetery-name');
         localStorage.removeItem('deceased-id');
         signout();

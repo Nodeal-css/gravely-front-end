@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
-
+    <link rel="icon" href="../assets/gravely-icon.png" type="image/png">
     <title>Pick new coordinates</title>
     <style>
         .map-origin {
@@ -20,11 +20,8 @@
             position: fixed;
             z-index: 600;
             bottom: 0;
-            left: 30%;
-            border-top-left-radius: 15px;
-            border-top-right-radius: 15px;
-            border-bottom-left-radius: 15px;
-            border-bottom-right-radius: 15px;
+            left: 50%;
+            transform: translate(-50%, -50%);
             padding: 9px;
             background-color: white;
             width: 29rem;
@@ -35,7 +32,7 @@
     <div id="orig-map" class="map-origin">
 
     </div>
-    <div class="mb-3 floating-div">
+    <div class="floating-div">
         <small><b>Pin a new location</b><br>by right clicking a location.</small>
         <hr>
         <div class="row">
