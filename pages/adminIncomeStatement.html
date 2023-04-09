@@ -81,15 +81,25 @@
     </header>
 
     <main id="main-content">
-        <div class="container">
-            Google Graph
+        <div class="mt-5">
+            <h3><span id="cem-name">Cemetery</span> / Income performance</h3>
+            <small>Graph of cemetery income performance of the year.</small>
+            <hr>
         </div>
+        <div class="mt-5">
+            <div id="col-chart" style="width: 100%;"></div>
+            <div class="container text-right">
+                <button class="btn btn-outline-secondary" id="last-year" title="Click, to view graph from last year."><i class="uil uil-angle-left"></i></button>
+                <button class="btn btn-outline-secondary" id="next-year" title="Click, to view graph of next year."><i class="uil uil-angle-right"></i></button>
+            </div>
+        </div>
+        <hr>
         <div class="card mt-5">
             <div class="card-header text-right">
                 <button class="btn btn-outline-primary" title="Click to add a journal entry." data-toggle="modal" data-target="#modal-journalentry"><i class="uil uil-circle-plus"></i> Journal entry</button>
             </div>
             <div class="card-body">
-                <table class="table">
+                <table class="table table-hover">
                     <thead>
                         <tr class="bg-light">
                             <th scope="col" width="15%">Entry date</th>
@@ -138,7 +148,7 @@
                     </select>
 
                     <label for="amount" class="form-label mt-3">Amount</label>
-                    <input type="number" placeholder="₱" id="amount" class="form-control" required>
+                    <input type="number" step="0.01" placeholder="₱" id="amount" class="form-control" required>
 
                     <label for="particular" class="form-label mt-3">Particular</label>
                     <textarea id="particular" class="form-control" cols="30" rows="5" required></textarea>
@@ -159,7 +169,7 @@
                     <h5>Edit journal entry</h5>
                 </div>
                 <div class="modal-body">
-                    <div style="display: block;">
+                    <div style="display: none;">
                         <label for="journal-id" class="form-label"></label>
                         <input type="text" id="journal-id" class="form-control" required>
                     </div>
@@ -171,7 +181,7 @@
                     </select>
 
                     <label for="update-amount" class="form-label mt-3">Amount ₱</label>
-                    <input type="number" placeholder="₱" id="update-amount" class="form-control" required>
+                    <input type="number" step="0.01" placeholder="₱" id="update-amount" class="form-control" required>
 
                     <label for="update-particular" class="form-label mt-3">Particular</label>
                     <textarea id="update-particular" class="form-control" cols="30" rows="5" required></textarea>
@@ -188,6 +198,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pocketbase/0.10.1/pocketbase.umd.min.js" integrity="sha512-5fhlKWYvJkEBjEmVznt+oi09HehBG8AhveES3kSosa9VEKnOPJfMWV7cl+e5zAc0Tkn10w+CSfi4lrXcDWc4TQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="text/javascript" src="../js/lib.js"></script>
     <script type="text/javascript" src="../js/navigation.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="../js/journalEntry.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

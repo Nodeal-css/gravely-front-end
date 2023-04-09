@@ -293,14 +293,13 @@ function loadGravePopup(grave_id, description, status, price, row, type, decease
             '<p class="card-text">'+ description +'</p>' +
             '<p class="card-text">'+ status +' <button data-toggle="modal" data-target="#modal-change-status" style="background-color: gray;border: 0 solid;color:white;" onclick="setGraveStatus(\''+ grave_id +'\', \''+ status +'\');">Edit</button></p>' +
             '<p class="card-text">'+ namesOfGraves[type] +'</p>' +
-            '<p class="card-text">₱ '+ price +'</p>' +
+            '<p class="card-text">₱ '+ price.toLocaleString() +'</p>' +
             '<p class="card-text">'+ row +'</p>' +
         '</div>' +
     '</div>' +
-    '<div class="card-footer text-right">' +
-        '<button class="btn btn-outline-warning btn-sm" title="Drag the location of grave." onclick="updateGraveCoordinates(\''+ 'grave' +'\', \''+ grave_id +'\', \''+ lat +'\', \''+ lng +'\');">Transfer</button>' + 
-        '<button class="btn btn-outline-danger btn-sm" title="Delete grave location." onclick="deleteGrave(\''+ grave_id +'\', \''+ deceased + '\', \''+ contract + '\');"><i class="uil uil-trash"></i> Remove</button>' +
-        '<br><small>Click, if you wish to delete this pinned location.</small>' + 
+    '<div class="card-footer text-center">' +
+        '<button class="btn btn-outline-warning btn-sm mr-3" title="Change the location of grave." onclick="updateGraveCoordinates(\''+ 'grave' +'\', \''+ grave_id +'\', \''+ lat +'\', \''+ lng +'\');">Transfer</button>' + 
+        '<button class="btn btn-outline-danger btn-sm" title="Click, if you wish to delete this pinned location." onclick="deleteGrave(\''+ grave_id +'\', \''+ deceased + '\', \''+ contract + '\');"><i class="uil uil-trash"></i> Remove</button>' +
     '</div>' +
 '</div>';
 }
