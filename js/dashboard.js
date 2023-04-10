@@ -12,48 +12,17 @@ burial_btn.addEventListener('click', function(){
 });
 
 gender_btn.addEventListener('click', function(){
-    google.charts.load("current", {packages:["corechart"]});
-    google.charts.setOnLoadCallback(drawDonut);
-    function drawDonut() {
-      let data = google.visualization.arrayToDataTable([
-        ['Gender', 'count'],
-        ['Men',     115],
-        ['Women',   201]
-      ]);
-      drawDonatChart(data);
-    }
-    graph_title.innerHTML = '<b>Ratio of deceased men : women</b>';
+    populateGender();
 });
 
 age_btn.addEventListener('click', function(){
-    google.charts.load("current", {packages:["corechart"]});
-    google.charts.setOnLoadCallback(drawDonut);
-    function drawDonut() {
-      let data = google.visualization.arrayToDataTable([
-        ['Age', 'count'],
-        ['Under 16',    70],
-        ['16 to 34',   75],
-        ['35 to 54', 116],
-        ['55 to 74', 200],
-        ['75 years over', 301]
-      ]);
-      drawDonatChart(data);
-    }
-    graph_title.innerHTML = '<b>Deceased age demographic</b>';
+    
+
+    populateAge();
 });
 
 vacant_btn.addEventListener('click', function(){
-    google.charts.load("current", {packages:["corechart"]});
-    google.charts.setOnLoadCallback(drawDonut);
-    function drawDonut() {
-      let data = google.visualization.arrayToDataTable([
-        ['Status', 'Graves'],
-        ['Vacant',    315],
-        ['Occupied',  200]
-      ]);
-      drawDonatChart(data);
-    }
-    graph_title.innerHTML = '<b>Ratio of vacant to occupied graves</b>';
+    populateGraveStatus();
 });
 
 // Count of burials function
@@ -121,3 +90,131 @@ function currentCemetery(){
 }
 
 currentCemetery();
+
+/*
+  Methods for populating data to graphs
+*/
+function populateGender(){
+  search(GRAVE, 1, 1500, { cemetery_id: getSessionAdmin().cemetery_id }, '+created,cemetery_id', 'deceased_id,gender')
+  .then( function(data){
+      //const graves = new Set(convertArray(result[0], false));
+      var male = 0;
+      var female = 0;
+      for(let i = 0; i < data.items.length; i++){
+        if(data.items[i].deceased_id != ""){
+          male += (data.items[i].expand.deceased_id.gender == 'M') ? 1 : 0 ;
+          female += (data.items[i].expand.deceased_id.gender == 'F') ? 1 : 0 ;
+        }
+      }
+      loadGenderToGraph(male, female);
+  }).catch(function(e){
+    console.log(e.message);
+  });
+}
+
+function loadGenderToGraph(male, female){
+  google.charts.load("current", {packages:["corechart"]});
+  google.charts.setOnLoadCallback(drawDonut);
+    function drawDonut() {
+      let data = google.visualization.arrayToDataTable([
+        ['Gender', 'count'],
+        ['Men',     male],
+        ['Women',   female]
+      ]);
+      drawDonatChart(data);
+    }
+    graph_title.innerHTML = '<b>Ratio of deceased men : women</b>';
+}
+
+/* Populate graph for vacant graves */
+function populateGraveStatus(){
+  search(GRAVE, 1, 1500, { cemetery_id: getSessionAdmin().cemetery_id }, '+created,id', '')
+  .then( function(data){
+    var vacant = 0;
+    var occupied = 0;
+    var unavailable = 0;
+    var repair = 0;
+    for(let i = 0; i < data.items.length; i++){
+      vacant += (data.items[i].status === "Vacant") ? 1 : 0 ;
+      occupied += (data.items[i].status === "Occupied") ? 1 : 0 ;
+      unavailable += (data.items[i].status === "Not available") ? 1 : 0 ;
+      repair += (data.items[i].status === "Under repair") ? 1 : 0 ;
+    }
+    loadGraveStatusToGraph(vacant, occupied, unavailable, repair);
+  }).catch( function(e){
+    console.log(e.message);
+  });
+}
+
+function loadGraveStatusToGraph(vacant, occupied, unavailable, repair){
+  google.charts.load("current", {packages:["corechart"]});
+  google.charts.setOnLoadCallback(drawDonut);
+    function drawDonut() {
+      let data = google.visualization.arrayToDataTable([
+        ['Status', 'Graves'],
+        ['Vacant',    vacant],
+        ['Occupied',  occupied],
+        ['Unavailable', unavailable],
+        ['Under repair', repair]
+      ]);
+      drawDonatChart(data);
+    }
+    graph_title.innerHTML = '<b>Ratio of vacant to occupied graves</b>';
+}
+
+/** 
+ * 
+ * Populate age to graph
+ * Under 16
+  16 to 34
+  35 to 54
+  55 to 74
+  75 years over
+*/
+function populateAge(){
+  search(GRAVE, 1, 1500, { cemetery_id: getSessionAdmin().cemetery_id }, '+created,cemetery_id', 'deceased_id')
+  .then( function(data){
+    var below16 = 0;
+    var above17_34 = 0;
+    var above35_54 = 0;
+    var above55_74 = 0;
+    var over75 = 0;
+
+    for(let i = 0; i < data.items.length; i++){
+      if(data.items[i].deceased_id !== ""){
+        below16 += (getAge(data.items[i].expand.deceased_id.date_birth) <= 16) ? 1 : 0 ;
+        above17_34 += (getAge(data.items[i].expand.deceased_id.date_birth) >= 17 && getAge(data.items[i].expand.deceased_id.date_birth) <= 34) ? 1 : 0 ;
+        above35_54 += (getAge(data.items[i].expand.deceased_id.date_birth) >= 35 && getAge(data.items[i].expand.deceased_id.date_birth) <= 54) ? 1 : 0 ;
+        above55_74 += (getAge(data.items[i].expand.deceased_id.date_birth) >= 55 && getAge(data.items[i].expand.deceased_id.date_birth) <= 74) ? 1 : 0 ;
+        over75 += (getAge(data.items[i].expand.deceased_id.date_birth) >= 75) ? 1 : 0 ;
+      }
+    }
+    loadAgeGraph(below16, above17_34, above35_54, above55_74, over75);
+  }).catch( function(e){
+    console.log(e.message);
+  });
+}
+
+function getAge(age){
+  const today = new Date();
+  const bday = new Date(age);
+  return today.getFullYear() - bday.getFullYear();
+}
+
+
+function loadAgeGraph(below16, above17_34, above35_54, above55_74, over75){
+  google.charts.load("current", {packages:["corechart"]});
+  google.charts.setOnLoadCallback(drawDonut);
+    function drawDonut() {
+      let data = google.visualization.arrayToDataTable([
+        ['Age', 'count'],
+        ['Under 16',    below16],
+        ['16 to 34',   above17_34],
+        ['35 to 54', above35_54],
+        ['55 to 74', above55_74],
+        ['75 years over', over75]
+      ]);
+      drawDonatChart(data);
+    }
+    graph_title.innerHTML = '<b>Deceased age demographic</b>';
+}
