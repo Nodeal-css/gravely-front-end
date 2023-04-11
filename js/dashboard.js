@@ -4,11 +4,13 @@ const gender_btn = document.getElementById('gender-btn');
 const age_btn = document.getElementById('age-btn');
 const vacant_btn = document.getElementById('vacant-btn');
 const graph_title = document.getElementById('graph-title');
+const show_causes = document.getElementById('show-cause-of-death');
 
-
+currentCemetery();
+populateBurialperYear();
 
 burial_btn.addEventListener('click', function(){
-    countBurial();
+    populateBurialperYear();
 });
 
 gender_btn.addEventListener('click', function(){
@@ -16,8 +18,6 @@ gender_btn.addEventListener('click', function(){
 });
 
 age_btn.addEventListener('click', function(){
-    
-
     populateAge();
 });
 
@@ -25,26 +25,12 @@ vacant_btn.addEventListener('click', function(){
     populateGraveStatus();
 });
 
-// Count of burials function
-function countBurial(){
-  google.charts.load("current", {packages:['corechart']});
-  google.charts.setOnLoadCallback(draw_deceased_count);
-  function draw_deceased_count() {
-    let data = google.visualization.arrayToDataTable([
-      ["Year", "count", { role: "style" } ],
-      ["2015", 160, "rgb(220, 108, 75)"],
-      ["2016", 85, "rgb(220, 108, 75)"],
-      ["2017", 115, "rgb(220, 108, 75)"],
-      ["2018", 105, "rgb(220, 108, 75)"],
-      ["2019", 98, "rgb(220, 108, 75)"],
-      ["2020", 200, "rgb(220, 108, 75)"],
-      ["2021", 205, "rgb(220, 108, 75)"],
-      ["2022", 196, "rgb(220, 108, 75)"]
-    ]);
-  drawChart(data);
-}
-graph_title.innerHTML = '<b>Number of deceased in the cemetery</b>';
-}
+show_causes.addEventListener('click', function(){
+    populateCauseOfDeath();
+    document.getElementById('div-cod').style.display = 'none';
+});
+
+
 
 // Donut chart
 function drawDonatChart(data){
@@ -69,7 +55,7 @@ function drawChart(data){
 
     let options = {
       title: "",
-      width: 600,
+      width: 700,
       height: 300,
       bar: {groupWidth: "95%"},
       legend: { position: "none" },
@@ -78,7 +64,6 @@ function drawChart(data){
     chart.draw(view, options);
 }
 
-countBurial();
 
 function currentCemetery(){
   findMyCemetery().then( function(data){
@@ -89,7 +74,7 @@ function currentCemetery(){
   });
 }
 
-currentCemetery();
+
 
 /*
   Methods for populating data to graphs
@@ -102,8 +87,8 @@ function populateGender(){
       var female = 0;
       for(let i = 0; i < data.items.length; i++){
         if(data.items[i].deceased_id != ""){
-          male += (data.items[i].expand.deceased_id.gender == 'M') ? 1 : 0 ;
-          female += (data.items[i].expand.deceased_id.gender == 'F') ? 1 : 0 ;
+          male += (data.items[i].expand.deceased_id.gender === 'M') ? 1 : 0 ;
+          female += (data.items[i].expand.deceased_id.gender === 'F') ? 1 : 0 ;
         }
       }
       loadGenderToGraph(male, female);
@@ -217,4 +202,107 @@ function loadAgeGraph(below16, above17_34, above35_54, above55_74, over75){
       drawDonatChart(data);
     }
     graph_title.innerHTML = '<b>Deceased age demographic</b>';
+}
+
+/** 
+ * Populate burials per year
+*/
+function populateBurialperYear(){
+  search(GRAVE, 1, 1500, { cemetery_id: getSessionAdmin().cemetery_id }, '+created,cemetery_id', 'deceased_id')
+  .then( function(data){
+    var count = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+    for(let i = 0; i < data.items.length; i++){
+      if(data.items[i].deceased_id !== ""){
+        count[0] += (data.items[i].expand.deceased_id.date_burial.includes("2015")) ? 1 : 0 ;
+        count[1] += (data.items[i].expand.deceased_id.date_burial.includes("2016")) ? 1 : 0 ;
+        count[2] += (data.items[i].expand.deceased_id.date_burial.includes("2017")) ? 1 : 0 ;
+        count[3] += (data.items[i].expand.deceased_id.date_burial.includes("2018")) ? 1 : 0 ;
+        count[4] += (data.items[i].expand.deceased_id.date_burial.includes("2019")) ? 1 : 0 ;
+        count[5] += (data.items[i].expand.deceased_id.date_burial.includes("2020")) ? 1 : 0 ;
+        count[6] += (data.items[i].expand.deceased_id.date_burial.includes("2021")) ? 1 : 0 ;
+        count[7] += (data.items[i].expand.deceased_id.date_burial.includes("2022")) ? 1 : 0 ;
+        count[8] += (data.items[i].expand.deceased_id.date_burial.includes("2023")) ? 1 : 0 ;
+      }
+    }
+    countBurial(count);
+  }).catch( function(e){
+    console.log(e.message);
+  });
+}
+
+// Count of burials function
+function countBurial(dataCount = []){
+  google.charts.load("current", {packages:['corechart']});
+  google.charts.setOnLoadCallback(draw_deceased_count);
+  function draw_deceased_count() {
+    let data = google.visualization.arrayToDataTable([
+      ["Year", "count", { role: "style" } ],
+      ["2015", dataCount[0], "rgb(220, 108, 75)"],
+      ["2016", dataCount[1], "rgb(220, 108, 75)"],
+      ["2017", dataCount[2], "rgb(220, 108, 75)"],
+      ["2018", dataCount[3], "rgb(220, 108, 75)"],
+      ["2019", dataCount[4], "rgb(220, 108, 75)"],
+      ["2020", dataCount[5], "rgb(220, 108, 75)"],
+      ["2021", dataCount[6], "rgb(220, 108, 75)"],
+      ["2022", dataCount[7], "rgb(220, 108, 75)"],
+      ["2023", dataCount[8], "rgb(220, 108, 75)"]
+    ]);
+  drawChart(data);
+  }
+  graph_title.innerHTML = '<b>Burials per year</b>';
+}
+
+
+/**
+ * Populate chart for causes of death
+ * 
+ */
+async function loadCauseOfDeath(count = {}){
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(causeOfDeathChart);
+  
+      function causeOfDeathChart() {
+        var dataArray = [];
+        for(let key in count){
+          dataArray[dataArray.length] = [key, count[key]];
+        }
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Cause of death');
+        data.addColumn('number', 'Number of casualties');
+        data.addRows(dataArray);
+
+        var options = {
+          bars: 'horizontal',
+          height: 300,
+          width: 400
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('cod_chart'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+}
+
+async function populateCauseOfDeath(){
+  search(GRAVE, 1, 1500, { cemetery_id: getSessionAdmin().cemetery_id }, '+created,cemetery_id', 'deceased_id')
+  .then( function(data){
+    var causes = [];
+    for(let i = 0; i < data.items.length; i++){
+      if(data.items[i].deceased_id !== ""){
+        causes[causes.length] = data.items[i].expand.deceased_id.cause_of_death.toLowerCase();
+      }
+    }
+
+    let count = causes.reduce( function(obj, item){
+      if(!obj[item]){
+        obj[item] = 0;
+      }
+        obj[item]++;
+        return obj;
+      }, {})
+    loadCauseOfDeath(count);
+  }).catch( function(e){
+    console.log(e.message);
+  });
 }

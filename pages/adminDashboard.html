@@ -87,12 +87,12 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#" id="cem-name"></a></li>
-                <li class="breadcrumb-item active">Dashboard</li>
+                <li class="breadcrumb-item active">Mortality data</li>
             </ol>
             </nav>
         </div>
         <div class="row mt-5">
-            <div class="card col mr-2" style="width: 18rem; cursor: pointer;" id="burial-btn">
+            <div class="card col mr-2" style="width: 18rem; cursor: pointer;" id="burial-btn" title="Click to view graph of burials per year.">
                 <div class="card-body row">
                     <div class="col-9">
                         <small><b>Count of burials</b></small><br>
@@ -103,7 +103,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card col mr-2" style="width: 18rem; cursor: pointer;" id="gender-btn">
+            <div class="card col mr-2" style="width: 18rem; cursor: pointer;" id="gender-btn" title="Click to view ratio of deceased men to women.">
                 <div class="card-body row">
                     <div class="col-9">
                         <small><b>Men : Women</b></small> <br>
@@ -114,7 +114,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card col mr-2" style="width: 18rem; cursor: pointer;" id="age-btn">
+            <div class="card col mr-2" style="width: 18rem; cursor: pointer;" id="age-btn" title="Click to view the age demographic.">
                 <div class="card-body row">
                     <div class="col-9">
                         <small><b>Age</b></small><br>
@@ -125,7 +125,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card col" style="width: 18rem; cursor: pointer;" id="vacant-btn">
+            <div class="card col" style="width: 18rem; cursor: pointer;" id="vacant-btn" title="Click to view count of vacant graves">
                 <div class="card-body row">
                     <div class="col-9">
                         <small><b>Vacant graves</b></small><br>
@@ -139,14 +139,22 @@
         </div>
         <div class="row mt-3">
             <div class="card col-8">
-                <div class="card-body">
+                <div class="card-header">
                     <small id="graph-title"></small>
+                </div>
+                <div class="card-body">
                     <div id="col-chart"></div>
                 </div>
             </div>
-            <div class="card col-3" style="margin-left: 70px;">
+            <div class="card col-4" style="overflow-y: auto; overflow-x: auto;">
+                <div class="card-header">
+                    <small><b>Causes of death</b></small>
+                </div>
                 <div class="card-body">
-                    <small><b>Some texts</b></small>
+                    <div id="cod_chart"></div>
+                    <div class="text-center mt-5 pt-5" id="div-cod">
+                        <button class="btn btn-outline-primary" id="show-cause-of-death" title="Click to view mortality data">Show</button>
+                    </div>
                 </div>
             </div>
         </div>

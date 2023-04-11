@@ -38,7 +38,7 @@ function loadList(data){
         '<td>'+ data[i]['firstname'] +'</td>' +
         '<td>'+ data[i]['lastname'] +'</td>' +
         '<td>'+ data[i]['mi'] +'</td>' +
-        '<td>'+ data[i]['gender'] +'</td>' +
+        '<td>'+ ((data[i]['gender'] === 'M') ? "Male" : "Female") +'</td>' +
         '<td>'+ (current.getFullYear() - bday.getFullYear()) +'</td>' +
         '<td>'+ data[i]['date_birth'].substring(0, 10) +'</td>' +
         '<td>'+ data[i]['date_death'].substring(0, 10) +'</td>' +

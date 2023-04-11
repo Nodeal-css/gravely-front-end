@@ -146,7 +146,9 @@ function populateDataOnGraph(dataItems = []){
         var options = {
             title: year,
             curveType: 'function',
-            legend: { position: 'bottom' }
+            legend: { position: 'bottom' },
+            width: 1000,
+            height: 250
         };
     
         var chart = new google.visualization.LineChart(document.getElementById('col-chart'));
