@@ -69,14 +69,13 @@
     <!-- Start of notifications -->
     <div class="card" id="notif-tab" style="display: none;">
         <div class="card-header">
-            <small class="mr-5"><b>Notifications</b></small>
+            <small class="mr-5 pr-5"><b>Notifications</b></small>
             <span class="ml-5" style="font-size: 20px; cursor: pointer;" onclick="document.getElementById('notif-tab').style.display = 'none';">&times;</span>
         </div>
-        <div class="card-body">
-            <a href="">Notification 1 ....</a>
-            <a href="">Notification 2 ....</a>
-            <a href="">Notification 3 ....</a>
-            <a href="">Notification 4 ....</a>
+        <div>
+            <ul class="list-group" id="notifications" style="max-height: 18rem; overflow-y: auto;">
+
+            </ul>
         </div>
     </div>
     <!-- End of notifications -->

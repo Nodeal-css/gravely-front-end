@@ -72,14 +72,13 @@
     <!-- Start of notifications -->
     <div class="card" id="notif-tab" style="display: none;">
         <div class="card-header">
-            <small class="mr-5"><b>Notifications</b></small>
+            <small class="mr-5 pr-5"><b>Notifications</b></small>
             <span class="ml-5" style="font-size: 20px; cursor: pointer;" onclick="document.getElementById('notif-tab').style.display = 'none';">&times;</span>
         </div>
-        <div class="card-body">
-            <a href="">Notification 1 ....</a>
-            <a href="">Notification 2 ....</a>
-            <a href="">Notification 3 ....</a>
-            <a href="">Notification 4 ....</a>
+        <div>
+            <ul class="list-group" id="notifications" style="max-height: 18rem; overflow-y: auto;">
+
+            </ul>
         </div>
     </div>
     <!-- End of notifications -->
@@ -131,7 +130,12 @@
                <textarea class="form-control" rows="4" id ="memorialInput" type="text" style="resize:none;"  readonly value="Rest in peace"></textarea>
                <label style="display:flex;">Burial type: </label>
                <select style ="width:300px; height:37px; text-align:center;" id="burial-type-input" readonly>
-
+                <option value='' disabled selected>Choose type</option>
+                <option value="pzcou9z7i198uhf">Above ground</option>
+                <option value="3gk7c2h67lhgbzr">In ground</option>
+                <option value="yfr3d0hrq4cr7np">Cremation</option>
+                <option value="jrwvfbropifz3n2">Muslim burial</option>
+                <option value="2bm4m8nfsdjn8dl">Natural burial</option>
                </select><br>
            </div>
          

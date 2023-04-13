@@ -5,7 +5,6 @@ const burial_type = document.getElementById('burial-type-input');
 const delete_btn = document.getElementById('delete-deceased');
 const locate = document.getElementById('locate');
 
-loadBurialTypes();
 loadInfo(getDeceasedId());
 getDocuments(getDeceasedId());
 
@@ -107,7 +106,7 @@ function getDeceasedId(){
     return id;
 }
 
-function loadInfo(deceased_id){
+async function loadInfo(deceased_id){
     if(deceased_id === null){
         alert('Deceased Info not found, returning to list page.');
         window.location.href = "../pages/adminDeceasedRecords.html";
@@ -158,7 +157,6 @@ function closeEdit(){
 function getDocuments(input){
     search(LEGAL_DOCUMENT, 1, 100, { deceased_id: input }, '+created,deceased_id', 'deceased_id')
     .then( function(data){
-        console.log(data.items);
         loadDocumentsList(data.items);
     }).catch( function(e){
         console.log(e.message);
@@ -188,18 +186,6 @@ function openPDF(id, file_name){
     window.open(url, "_blank");
 }
 
-function loadBurialTypes(){
-    search('burial_type', 1, 100, { id: '' }, '+created,id', '')
-    .then( function(data){
-        burial_type.innerHTML = "<option value='' disabled selected>Choose type</option>";
-        for(let i = 0; i < data.items.length; i++){
-            burial_type.innerHTML += "<option value="+ data.items[i].id +">"+ data.items[i].type +"</option>";
-        }
-        console.log(data.items);
-    }).catch( function(err){
-        console.log(err.message);
-    });
-}
 
 function deletePDF(id){
     if(confirm('Are you sure you want to delete this file?')){
