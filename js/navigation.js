@@ -50,6 +50,12 @@ notif.addEventListener('click', function(){
     });
 });
 
+document.getElementById('current-admin-btn').addEventListener('click', function(){
+    document.getElementById('admin-tab').style.display = 'block';
+    var currentAdmin = document.getElementById('admin-user');
+    currentAdmin.innerHTML = '<li class="list-group-item"><i class="uil uil-user" style="font-size: 20px;color: rgb(220, 108, 75);"></i> '+ getSessionAdmin().firstname + ' ' + getSessionAdmin().lastname +'</li>';
+});
+
 log_out.addEventListener('click', function(){
     if(confirm("Do you really want to sign out?")){
         localStorage.removeItem('cemetery-name');

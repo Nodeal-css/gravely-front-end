@@ -26,7 +26,7 @@
                     <i class="uil uil-bell text-light" style="font-size: 30px;" id="notif-btn"></i>
                 </li>
                 <li class="nav-item ml-3">
-                    <i class="uil uil-user-square text-light" style="font-size: 30px;"></i>
+                    <i class="uil uil-user-square text-light" id="current-admin-btn" style="font-size: 30px;"></i>
                 </li>
             </ul>
         </div>
@@ -78,6 +78,19 @@
         </div>
     </div>
     <!-- End of notifications -->
+    <!-- Start of current admin logged in -->
+    <div class="card" id="admin-tab" style="display: none;">
+        <div class="card-header">
+            <small class="mr-5"><b>Admin</b></small>
+            <span class="ml-5" style="font-size: 20px; cursor: pointer;" onclick="document.getElementById('admin-tab').style.display = 'none';">&times;</span>
+        </div>
+        <div>
+            <ul class="list-group" id="admin-user" style="max-height: 18rem; overflow-y: auto;">
+                
+            </ul>
+        </div>
+      </div>
+      <!-- End of current admin logged in --> 
     </header>
 
 <main id="main-content">
@@ -96,10 +109,6 @@
                 <i class="uil uil-plus-circle" style="color: rgb(220, 108, 75);"></i>
                 <span>Create an admin account</span>
             </div>
-            <div type="button" class="text-center mt-3 mb-3 border mx-3 p-2 rounded-pill">
-                <i class="uil uil-times-square" style="color: rgb(220, 108, 75);"></i>
-                <span>Remove admin account</span>
-            </div>
         </div>
         <div class="card col-7 table-responsive">
             <div class="card-header" style="width: 50rem; position: absolute;">
@@ -117,11 +126,12 @@
                     <thead>
                         <tr class="bg-light">
                             <th scope="col" width="">#.</th>
-                            <th scope="col" width="20%">Email</th>
-                            <th scope="col" width="20%">Password</th>
-                            <th scope="col" width="20%">First name</th>
-                            <th scope="col" width="20%">Last name</th>
-                            <th scope="col" width="20%">Middle initial</th>
+                            <th scope="col" width="16%">Email</th>
+                            <th scope="col" width="16%">Password</th>
+                            <th scope="col" width="16%">First name</th>
+                            <th scope="col" width="16%">Last name</th>
+                            <th scope="col" width="16%">Middle initial</th>
+                            <th scope="col" width="16%">Action</th>
                         </tr>
                     </thead>
                     <tbody id="admin-list">

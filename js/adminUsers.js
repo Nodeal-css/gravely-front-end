@@ -23,6 +23,7 @@ function loadList(arr = []){
         '<td>'+ arr[i].firstname +'</td>' +
         '<td>'+ arr[i].lastname +'</td>' +
         '<td>'+ arr[i].mi +'</td>' +
+        '<td><button class="btn btn-outline-danger" onclick="deleteAccount(\''+ arr[i].id +'\')">Delete</button></td>' +
     '</tr>';
     }
 }
@@ -104,4 +105,12 @@ function checkEmailExist(input){
     }).catch( function(e){
         console.log(e.message);
     })
+}
+
+function deleteAccount(acc_id){
+    if(confirm("Are you sure you want to delete this account?")){
+        remove(ADMIN, acc_id);
+        alert("Account has been deleted");
+        loadUsers(10);
+    }
 }

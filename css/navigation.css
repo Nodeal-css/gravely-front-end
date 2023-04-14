@@ -57,6 +57,16 @@ body {
   z-index: 602;
 }
 
+#admin-tab {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 210px;
+  height: auto;
+  margin-top: 5%;
+  z-index: 602;
+}
+
 /* Animations */
 
 @keyframes navHide {

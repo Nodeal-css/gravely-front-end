@@ -27,7 +27,7 @@
                     <i class="uil uil-bell text-light" style="font-size: 30px;" id="notif-btn"></i>
                 </li>
                 <li class="nav-item ml-3">
-                    <i class="uil uil-user-square text-light" style="font-size: 30px;"></i>
+                    <i class="uil uil-user-square text-light" id="current-admin-btn" style="font-size: 30px;"></i>
                 </li>
             </ul>
         </div>
@@ -79,6 +79,18 @@
         </div>
     </div>
     <!-- End of notifications -->
+    <div class="card" id="admin-tab" style="display: none;">
+        <div class="card-header">
+            <small class="mr-5"><b>Admin</b></small>
+            <span class="ml-5" style="font-size: 20px; cursor: pointer;" onclick="document.getElementById('admin-tab').style.display = 'none';">&times;</span>
+        </div>
+        <div>
+            <ul class="list-group" id="admin-user" style="max-height: 18rem; overflow-y: auto;">
+                
+            </ul>
+        </div>
+      </div>
+      <!-- End of current admin logged in --> 
     </header>
 
     <main id="main-content">
