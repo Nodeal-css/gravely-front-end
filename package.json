@@ -1,0 +1,22 @@
+{
+  "name": "gravely-front-end",
+  "version": "1.0.0",
+  "description": "> cd to backend folder and type this command: \r ```run pocketbase```",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nodeal-css/gravely-front-end.git"
+  },
+  "author": "Mondigo, Ezra Dael",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nodeal-css/gravely-front-end/issues"
+  },
+  "homepage": "https://github.com/Nodeal-css/gravely-front-end#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
