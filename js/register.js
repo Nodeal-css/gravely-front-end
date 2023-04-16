@@ -89,17 +89,21 @@ reg.addEventListener('click', function(){
         "status": document.querySelector("#status").value,
         "expiry_date": document.querySelector("#expiry").value
     };
-    
-    registerAdmin(account, cem, sub).then( function () {
-        //redirect to admin dashboard
-        console.log("account has been added");
-        alert("You have signed up an Admin, Cemetery, and subscription details,\nThank you for trusting Gravely!\nredirecting to login page.");
-        window.location.href = '../index.html';
-    }).catch(function(err) {
-        //console.log(search('admin', 1, 1, account.email, '', '', ''));
-        console.log(err.message);
-    });
- 
+    const subscriber = {
+        name: {
+          given_name: document.getElementById('fname').value,
+          surname: document.getElementById('lname').value
+        },
+        email_address: document.getElementById("email").value
+    }
+    window.localStorage.setItem("accountObject", JSON.stringify(account));
+    window.localStorage.setItem("cemeteryObject", JSON.stringify(cem));
+    window.localStorage.setItem("subObject", JSON.stringify(sub));
+
+    subscribe(subscriber).then(function (response) {
+        window.location.replace(response.links[0].href);
+    })
+
 });
 
 //This function will check if the format of input is not followed, or if it is empty.

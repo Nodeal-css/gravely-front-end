@@ -263,18 +263,6 @@ function objectToParams(obj) {
 //   alert('your file has been uploaded');
 // }
 
-
-
-// For Payment
-const CLIENT_ID = 'Aa-Czh3m-Jr9ISTCf7ye7HJWIAPrSPSe4NPERuwLOhb0qKvdnqiYuaVWsQj0in4CcgUtrFRfb6Ln2175'
-const SECRET_KEY = 'ED6Qh_nB5l2wutveNxjbSIMfzAwdk2W-WdETOkuM0ZjgOXM_1bORUqF05EGW_bHtDMJL1ILG-HIHWbJn'
-const PLAN_ID = 'P-36G65051UA968292WMQOUPLI'
-const RETURN_URL = '../pages/successSub.html'
-const CANCEL_URL = '../pages/cancelledSub.html'
-const AUTHORIZATION = btoa(`${CLIENT_ID}:${SECRET_KEY}`)
-
-const resource = 'https://api-m.sandbox.paypal.com/v1/billing/subscriptions'
-
 // USER INPUT
 const subscriber = {
   name: {
@@ -284,11 +272,21 @@ const subscriber = {
   email_address: 'customer@example.com'
 }
 
-/* Use this on click event ↴
+
+// For Payment
+const CLIENT_ID = 'Aa-Czh3m-Jr9ISTCf7ye7HJWIAPrSPSe4NPERuwLOhb0qKvdnqiYuaVWsQj0in4CcgUtrFRfb6Ln2175'
+const SECRET_KEY = 'ED6Qh_nB5l2wutveNxjbSIMfzAwdk2W-WdETOkuM0ZjgOXM_1bORUqF05EGW_bHtDMJL1ILG-HIHWbJn'
+const PLAN_ID = 'P-36G65051UA968292WMQOUPLI' 
+const RETURN_URL = '../pages/successSub.html'
+const CANCEL_URL = '../pages/cancelledSub.html'
+const AUTHORIZATION = btoa(`${CLIENT_ID}:${SECRET_KEY}`)
+
+const resource = 'https://api-m.sandbox.paypal.com/v1/billing/subscriptions'
+
+// Use this on click event ↴
 subscribe(subscriber).then(function (response) {
   window.location.replace(response.links[0].href) // redirect to paypal payment
-})
-*/
+});
 
 /** Subscribing for the plan
 * @param subscriber: Information of the user who wants to subscribe the plan.
