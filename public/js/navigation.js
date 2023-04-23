@@ -70,8 +70,7 @@ log_out.addEventListener('click', function(){
 function check_session(){
     if(!isLoggedIn()){
         console.log('Session: not active');
-        alert('Invalid access, please sign in');
-        window.location.href = '../index.html';
+        window.location.href = '../pages/invalidaccess.html';
         return;
     }
     console.log('Session: active');
