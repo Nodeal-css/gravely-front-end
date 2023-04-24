@@ -9,6 +9,7 @@ const show_causes = document.getElementById('show-cause-of-death');
 currentCemetery();
 populateBurialperYear();
 
+
 burial_btn.addEventListener('click', function(){
     populateBurialperYear();
 });

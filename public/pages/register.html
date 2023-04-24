@@ -60,17 +60,17 @@
             <h4>Sign up an admin account</h4>
             <small>First admin account of a cemetery should sign up</small>
                 <div class="form-outline mb-4 mt-5">
-                  <input type="text" id="fname" class="form-control form-control-lg" required/>
+                  <input type="text" id="fname" class="form-control form-control-lg" pattern="[^\d]+" required/>
                   <label class="form-label" for="fname">First name</label>
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input type="text" id="lname" class="form-control form-control-lg" required/>
+                  <input type="text" id="lname" class="form-control form-control-lg" pattern="[^\d]+" required/>
                   <label class="form-label" for="lname">Last name</label>
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input type="text" id="mi" class="form-control form-control-lg" maxlength="2" />
+                  <input type="text" id="mi" class="form-control form-control-lg" pattern="[^\d]+" maxlength="2" />
                   <label class="form-label" for="mi">Middle Initial</label>
                 </div><br>
 
@@ -127,8 +127,8 @@
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input type="phone" id="contact" class="form-control form-control-lg" maxlength="11" required/>
-                  <label class="form-label" for="contact">Contact</label><!-- change to contact person -->
+                  <input type="tel" pattern="[0-9]{11}" id="contact" class="form-control form-control-lg" maxlength="11" required/>
+                  <label class="form-label" for="contact">Mobile number</label><!-- change to contact person -->
                 </div>
 
                

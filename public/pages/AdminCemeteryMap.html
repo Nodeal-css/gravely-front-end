@@ -145,7 +145,7 @@
             <small>Location desc: <input type="text" id="location-inp" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;" required></small><br>
             <small>Price: <input type="number" id="price-inp" step="0.01" placeholder="₱" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;" required></small><br>
             <small>Grave type: <select name="grave-type" id="grave-type" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;" required></select></small><br>
-            <small>Row: <input type="number" id="row-inp" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;" required></small><br>
+            <small>Row: <input type="number" id="row-inp" min="0" max="7" placeholder="1 - 7" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;" required></small><br>
             <small>Latitude: <input type="text" id="lat-txt" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;" readonly></small><br>
             <small>Longitude: <input type="text" id="lng-txt" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;" readonly></small><br>
             <div class="row">
@@ -265,23 +265,23 @@
           <div class="col">
             <div class="form-group">
                 <label for="d-fname">First name:</label>
-                <input type="text" class="form-control" id="d-fname" placeholder="Enter name" required>
+                <input type="text" class="form-control" id="d-fname" placeholder="Enter name" pattern="[^\d]+" required>
               </div>
               <div class="form-group">
                 <label for="d-lname">Last name:</label>
-                <input type="text" class="form-control" id="d-lname" placeholder="Enter last name" required>
+                <input type="text" class="form-control" id="d-lname" placeholder="Enter last name" pattern="[^\d]+" required>
               </div>
               <div class="form-group">
                 <label for="d-mi">Middle initial:</label>
-                <input type="text" class="form-control" id="d-mi" placeholder="Enter middle name" maxlength="2">
+                <input type="text" class="form-control" id="d-mi" placeholder="Enter middle name" pattern="[^\d]+" maxlength="2">
               </div>
               <div class="form-group">
                 <label for="cause-of-death">Cause of death:</label>
-                <input type="text" class="form-control" id="cause-of-death" placeholder="Enter cause of death" required>
+                <input type="text" class="form-control" id="cause-of-death" placeholder="Enter cause of death" pattern="[^\d]+" required>
               </div>
               <div class="form-group">
                 <label for="memorial">Memorial:</label>
-                <textarea class="form-control" id="memorial" placeholder="Enter memorial" required></textarea>
+                <textarea class="form-control" id="memorial" placeholder="Enter memorial" pattern="[^\d]+" required></textarea>
               </div>
           </div>
           <div class="col">
@@ -336,15 +336,15 @@
               <div>
                 <div class="form-group">
                     <label for="c-fname">First name:</label>
-                    <input type="text" class="form-control" id="c-fname" placeholder="Enter first name" required>
+                    <input type="text" class="form-control" id="c-fname" placeholder="Enter first name" pattern="[^\d]+" required>
                   </div>
                   <div class="form-group">
                     <label for="c-lname">Last name:</label>
-                    <input type="text" class="form-control" id="c-lname" placeholder="Enter last name" required>
+                    <input type="text" class="form-control" id="c-lname" placeholder="Enter last name" pattern="[^\d]+" required>
                   </div>
                   <div class="form-group">
                     <label for="c-mi">Middle initial:</label>
-                    <input type="text" class="form-control" id="c-mi" placeholder="Enter middle initial" maxlength="2">
+                    <input type="text" class="form-control" id="c-mi" placeholder="Enter middle initial" pattern="[^\d]+" maxlength="2">
                   </div>
                   <div class="form-group">
                     <label for="c-address">Address:</label>
@@ -352,7 +352,7 @@
                   </div>
                   <div class="form-group">
                     <label for="c-tel">Phone:</label>
-                    <input type="phone" class="form-control" id="c-tel" placeholder="Enter phone no." required>
+                    <input type="tel" class="form-control" id="c-tel" pattern="[0-9]{11}" placeholder="Enter phone no." required>
                   </div>
               </div>
               <!-- firstname, lastname, mi, memorial, date_death, date_burial, date_birth, cause_of_death, burial_type-->

@@ -28,6 +28,16 @@ btn_update.addEventListener('click', function(){
         burial_type_id: document.getElementById('burial-type-input').value 
     }
 
+    if(!input_validation(['fNameInput', 'lNameInput', 'miInput', 'gender', 'birthInput', 'deathInput', 'burialInput', 'cDeathInput', 'memorialInput', 'burial-type-input'])){
+        alert('There are invalid input fields. Please fill all text boxes.');
+        return;
+    }
+
+    if(!checkDateValidity(document.getElementById('birthInput').value, document.getElementById('deathInput').value, document.getElementById('burialInput').value)){
+        alert('The date of birth should not be after than death & burial dates.\nAnd the burial date is later and should not exceed to 2 weeks after date of death. Please check once again.');
+        return;
+    }
+
     update('deceased', person).then( function(){
         console.log("id: " + person.id + " updated");
         alert("Deceased information has been updated!");
@@ -132,6 +142,16 @@ async function loadInfo(deceased_id){
     }
 }
 
+//function to trap if birth date is less than date of death & date of death is less than date of burial.
+function checkDateValidity(birth, death, burial){
+    const birth_date = new Date(birth);
+    const death_date = new Date(death);
+    const burial_date = new Date(burial);
+    const within2weeks = (burial_date.getTime() - death_date.getTime()) / (1000 * 60 * 60 * 24);
+    const current = new Date();
+    return (birth_date.getTime() < death_date.getTime() && death_date.getTime() < burial_date.getTime() && within2weeks <= 14 && death_date.getTime() <= current.getTime());
+}
+
 function closeEdit(){
     document.getElementById('edit').style.display="inline";
     document.getElementById('updateDisplay').style.display="none";
@@ -196,4 +216,16 @@ function deletePDF(id){
             console.log(e.message);
         });
     }
+}
+
+function input_validation(id = []){
+    let flag = true;
+    for(let i = 0; i < id.length; i++){
+        let input = document.getElementById(id[i]);
+        if(!input.checkValidity()){
+            flag = false;
+            break;
+        }
+    }
+    return flag;
 }

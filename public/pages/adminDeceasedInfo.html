@@ -116,32 +116,32 @@
          <form> 
            <div class="info1">
              <label style="padding-right:7px;">First name:  </label>
-             <input class="form-control" id="fNameInput"type="text" readonly value="John" >
+             <input class="form-control" id="fNameInput" type="text" pattern="[^\d]+" readonly value="John" required>
              <label style="padding-right:7px;">Last name:  </label>
-             <input class="form-control" id="lNameInput"type="text" readonly value="Newman" >
+             <input class="form-control" id="lNameInput" type="text" pattern="[^\d]+" readonly value="Newman" required>
              <label>Middle initial:  </label>
-             <input class="form-control"id="miInput"type="text" readonly value="M." >
+             <input class="form-control"id="miInput"type="text" pattern="[^\d]+" readonly value="M." >
              <label style="padding-right:25px;">Birth date: </label>
-             <input class="form-control"id="birthInput" type="text"  readonly>
+             <input class="form-control"id="birthInput" type="text" required readonly>
              <label>Date of Death: </label>
-             <input class="form-control"id ="deathInput"type="text" readonly>
+             <input class="form-control"id ="deathInput" type="text" readonly required>
             
             </div> 
             <div class="info2">
               <label for="gender">Gender</label><br>
-              <select style ="width:300px; height:37px; text-align:center;" name="" id="gender">
+              <select style ="width:300px; height:37px; text-align:center;" name="" id="gender" required>
                 <option value='' disabled selected>Choose type</option>
                 <option value="M">Male</option>
                 <option value="F">Female</option>
               </select><br>
              <label style="padding-right:15px;" for="burialInput">Date of burial: </label>
-             <input class="form-control" id="burialInput" type="text" readonly>
+             <input class="form-control" id="burialInput" style="width: 100%;" type="text" readonly required>
                <label >Cause of death: </label>
-               <input class="form-control" id="cDeathInput" type="text" readonly value="Heart attack">
+               <input class="form-control" id="cDeathInput" type="text" pattern="[^\d]+" style="width: 100%;" readonly value="Heart attack" required>
                <label style="padding-right: 40px;">Memorial: </label>
-               <textarea class="form-control" rows="4" id ="memorialInput" type="text" style="resize:none;"  readonly value="Rest in peace"></textarea>
+               <textarea class="form-control" rows="4" id ="memorialInput" pattern="[^\d]+" type="text" style="resize:none;"  readonly required value="Rest in peace"></textarea>
                <label style="display:flex;">Burial type: </label>
-               <select style ="width:300px; height:37px; text-align:center;" id="burial-type-input" readonly>
+               <select style ="width:300px; height:37px; text-align:center;" id="burial-type-input" readonly required>
                 <option value='' disabled selected>Choose type</option>
                 <option value="pzcou9z7i198uhf">Above ground</option>
                 <option value="3gk7c2h67lhgbzr">In ground</option>

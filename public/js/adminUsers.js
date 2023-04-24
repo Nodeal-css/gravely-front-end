@@ -111,6 +111,8 @@ function deleteAccount(acc_id){
     if(confirm("Are you sure you want to delete this account?")){
         remove(ADMIN, acc_id);
         alert("Account has been deleted");
-        loadUsers(10);
+        signout();
+        window.location.href = '../index.html';
+        //loadUsers(10);
     }
 }

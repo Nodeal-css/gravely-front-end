@@ -526,6 +526,11 @@ insert_deceased.addEventListener('click', function(){
         return;
     }
 
+    if(!checkDateValidity(document.getElementById('dob').value, document.getElementById('dod').value, document.getElementById('d-burial').value)){
+        alert('The date of birth should not be after than date of death & burial.\nAnd the burial date is later and should not exceed to 2 weeks after date of death. Please check once again.');
+        return;
+    }
+
     create('deceased', form).then( function(data){
         alert('Inserted deceased record');
         $('#add-deceased').modal('hide');
@@ -540,6 +545,17 @@ insert_deceased.addEventListener('click', function(){
     });
 
 });
+
+
+//function to trap if birth date is less than date of death & date of death is less than date of burial.
+function checkDateValidity(birth, death, burial){
+    const birth_date = new Date(birth);
+    const death_date = new Date(death);
+    const burial_date = new Date(burial);
+    const within2weeks = (burial_date.getTime() - death_date.getTime()) / (1000 * 60 * 60 * 24);
+    const current = new Date();
+    return (birth_date.getTime() < death_date.getTime() && death_date.getTime() < burial_date.getTime() && within2weeks <= 14 && death_date.getTime() <= current.getTime());
+}
 
 
 function clearInput(id = []){

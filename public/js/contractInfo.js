@@ -31,6 +31,12 @@ update_btn.addEventListener('click', function(){
         address: document.getElementById('address').value,
         tel: document.getElementById('phone').value
     }
+
+    if(!input_validation(['firstname', 'lastname', 'mi', 'address', 'phone'])){
+        alert('There are invalid input fields. Please fill all text boxes.');
+        return;
+    }
+
     update('contract', data).then( function(){
         alert('Contract record has been updated.');
         loadInfo(getContractID());
@@ -92,5 +98,17 @@ function loadInfo(input){
 
 function getContractID(){
     return window.localStorage.getItem('contract-id');
+}
+
+function input_validation(id = []){
+    let flag = true;
+    for(let i = 0; i < id.length; i++){
+        let input = document.getElementById(id[i]);
+        if(!input.checkValidity()){
+            flag = false;
+            break;
+        }
+    }
+    return flag;
 }
 

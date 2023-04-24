@@ -120,17 +120,17 @@
           <form> 
             <div class="info1">
               <label style="padding-right:7px;">First name:  </label>
-              <input class="form-control" id="firstname"type="text" readonly value="John" >
+              <input class="form-control" id="firstname" type="text" pattern="[^\d]+" readonly value="John" required>
               <label style="padding-right:7px;">Last name:  </label>
-              <input class="form-control" id="lastname"type="text" readonly value="Newman" >
+              <input class="form-control" id="lastname" type="text" pattern="[^\d]+" readonly value="Newman" required>
               <label>Middle initial:  </label>
-              <input class="form-control"id="mi"type="text" readonly value="M." >
+              <input class="form-control"id="mi"type="text" pattern="[^\d]+" readonly value="M." >
              </div> 
              <div class="info2">
                 <label style="padding-right:7px;">Address:  </label>
-                <input class="form-control" id="address"type="text" readonly value="Taytayan, Bogo City, Cebu" >
+                <input class="form-control" id="address" type="text" readonly value="Taytayan, Bogo City, Cebu" >
                 <label style="padding-right:7px;">Phone:  </label>
-                <input class="form-control" id="phone"type="text" readonly value="09456888915" >
+                <input class="form-control" id="phone" type="text" pattern="[0-9]{11}" readonly value="09456888915" required>
             </div>
           
             <div class="btns">
