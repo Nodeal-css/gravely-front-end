@@ -8,14 +8,66 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="icon" href="assets/gravely-icon.png" type="image/png">
 	<title>Grave.ly Login</title>
+  <style>
+   @media screen and (max-width: 768px) {
+  
+   h1{
+    margin-bottom:20px;
+   }
+   
+   }
+   h1{
+    text-align:justify;
+    font-weight: 750;
+   }
+
+   section{
+    overflow:hidden;
+   }
+   body{
+    background-image: url('assets/body2.jpg');
+    background-size:cover; 
+    background-repeat: no-repeat; 
+    background-position: center center;
+    
+   }
+
+   footer{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+   }
+   .login-container{
+    padding:20px;
+    background-color: 	rgb(0, 0, 0,0.5);
+    width:380px;
+    height:430px;
+    border-radius: 10px;
+   }
+   .login-container input{
+    border:none;
+    background-color: rgb(246, 246, 246);
+   }
+   .login-container input:focus{
+    
+    background-color: #fff;
+
+   }
+   .login-container h3{
+    text-align: center;
+    margin-bottom:20px;
+   }
+  
+  </style>
 	
 </head>
 <body>
-
+ 
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(220, 108, 75);">
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(220, 108, 75,0.8);">
   <a class="navbar-brand" href="pages/landingpage.html">
-    <img src="assets/logo.png" width="90" height="30" alt="">
+    <img src="assets/logo2.png" width="90" height="30" alt="">
   </a>
   <div class="collapse navbar-collapse" id="navbarNav" style="float: right;">
     <ul class="navbar-nav">
@@ -34,42 +86,44 @@
 <!-- End of Navigation -->
 
 <!-- Page content -->
-<section class="vh-90 bg-image" style="background-image: url('assets/body.png');background-size:     cover; background-repeat: no-repeat; background-position: center center; ">
+<section>
   <div class="container py-5 h-100">
     <div class="row d-flex align-items-center justify-content-center h-100">
-      <div class="col-md-8 col-lg-7 col-xl-6 text-light">
-        <h1>Cemetery Records<br><span>ease of access</span> <br>Visit the graves of your love ones</h1>
+      <div class="col-md-11 col-lg-7 col-xl-7 text-light">
+        <h1>Cemetery records makes it easier to access and visit the graves of your loved ones.</h1>
         <button class="btn btn-secondary btn-md" style="display: none;" onclick="location.href ='pages/guestSearchDeceased.html';">Find</button>
       </div>
+      
       <div class="offset-xl-1" style="width: 19rem;">
+        <div class="login-container fadeInDown">
+          <h3 class="text-light">Log In</h3>
           <!-- Email input -->
           <div class="form-outline mb-4">
-            <input type="email" id="user-name" class="form-control form-control-md" />
-            <label class="form-label text-light" for="user-name">Email</label>
+            <input type="email" id="user-name" class="form-control form-control-md" placeholder="Email" />
           </div>
 
           <!-- Password input -->
           <div class="form-outline mb-4">
-            <input type="password" id="pass-word" class="form-control form-control-md" />
-            <label class="form-label text-light" for="pass-word">Password</label>
+            <input type="password" id="pass-word" class="form-control form-control-md" placeholder="Password"/>
           </div>
 
           <div class="d-flex justify-content-around align-items-center mb-4">
             <!-- Checkbox -->
-            <a href="#!">Forgot password?</a>
+            <a href="#!" class="text-light">Forgot password?</a>
           </div>
 
           <!-- Submit button -->
-          <button id="login" class="btn btn-success btn-md btn-block">Sign in</button>
+          <button id="login" class="btn btn-success btn-md btn-block">Log in</button>
 
           <div class="divider d-flex align-items-center my-4">
-            <p class="text-center fw-bold mx-3 mb-0 text-light">OR</p>
+            <p class=" text-light text-center fw-bold mx-3 mb-0" style="font-weight: 700;">OR</p>
           </div>
 
           <button class="btn btn-md btn-block text-light" style="background-color: rgb(220, 108, 75);" onclick="location.href = 'pages/register.html';"><i class="uil uil-paypal"></i> Subscribe to Gravely</button>
 
         
       </div>
+    </div>
     </div>
   </div>
 </section>
