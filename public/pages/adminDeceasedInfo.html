@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -97,17 +94,18 @@
     </header>
 
 <main id="main-content">
-        <br>
-        <div class="breadcrumbs"> 
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="../pages/adminDashboard.html" id="cem-name"></a></li>
-                <li class="breadcrumb-item"><a href="../pages/AdminDeceasedRecords.html">Records</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Deceased information</li>
-            </ol>
-            </nav>
-        </div>
+        
     <div class="contain">
+     
+      <div class="breadcrumbs"> 
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="../pages/adminDashboard.html" id="cem-name"></a></li>
+            <li class="breadcrumb-item"><a href="../pages/AdminDeceasedRecords.html">Records</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Deceased Information</li>
+        </ol>
+        </nav>
+    </div>
       <div class="info">
         <div>
             <img id="deceased-img" src="../assets/grave-logo.png" alt="grave img" style="object-fit: none;">
@@ -115,13 +113,13 @@
         <div class ="info_detail">
          <form> 
            <div class="info1">
-             <label style="padding-right:7px;">First name:  </label>
+             <label>First name:  </label>
              <input class="form-control" id="fNameInput" type="text" pattern="[^\d]+" readonly value="John" required>
-             <label style="padding-right:7px;">Last name:  </label>
+             <label>Last name:  </label>
              <input class="form-control" id="lNameInput" type="text" pattern="[^\d]+" readonly value="Newman" required>
              <label>Middle initial:  </label>
              <input class="form-control"id="miInput"type="text" pattern="[^\d]+" readonly value="M." >
-             <label style="padding-right:25px;">Birth date: </label>
+             <label>Birth date: </label>
              <input class="form-control"id="birthInput" type="text" required readonly>
              <label>Date of Death: </label>
              <input class="form-control"id ="deathInput" type="text" readonly required>
@@ -134,11 +132,11 @@
                 <option value="M">Male</option>
                 <option value="F">Female</option>
               </select><br>
-             <label style="padding-right:15px;" for="burialInput">Date of burial: </label>
+             <label for="burialInput">Date of burial: </label>
              <input class="form-control" id="burialInput" style="width: 100%;" type="text" readonly required>
-               <label >Cause of death: </label>
+               <label>Cause of death: </label>
                <input class="form-control" id="cDeathInput" type="text" pattern="[^\d]+" style="width: 100%;" readonly value="Heart attack" required>
-               <label style="padding-right: 40px;">Memorial: </label>
+               <label>Memorial: </label>
                <textarea class="form-control" rows="4" id ="memorialInput" pattern="[^\d]+" type="text" style="resize:none;"  readonly required value="Rest in peace"></textarea>
                <label style="display:flex;">Burial type: </label>
                <select style ="width:300px; height:37px; text-align:center;" id="burial-type-input" readonly required>
@@ -156,7 +154,7 @@
               <button type="button" class="btn btn-primary" id="edit"><i class="uil uil-edit"></i></button>
               <button type="button" class="btn btn-primary" id="close" style="display:none;"><i class="uil uil-times"></i></button>
               <button type="button" class="btn btn-danger ml-2" id="delete-deceased" title="Click, if you want to delete the record."><i style="font-size: 15px;" class="uil uil-trash-alt"></i></button>
-              <button type="button" class="btn btn-warning ml-2 text-light" id="locate" title="Find the location of the deceased."><i class="uil uil-map-marker-question"></i> Locate</button>
+              <button type="button" class="btn btn-warning ml-2 text-light" id="locate" title="Find the location of the deceased."><i class="uil uil-map-marker-question"></i></button>
            </div>
          </form>
         
@@ -166,12 +164,10 @@
     
     </div>
     <br><br><br><br><br><br>
-    <div class="divider" style="width:100%; height:50px; background-color:#ebeff2;">
-
-    </div>
+    
     <div class="card">
        <div class="card-body">
-         
+         <h3>Uploaded File</h3>
          <div class="pdfs">
            <div class ="pdfbutton">
                 <!-- Button trigger modal -->
@@ -185,6 +181,7 @@
             </div>
         </div>
    </div>
+
 </main>   
 
             <!-- Modal -->

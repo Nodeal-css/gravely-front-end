@@ -67,6 +67,13 @@ body {
   z-index: 602;
 }
 
+.list-group-item.active {
+  z-index: 2;
+  color: #fff;
+  background-color: rgb(220, 108, 75);
+  border-color: rgb(220, 108, 75);
+}
+
 /* Animations */
 
 @keyframes navHide {

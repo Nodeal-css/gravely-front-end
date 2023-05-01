@@ -78,6 +78,10 @@ upload_pdf.addEventListener('click', function(){
     let formdata = new FormData();
     formdata.append('file', data);
     formdata.append('deceased_id', getDeceasedId());
+    if(document.getElementById('pdf-file').value === ""){
+        alert("No file to be uploaded.");
+        return;
+    }
     //console.log(formdata);
     create(LEGAL_DOCUMENT, formdata).then( function(){
         alert('PDF legal document has been uploaded.');
