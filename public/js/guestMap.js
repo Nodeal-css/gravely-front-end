@@ -76,7 +76,7 @@ btnGraveStatus.addEventListener('click', function(){
                         icon: L.icon(markerStatus[data.items[i].status]),
                         title: 'Status: ' + data.items[i].status
                     }).addTo(graveMarker)
-                    .bindPopup(loadGravePopup(data.items[i].location_description, data.items[i].status, data.items[i].price, data.items[i].column, data.items[i].grave_type))
+                    .bindPopup(loadGravePopup(data.items[i].location_description, data.items[i].status, data.items[i].price, data.items[i].row, data.items[i].column, data.items[i].grave_type))
                     .on('click', function(){
                         let container = document.getElementById('grave-information');
                         container.style.display = 'block';
@@ -137,7 +137,7 @@ function loadMarkers(cem_id){
                     icon: L.icon(temp[data.items[i].grave_type]),
                     title: 'Description: ' + data.items[i].location_description
                 }).addTo(graveMarker)
-                .bindPopup(loadGravePopup(data.items[i].location_description, data.items[i].status, data.items[i].price, data.items[i].column, data.items[i].grave_type))
+                .bindPopup(loadGravePopup(data.items[i].location_description, data.items[i].status, data.items[i].price, data.items[i].row ,data.items[i].column, data.items[i].grave_type))
                 .on('click', function(){
                     let container = document.getElementById('grave-information');
                     container.style.display = 'block';
@@ -167,7 +167,7 @@ function locateByGraveId(graveID, lat, lng){
                 icon: iconPin,
                 title: 'Description: ' + data.items[0].location_description
             }).addTo(graveMarker)
-            .bindPopup(loadGravePopup(data.items[0].location_description, data.items[0].status, data.items[0].price, data.items[0].column, data.items[0].grave_type))
+            .bindPopup(loadGravePopup(data.items[0].location_description, data.items[0].status, data.items[0].price, data.items[0].row, data.items[0].column, data.items[0].grave_type))
             .on('click', function(){
                 let container = document.getElementById('grave-information');
                 container.style.display = 'block';
@@ -180,7 +180,7 @@ function locateByGraveId(graveID, lat, lng){
         });
 }
 
-function loadGravePopup(description, status, price, row, type){
+function loadGravePopup(description, status, price, row ,column , type){
         // query to db based from id
         const namesOfGraves = {
             'av67hd01wy9ud91': 'Mausoleum',
@@ -200,15 +200,15 @@ function loadGravePopup(description, status, price, row, type){
                 '<p class="card-text"><strong>Description: </strong></p>' +
                 '<p class="card-text"><strong>Status: </strong></p>' +
                 '<p class="card-text"><strong>Type: </strong></p>' +
-                '<p class="card-text"><strong>Price: </strong></p>' +
                 '<p class="card-text"><strong>Row: </strong></p>' +
+                '<p class="card-text"><strong>Column: </strong></p>' +
             '</div>' +
             '<div class="col text-left">' +
                 '<p class="card-text">'+ description +'</p>' +
                 '<p class="card-text">'+ status + '</p>' +
                 '<p class="card-text">'+ namesOfGraves[type] +'</p>' +
-                '<p class="card-text">₱ '+ price +'</p>' +
                 '<p class="card-text">'+ row +'</p>' +
+                '<p class="card-text">'+ column + '</p>' +
             '</div>' +
         '</div>' +
         '<div class="card-footer text-right">' +

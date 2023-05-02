@@ -75,7 +75,7 @@ map.addEventListener('mousemove', function(e){
 });
 
 btn_save_location.addEventListener('click', function(){
-    if(!input_validation(['location-inp', 'price-inp', 'row-inp', 'grave-type'])){
+    if(!input_validation(['location-inp', 'price-inp', 'row-inp' ,'col-inp' , 'grave-type'])){
         alert('There are invalid input fields. Please fill all text boxes.');
         return;
     }
@@ -86,7 +86,8 @@ btn_save_location.addEventListener('click', function(){
     formdata.append('location_description', document.getElementById('location-inp').value);
     formdata.append('status', 'Vacant'),
     formdata.append('price', document.getElementById('price-inp').value);
-    formdata.append('column', document.getElementById('row-inp').value);
+    formdata.append('row', document.getElementById('row-inp').value);
+    formdata.append('column', document.getElementById('col-inp').value);
     formdata.append('latitude', coord.latitude);
     formdata.append('longitude', coord.longitude);
 
@@ -163,7 +164,7 @@ document.getElementById('view-markers-status').addEventListener('click', functio
                 icon: L.icon(markerStatus[data.items[i].status]),
                 title: 'Status: ' + data.items[i].status
             }).addTo(graveMarker)
-            .bindPopup(loadGravePopup(data.items[i].id, data.items[i].location_description, data.items[i].status, data.items[i].price, data.items[i].column, data.items[i].grave_type, data.items[i].deceased_id, data.items[i].contract_id, data.items[i].latitude, data.items[i].longitude))
+            .bindPopup(loadGravePopup(data.items[i].id, data.items[i].location_description, data.items[i].status, data.items[i].price, data.items[i].row, data.items[i].column, data.items[i].grave_type, data.items[i].deceased_id, data.items[i].contract_id, data.items[i].latitude, data.items[i].longitude))
             .on('click', function(){
                 let container = document.getElementById('grave-information');
                 container.style.display = 'block';
@@ -221,6 +222,7 @@ function clearGraveForm(bool){
     document.getElementById('location-inp').value = "";
     document.getElementById('price-inp').value = "";
     document.getElementById('row-inp').value = "";
+    document.getElementById('col-inp').value = "";
     coord = {};
 }
 
@@ -266,7 +268,7 @@ function focusOrigin(){
 
 
 //.bindPopup() <-- in bind pop up, create a function that receives the grave_id, that returns a string of html content containing grave and deceased info. If we want to load all the markers to the map.
-function loadGravePopup(grave_id, description, status, price, row, type, deceased, contract, lat, lng){
+function loadGravePopup(grave_id, description, status, price, row, column, type, deceased, contract, lat, lng){
     // query to db based from id
     const namesOfGraves = {
         'av67hd01wy9ud91': 'Mausoleum',
@@ -288,6 +290,7 @@ function loadGravePopup(grave_id, description, status, price, row, type, decease
             '<p class="card-text"><strong>Type: </strong></p>' +
             '<p class="card-text"><strong>Price: </strong></p>' +
             '<p class="card-text"><strong>Row: </strong></p>' +
+            '<p class="card-text"><strong>Column: </strong></p>' +
         '</div>' +
         '<div class="col text-left">' +
             '<p class="card-text">'+ description +'</p>' +
@@ -295,6 +298,7 @@ function loadGravePopup(grave_id, description, status, price, row, type, decease
             '<p class="card-text">'+ namesOfGraves[type] +'</p>' +
             '<p class="card-text">₱ '+ price.toLocaleString() +'</p>' +
             '<p class="card-text">'+ row +'</p>' +
+            '<p class="card-text">'+ column +'</p>' +
         '</div>' +
     '</div>' +
     '<div class="card-footer text-center">' +
@@ -375,7 +379,7 @@ function loadMarkers(){
                 icon: L.icon(temp[data.items[i].grave_type]),
                 title: 'Description: ' + data.items[i].location_description
             }).addTo(graveMarker)
-            .bindPopup(loadGravePopup(data.items[i].id, data.items[i].location_description, data.items[i].status, data.items[i].price, data.items[i].column, data.items[i].grave_type, data.items[i].deceased_id, data.items[i].contract_id, data.items[i].latitude, data.items[i].longitude))
+            .bindPopup(loadGravePopup(data.items[i].id, data.items[i].location_description, data.items[i].status, data.items[i].price, data.items[i].row, data.items[i].column, data.items[i].grave_type, data.items[i].deceased_id, data.items[i].contract_id, data.items[i].latitude, data.items[i].longitude))
             .on('click', function(){
                 let container = document.getElementById('grave-information');
                 container.style.display = 'block';
@@ -419,7 +423,7 @@ function locateByGraveId(graveID){
             icon: iconPin,
             title: 'Description: ' + data.items[0].location_description
         }).addTo(graveMarker)
-        .bindPopup(loadGravePopup(data.items[0].id, data.items[0].location_description, data.items[0].status, data.items[0].price, data.items[0].column, data.items[0].grave_type, data.items[0].deceased_id, data.items[0].contract_id, data.items[0].latitude, data.items[0].longitude))
+        .bindPopup(loadGravePopup(data.items[0].id, data.items[0].location_description, data.items[0].status, data.items[0].price, data.items[0].row, data.items[0].column, data.items[0].grave_type, data.items[0].deceased_id, data.items[0].contract_id, data.items[0].latitude, data.items[0].longitude))
         .on('click', function(){
             let container = document.getElementById('grave-information');
             container.style.display = 'block';
@@ -527,7 +531,7 @@ insert_deceased.addEventListener('click', function(){
     }
 
     if(!checkDateValidity(document.getElementById('dob').value, document.getElementById('dod').value, document.getElementById('d-burial').value)){
-        alert('The date of birth should not be after than date of death & burial.\nAnd the burial date is later and should not exceed to 2 weeks after date of death. Please check once again.');
+        alert('Invalid date inputs. To fix the issue please consider the following.\n\n- The deceased birthday must be before the date of death.\n- The date of death must be earlier than date of burial.\n- The date of burial must not exceed to 14 days after the death. \n- The date of death must not be in future dates including birthday.');
         return;
     }
 

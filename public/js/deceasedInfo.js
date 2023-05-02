@@ -34,7 +34,7 @@ btn_update.addEventListener('click', function(){
     }
 
     if(!checkDateValidity(document.getElementById('birthInput').value, document.getElementById('deathInput').value, document.getElementById('burialInput').value)){
-        alert('The date of birth should not be after than death & burial dates.\nAnd the burial date is later and should not exceed to 2 weeks after date of death. Please check once again.');
+        alert('Invalid date inputs. To fix the issue please consider the following.\n\n- The deceased birthday must be before the date of death.\n- The date of death must be earlier than date of burial.\n- The date of burial must not exceed to 14 days after the death. \n- The date of death must not be in future dates including birthday.');
         return;
     }
 
