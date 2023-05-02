@@ -1,4 +1,128 @@
 *{
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+.contain{
+
+width:100%;
+height:420px;
+padding:20px;
+
+
+}
+.contain{
+  background-image: url('../assets/body2.jpg'); 
+  background-size:cover; 
+  background-repeat: no-repeat; 
+  background-position: center center;
+}
+.info{
+
+  display:flex;
+  flex-direction:column;
+  margin-left:60px;
+  margin-top:120px;
+  padding:50px;
+  color:white;
+  margin-right:55px;
+  background-color: white;
+  min-height:525px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.info img{
+  position: absolute;
+  width:300px;
+  height:250px;
+  
+}
+
+.info_detail{
+  position: relative;
+  display: flex;
+  flex-direction:column;
+  margin-left:350px;
+}
+.info_detail h1{
+  margin-left:100px;
+}
+
+.pdfbutton{
+ margin-left:570px;
+ width:300px;
+}
+
+
+.info_detail input{
+  width:300px;
+  cursor:pointer;
+  text-align: center;
+}
+.info_detail input,select{
+  margin-bottom:5px;
+}
+
+.info_detail label{
+  display:inline-block;
+  text-align:right;
+  color:black;
+  font-weight: bold;
+}
+
+
+.info_detail .info1{
+  padding-bottom:20px;
+  
+}
+.info_detail .info2{
+  position:absolute;
+  top:0;
+  left:320px;
+  
+  
+}
+.info_detail button{
+  margin-top:15px;
+
+}
+
+.info .btns{
+  margin-top:-13px;
+  position:absolute;
+  display:flex;
+  align-items: center;
+  left:50px;
+}
+
+.card{
+  margin-top:200px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.card h3{
+  padding:10px;
+  text-align: center;
+  font-weight: 600;
+  background-color: #e9ecef;
+  margin-bottom:20px;
+  color:#6c757d;
+
+}
+.card-body{
+  padding:0;
+  padding-bottom:1.25rem;
+
+}
+.list-group-item.active {
+  z-index: 2;
+  color: #fff;
+  background-color: rgb(220, 108, 75);
+  border-color: rgb(220, 108, 75);
+}
+
+/*
+*{
     margin:0;
     padding:0;
     box-sizing: border-box;

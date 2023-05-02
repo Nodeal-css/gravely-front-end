@@ -78,6 +78,10 @@ upload_pdf.addEventListener('click', function(){
     let formdata = new FormData();
     formdata.append('file', data);
     formdata.append('deceased_id', getDeceasedId());
+    if(document.getElementById('pdf-file').value === ""){
+        alert("No file to be uploaded.");
+        return;
+    }
     //console.log(formdata);
     create(LEGAL_DOCUMENT, formdata).then( function(){
         alert('PDF legal document has been uploaded.');
@@ -91,10 +95,17 @@ upload_pdf.addEventListener('click', function(){
 
 delete_btn.addEventListener('click', function(){
     if(confirm('Do you wish to remove this record?')){
-        remove(DECEASED, getDeceasedId()).then( function(){
-            alert('Record has been deleted.');
-            window.location.href = "../pages/adminDeceasedRecords.html";
-            window.localStorage.removeItem('deceased-id');
+        search(GRAVE, 1, 1, { deceased_id: getDeceasedId() }, '+created,deceased_id', '')
+        .then( function(data){
+            changeGraveStatusVacant(data.items[0].id);
+            
+            remove(DECEASED, getDeceasedId()).then( function(){
+                alert('Record has been deleted.');
+                window.location.href = "../pages/adminDeceasedRecords.html";
+                window.localStorage.removeItem('deceased-id');
+            }).catch( function(e){
+                console.log(e.message);
+            });
         }).catch( function(e){
             console.log(e.message);
         });
@@ -115,6 +126,17 @@ function getDeceasedId(){
     const id = window.localStorage.getItem('deceased-id');
     return id;
 }
+
+
+async function changeGraveStatusVacant(graveID){
+    update(GRAVE, { id: graveID, status: "Vacant" })
+    .then(function(){
+        console.log("Grave status has been changed to vacant");
+    }).catch(function(e){
+        console.log(e.message);
+    });
+}
+
 
 async function loadInfo(deceased_id){
     if(deceased_id === null){
