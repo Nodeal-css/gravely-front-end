@@ -43,11 +43,11 @@ function loadList(data){
         '<td>'+ data[i]['date_birth'].substring(0, 10) +'</td>' +
         '<td>'+ data[i]['date_death'].substring(0, 10) +'</td>' +
         '<td>'+ data[i]['date_burial'].substring(0, 10) +'</td>' +
-        '<td>'+ data[i]['cause_of_death'] +'</td>' +
         '<td>'+ data[i]['memorial'] +'</td>' +
         '<td>'+ getBurialType(data[i]['burial_type_id']) +'</td>' +
     '</tr>';
     }
+    console.log(data);
 }
 
 // undefined [' date_birth'] <-----------------------------------------------

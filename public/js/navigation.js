@@ -33,20 +33,24 @@ notif.addEventListener('click', function(){
     var notifications = document.getElementById('notifications');
     var today = new Date();
     var dateString = (today.getMonth() + 1).toString().padStart(2, "0") + "-" + today.getDate().toString().padStart(2, "0");
-    console.log(dateString);
+    
     search(GRAVE, 1, 50, { cemetery_id: getSessionAdmin().cemetery_id }, '+created,cemetery_id', 'deceased_id')
     .then( function(data){
         notifications.innerHTML = "";
         for(let i = 0; i < data.items.length; i++){
             if(data.items[i].deceased_id !== ""){
                 if(data.items[i].expand.deceased_id.date_death.toString().substring(5, 10) === dateString){
-                    notifications.innerHTML += '<li style="cursor: pointer;" onclick="openDeceased(\''+ data.items[i].deceased_id +'\');" class="list-group-item"><i class="uil uil-calendar-alt" style="color: rgb(220, 108, 75);"></i><small> Today '+ today.toString().substring(0, 10) +' marks the '+ (today.getFullYear() - parseInt(data.items[i].expand.deceased_id.date_death.toString().substring(0, 4))) +' year death anniversary of <b>'+ data.items[i].expand.deceased_id.firstname + ' ' + data.items[i].expand.deceased_id.mi + '. ' + data.items[i].expand.deceased_id.lastname + '</b>\''+ "'s passing. " +'\'.</small></li>';
+                    notifications.innerHTML += '<li style="cursor: pointer;" onclick="openDeceased(\''+ data.items[i].deceased_id +'\');" class="list-group-item"><i class="uil uil-calendar-alt" style="color: rgb(220, 108, 75);"></i><small> Today '+ today.toString().substring(0, 10) +' marks the '+ (today.getFullYear() - parseInt(data.items[i].expand.deceased_id.date_death.toString().substring(0, 4))) +' year death anniversary of <b>'+ data.items[i].expand.deceased_id.firstname + ' ' + data.items[i].expand.deceased_id.mi + '. ' + data.items[i].expand.deceased_id.lastname + '</b>\''+ "s passing. " +'\'.</small></li>';
                 }
                 if(today.getFullYear() - parseInt(data.items[i].expand.deceased_id.date_burial.toString().substring(0, 4)) >= 5){
                     notifications.innerHTML += '<li style="cursor: pointer;" onclick="openDeceased(\''+ data.items[i].deceased_id +'\');" class="list-group-item"><i class="uil uil-bell" style="color: rgb(220, 108, 75);"></i><small> The grave of <b>'+ data.items[i].expand.deceased_id.firstname + ' ' + data.items[i].expand.deceased_id.mi + '. ' + data.items[i].expand.deceased_id.lastname +'</b> has exceeded 5 years.</small></li>';
                 }
+                if(today.getFullYear() - parseInt(data.items[i].expand.deceased_id.date_burial.toString().substring(0, 4)) === 4 && parseInt(data.items[i].expand.deceased_id.date_burial.toString().substring(5, 7)) === parseInt(today.getMonth() + 2)){
+                    notifications.innerHTML += '<li style="cursor: pointer;" onclick="openDeceased(\''+ data.items[i].deceased_id +'\');" class="list-group-item"><i class="uil uil-bell" style="color: rgb(220, 108, 75);"></i><small> The grave of <b>'+ data.items[i].expand.deceased_id.firstname + ' ' + data.items[i].expand.deceased_id.mi + '. ' + data.items[i].expand.deceased_id.lastname +'</b> will reach 5 years next month.</small></li>';
+                }
             }
         }
+        
     }).catch( function(e){
         console.log(e.message)
     });

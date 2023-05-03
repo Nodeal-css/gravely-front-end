@@ -102,8 +102,8 @@ function searchDeceasedRecords(search_field, search_input, curr_page, searchFiel
     const input1 = searchFieldHelper(search_field, search_input);
     const input2 = searchFieldHelper(searchFieldFilter, searchInputFilter);
     Promise.all([
-        search('grave', 1, 1500, { cemetery_id: getSessionAdmin().cemetery_id }, '+created,cemetery_id'),
-        search('deceased', curr_page, 50, {...input1, ...input2}, '+created,'+ search_field + ','+ searchFieldFilter, 'burial_type_id')
+        search('grave', 1, 1500, { cemetery_id: getSessionAdmin().cemetery_id }, 'cemetery_id'),
+        search('deceased', curr_page, 50, {...input1, ...input2}, ''+ search_field + ',-'+ searchFieldFilter, 'burial_type_id')
     ]).then( function(result){
         const arrset1 = new Set(convertArray(result[0], false));
         const arrset2 = new Set(convertArray(result[1], true));
