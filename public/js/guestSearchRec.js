@@ -29,7 +29,7 @@ btn_search_deceased.addEventListener('click', function(){
 });
 
 function loadList(data){
-    deceased_list.innerHTML = "";
+    deceased_list.innerHTML = (Object.keys(data).length < 1) ? "<tr><th colspan='12' class='text-center'><b>No record/s found.</b></th></tr>" : "";
     for(let i = 0; i < Object.keys(data).length; i++){
         let current = new Date();
         let bday = new Date(data[i]['date_birth'].substring(0, 10));
@@ -47,7 +47,6 @@ function loadList(data){
         '<td>'+ getBurialType(data[i]['burial_type_id']) +'</td>' +
     '</tr>';
     }
-    console.log(data);
 }
 
 // undefined [' date_birth'] <-----------------------------------------------

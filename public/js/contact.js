@@ -10,7 +10,7 @@ var page = 1;
 searchContactRecords("id", " ", page, 'fname', ' ');
 
 function loadList(data){
-    contact_list.innerHTML = "";
+    contact_list.innerHTML = (Object.keys(data).length < 1)? "<tr><th colspan='7' class='text-center'><b>No record/s found.</b></th></tr>": "";
     for(let i = 0; i < Object.keys(data).length; i++){
         let currdate = new Date();
         let created = new Date(data[i]['created'].substring(0, 10));

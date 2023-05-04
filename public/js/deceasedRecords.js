@@ -11,7 +11,7 @@ var page = 1;
 searchDeceasedRecords("firstname", " ", page, "burial_type_id", ' ');
 
 function loadList(data){
-    deceasedList.innerHTML = "";
+    deceasedList.innerHTML = (Object.keys(data).length < 1) ? "<tr><th colspan='12' class='text-center'><b>No record/s found.</b></th></tr>" : "";
     for(let i = 0; i < Object.keys(data).length; i++){
         let currDate = new Date();
         let bdate = new Date(data[i]['date_birth'].substring(0, 10));
