@@ -11,27 +11,30 @@ function initializeSubscription(){
     var account = JSON.parse(window.localStorage.getItem("accountObject"));
     var cem = JSON.parse(window.localStorage.getItem("cemeteryObject"));
     var sub = JSON.parse(window.localStorage.getItem("subObject"));
-
-    create(SUBSCRIPTION, sub).then(function(subResponse){
-        const subID = subResponse.id;
-        cem["subscription_id"] = subID;
-        create(CEMETERY, cem).then(function(cemResponse){
-            const cemID = cemResponse.id;
-            account["cemetery_id"] = cemID;
-            create(ADMIN, account).then(function(){
-                console.log("Successfully subscribed");
-                window.localStorage.removeItem("accountObject");
-                window.localStorage.removeItem("cemeteryObject");
-                window.localStorage.removeItem("subObject");
+    if(account !== null && cem !== null && sub !== null){
+        create(SUBSCRIPTION, sub).then(function(subResponse){
+            const subID = subResponse.id;
+            cem["subscription_id"] = subID;
+            create(CEMETERY, cem).then(function(cemResponse){
+                const cemID = cemResponse.id;
+                account["cemetery_id"] = cemID;
+                create(ADMIN, account).then(function(){
+                    console.log("Successfully subscribed");
+                    window.localStorage.removeItem("accountObject");
+                    window.localStorage.removeItem("cemeteryObject");
+                    window.localStorage.removeItem("subObject");
+                }).catch( function(e){
+                    console.log(e.message);
+                });
             }).catch( function(e){
                 console.log(e.message);
             });
         }).catch( function(e){
             console.log(e.message);
         });
-    }).catch( function(e){
-        console.log(e.message);
-    });
+    }else{
+        alert("Registration error: connection error");
+    }
 }
 
 function subscriptionMode(){

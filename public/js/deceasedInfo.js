@@ -101,7 +101,7 @@ delete_btn.addEventListener('click', function(){
             
             remove(DECEASED, getDeceasedId()).then( function(){
                 alert('Record has been deleted.');
-                window.location.href = "../pages/adminDeceasedRecords.html";
+                window.location.href = "../pages/AdminDeceasedRecords.html";
                 window.localStorage.removeItem('deceased-id');
             }).catch( function(e){
                 console.log(e.message);
@@ -141,7 +141,7 @@ async function changeGraveStatusVacant(graveID){
 async function loadInfo(deceased_id){
     if(deceased_id === null){
         alert('Deceased Info not found, returning to list page.');
-        window.location.href = "../pages/adminDeceasedRecords.html";
+        window.location.href = "../pages/AdminDeceasedRecords.html";
         return;
     }else{
         search('deceased', 1, 1, { id: deceased_id }, '+created,id', 'burial_type_id')
