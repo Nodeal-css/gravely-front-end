@@ -6,6 +6,8 @@ const vacant_btn = document.getElementById('vacant-btn');
 const graph_title = document.getElementById('graph-title');
 const show_causes = document.getElementById('show-cause-of-death');
 
+
+
 currentCemetery();
 populateBurialperYear();
 
