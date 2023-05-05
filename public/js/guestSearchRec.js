@@ -92,19 +92,19 @@ function convertArray(arr, flag){
 function getBurialType(burial_id){
     let type = "";
     switch(burial_id){
-        case 'pzcou9z7i198uhf':
+        case 'daldbkw41na3bq8':
             type = "Above ground";
             break;
-        case '3gk7c2h67lhgbzr':
+        case 'eymwxmmmvohat6i':
             type = "In ground";
             break;
-        case 'yfr3d0hrq4cr7np':
+        case 'vy83iw6zmszry31':
             type = "Cremation";
             break;
-        case '2bm4m8nfsdjn8dl':
+        case 'm7nb93mnl5knx0p':
             type = "Natural Burial";
             break;
-        case 'jrwvfbropifz3n2':
+        case 'umprqsir5iy28nt':
             type = "Muslim Burial";
             break;
     }
