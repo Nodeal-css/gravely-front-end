@@ -224,7 +224,7 @@ function loadDocumentsList(data = []){
 }
 
 function openPDF(id, file_name){
-    const url = "http://127.0.0.1:8090/api/files/legal_document/"+ id +"/" + file_name;
+    const url = "https://gravely.pockethost.io/api/files/legal_document/"+ id +"/" + file_name;
     window.open(url, "_blank");
 }
 
