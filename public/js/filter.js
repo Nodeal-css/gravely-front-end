@@ -31,35 +31,35 @@ document.getElementById('filter-burial-date').addEventListener('click', function
 document.getElementById('filter-above-ground').addEventListener('click', function(){
     page = 1;
     filterField = "burial_type_id";
-    filterInput = 'pzcou9z7i198uhf';
+    filterInput = 'daldbkw41na3bq8';
     getFindInputs(page);
     removeActive('filter-above-ground');
 });
 document.getElementById('filter-in-ground').addEventListener('click', function(){
     page = 1;
     filterField = "burial_type_id";
-    filterInput = '3gk7c2h67lhgbzr';
+    filterInput = 'eymwxmmmvohat6i';
     getFindInputs(page);
     removeActive('filter-in-ground');
 });
 document.getElementById('filter-cremation').addEventListener('click', function(){
     page = 1;
     filterField = "burial_type_id";
-    filterInput = 'yfr3d0hrq4cr7np';
+    filterInput = 'vy83iw6zmszry31';
     getFindInputs(page);
     removeActive('filter-cremation');
 });
 document.getElementById('filter-muslim-burial').addEventListener('click', function(){
     page = 1;
     filterField = "burial_type_id";
-    filterInput = 'jrwvfbropifz3n2';
+    filterInput = 'umprqsir5iy28nt';
     getFindInputs(page);
     removeActive('filter-muslim-burial');
 });
 document.getElementById('filter-natural-burial').addEventListener('click', function(){
     page = 1;
     filterField = "burial_type_id";
-    filterInput = '2bm4m8nfsdjn8dl';
+    filterInput = 'm7nb93mnl5knx0p';
     getFindInputs(page);
     removeActive('filter-natural-burial');
 });

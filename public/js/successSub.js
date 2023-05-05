@@ -20,9 +20,9 @@ function initializeSubscription(){
             account["cemetery_id"] = cemID;
             create(ADMIN, account).then(function(){
                 console.log("Successfully subscribed");
-                //window.localStorage.removeItem("accountObject");
-                //window.localStorage.removeItem("cemeteryObject");
-                //window.localStorage.removeItem("subObject");
+                window.localStorage.removeItem("accountObject");
+                window.localStorage.removeItem("cemeteryObject");
+                window.localStorage.removeItem("subObject");
             }).catch( function(e){
                 console.log(e.message);
             });

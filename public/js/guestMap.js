@@ -183,12 +183,12 @@ function locateByGraveId(graveID, lat, lng){
 function loadGravePopup(description, status, price, row ,column , type){
         // query to db based from id
         const namesOfGraves = {
-            'av67hd01wy9ud91': 'Mausoleum',
-            'b087tzicqoehxlw': 'Crypt',
-            'rm4446wpn3l6bzu': 'Burial vault',
-            'xuig8ihm4c24g2p': 'Niche',
-            'fjrbidw8qsjjwr6': 'Tombstone',
-            '3dey7aenzrkckgi': 'Family plot'
+            'c84dwa0kv72rigw': 'Mausoleum',
+            '64b7cxf3lzc6z1w': 'Crypt',
+            '4skeawdpwootcda': 'Burial vault',
+            'rnnmdhady7w8mko': 'Niche',
+            'ja9wep0mm6w308a': 'Tombstone',
+            '3qo1syc9icikrtb': 'Family plot'
         };
     
         return '<div id="popup-grave" class="card" style="width: 19rem;display:block;">' +
