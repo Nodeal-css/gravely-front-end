@@ -157,7 +157,7 @@ async function loadInfo(deceased_id){
             document.getElementById('cDeathInput').value = data.items[0].cause_of_death;
             document.getElementById('memorialInput').value = data.items[0].memorial;
             document.getElementById('burial-type-input').value = data.items[0].burial_type_id;
-            document.getElementById('deceased-img').setAttribute('src', 'http://127.0.0.1:8090/api/files/deceased/'+ data.items[0].id +'/' + data.items[0].image);
+            document.getElementById('deceased-img').setAttribute('src', 'https://gravely.pockethost.io/api/files/deceased/'+ data.items[0].id +'/' + data.items[0].image);
         }).catch( function(e){
             console.log(e.message);
         });
