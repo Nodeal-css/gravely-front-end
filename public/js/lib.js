@@ -267,8 +267,8 @@ function objectToParams(obj) {
 const CLIENT_ID = 'Aa-Czh3m-Jr9ISTCf7ye7HJWIAPrSPSe4NPERuwLOhb0qKvdnqiYuaVWsQj0in4CcgUtrFRfb6Ln2175'
 const SECRET_KEY = 'ED6Qh_nB5l2wutveNxjbSIMfzAwdk2W-WdETOkuM0ZjgOXM_1bORUqF05EGW_bHtDMJL1ILG-HIHWbJn'
 const PLAN_ID = 'P-36G65051UA968292WMQOUPLI' 
-const RETURN_URL = 'https://localhost:3000/pages/successSub.html'
-const CANCEL_URL = 'https://localhost:3000/pages/cancelledSub.html'
+const RETURN_URL = 'https://gravely.vercel.app/pages/successSub.html'
+const CANCEL_URL = 'https://gravely.vercel.app/pages/cancelledSub.html'
 const AUTHORIZATION = btoa(`${CLIENT_ID}:${SECRET_KEY}`)
 
 const resource = 'https://api-m.sandbox.paypal.com/v1/billing/subscriptions'
