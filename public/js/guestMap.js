@@ -90,37 +90,37 @@ btnGraveStatus.addEventListener('click', function(){
 
 function loadMarkers(cem_id){
         const temp = {
-            'av67hd01wy9ud91': {
+            'c84dwa0kv72rigw': {
                 iconUrl: '../assets/mausoleum.png',
                 iconSize: [28, 40],
                 iconAnchor: [13, 39],
                 popupAnchor: [0, -20]
             },
-            'fjrbidw8qsjjwr6': {
+            'ja9wep0mm6w308a': {
                 iconUrl: '../assets/pin.png',
                 iconSize: [28, 40],
                 iconAnchor: [13, 39],
                 popupAnchor: [0, -20]
             },
-            'b087tzicqoehxlw': {
+            '64b7cxf3lzc6z1w': {
                 iconUrl: '../assets/crypt.png',
                 iconSize: [28, 40],
                 iconAnchor: [13, 39],
                 popupAnchor: [0, -20]
             },
-            'rm4446wpn3l6bzu': {
+            '4skeawdpwootcda': {
                 iconUrl: '../assets/burial_vault.png',
                 iconSize: [28, 40],
                 iconAnchor: [13, 39],
                 popupAnchor: [0, -20]
             },
-            'xuig8ihm4c24g2p': {
+            'rnnmdhady7w8mko': {
                 iconUrl: '../assets/niche.png',
                 iconSize: [28, 40],
                 iconAnchor: [13, 39],
                 popupAnchor: [0, -20]
             },
-            '3dey7aenzrkckgi': {
+            '3qo1syc9icikrtb': {
                 iconUrl: '../assets/family_plot.png',
                 iconSize: [28, 40],
                 iconAnchor: [13, 39],
