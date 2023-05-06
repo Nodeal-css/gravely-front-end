@@ -89,13 +89,6 @@ reg.addEventListener('click', function(){
         "status": document.querySelector("#status").value,
         "expiry_date": document.querySelector("#expiry").value
     };
-    const subscriber = {
-        name: {
-          given_name: document.getElementById('fname').value,
-          surname: document.getElementById('lname').value
-        },
-        email_address: document.getElementById("email").value
-    }
     
     create(CEMETERY, cem).then(function(cemResponse){
         const cemID = cemResponse.id;
@@ -104,6 +97,7 @@ reg.addEventListener('click', function(){
             alert("Successfully registered, returning to admin sign in page");
             window.location.href = "../index.html";
         }).catch( function(e){
+            alert("Connection error: Failed to sing up");
             console.log(e.message);
         });
     }).catch( function(e){
