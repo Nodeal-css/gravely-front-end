@@ -91,8 +91,7 @@ reg.addEventListener('click', function(){
     };
     
     create(CEMETERY, cem).then(function(cemResponse){
-        const cemID = cemResponse.id;
-        account["cemetery_id"] = cemID;
+        account["cemetery_id"] = cemResponse.id;
         create(ADMIN, account).then(function(){
             alert("Successfully registered, returning to admin sign in page");
             window.location.href = "../index.html";

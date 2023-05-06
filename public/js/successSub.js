@@ -27,6 +27,7 @@ function initializeSubscription(){
                 account["cemetery_id"] = cemID;
                 create(ADMIN, account).then(function(){
                     console.log("Successfully subscribed");
+                    document.getElementById("btn-return").style.display = 'block';
                     //window.localStorage.removeItem("accountObject");
                     //window.localStorage.removeItem("cemeteryObject");
                     //window.localStorage.removeItem("subObject");
@@ -65,6 +66,7 @@ function updateSubsciption(){
     update(SUBSCRIPTION, { id: subID, expiry_date: format }).then( function(){
         console.log("Thank you for re-subscribing");
         window.localStorage.removeItem("subscription-id");
+        document.getElementById("btn-return").style.display = 'block';
     }).catch( function(e){
         console.log(e.message);
     });
@@ -84,7 +86,7 @@ function setSubscriptionID(){
     create(SUBSCRIPTION, subObj).then(function(data){
         update(CEMETERY, {id: cemID, subscription_id: data.id}).then(function(data){
             alert("Thank you for subscribing, You can now sign in");
-            
+            document.getElementById("btn-return").style.display = 'block';
         }).catch(function(e){
             console.log(e.message);
         });
