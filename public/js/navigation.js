@@ -6,7 +6,7 @@ var flag = false;
 
 check_session();
 currCemetery();
-subscriptionExpired();
+noSubscriptionID();
 
 
 //transfer this script to js file
@@ -113,7 +113,6 @@ function subscriptionExpired(){
             });
         }else{
             console.log('You are still subscribed.');
-            noSubscriptionID();
         }
     }).catch(function(e){
         console.log(e.message);
@@ -138,6 +137,8 @@ function noSubscriptionID(){
             subscribe(subscriber).then(function (response) {
                 window.location.replace(response.links[0].href);
             });
+        }else{
+            subscriptionExpired();
         }
     }).catch( function(e){
         console.log(e.message);
