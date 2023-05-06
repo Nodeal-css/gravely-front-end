@@ -119,4 +119,37 @@ function subscriptionExpired(){
     }); 
 }
 
+function noSubscriptionID(){
+    search(CEMETERY, 1, 1, { id: getSessionAdmin().cemetery_id }, '+created,id')
+    .then( function(data){
+        const subID = data.items[0].subscription_id;
+        const dateNextYear = new Date();
+        const daysOfyear = 365;
+        dateNextYear.setDate(dateNextYear.getDate() + daysOfyear);
+        let format = dateNextYear.toISOString().substring(0, 10);
+        if(subID === ""){
+            const subscriber = {
+                name: {
+                  given_name: getSessionAdmin().firstname,
+                  surname: getSessionAdmin().lastname
+                },
+                email_address: getSessionAdmin().email
+            }
+            const sub = {
+                "payment": 1200,
+                "status": 'ACTIVE',
+                "expiry_date": format
+            }
+
+            window.localStorage.setItem("noSubID", sub);
+            window.localStorage.setItem("cemetery-id", getSessionAdmin().cemetery_id);
+            subscribe(subscriber).then(function (response) {
+                window.location.replace(response.links[0].href);
+            });
+        }
+    }).catch( function(e){
+        console.log(e.message);
+    });
+}
+
 

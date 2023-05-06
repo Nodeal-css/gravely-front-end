@@ -96,14 +96,23 @@ reg.addEventListener('click', function(){
         },
         email_address: document.getElementById("email").value
     }
+    /*
     window.localStorage.setItem("accountObject", JSON.stringify(account));
     window.localStorage.setItem("cemeteryObject", JSON.stringify(cem));
     window.localStorage.setItem("subObject", JSON.stringify(sub));
-
-    subscribe(subscriber).then(function (response) {
-        window.location.replace(response.links[0].href);
-    })
-
+    */
+    create(CEMETERY, cem).then(function(cemResponse){
+        const cemID = cemResponse.id;
+        account["cemetery_id"] = cemID;
+        create(ADMIN, account).then(function(){
+            alert("Successfully subscribed");
+            window.location.href = "../index.html";
+        }).catch( function(e){
+            console.log(e.message);
+        });
+    }).catch( function(e){
+        console.log(e.message);
+    });
 });
 
 //This function will check if the format of input is not followed, or if it is empty.
