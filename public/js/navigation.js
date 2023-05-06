@@ -7,7 +7,6 @@ var flag = false;
 check_session();
 currCemetery();
 subscriptionExpired();
-noSubscriptionID();
 
 
 //transfer this script to js file
@@ -93,8 +92,8 @@ function openDeceased(id){
 }
 
 
-async function subscriptionExpired(){
-    await search(CEMETERY, 1, 1, { id: getSessionAdmin().cemetery_id }, '+created,id', 'subscription_id', { '$autoCancel': false })
+function subscriptionExpired(){
+    search(CEMETERY, 1, 1, { id: getSessionAdmin().cemetery_id }, '+created,id', 'subscription_id', { '$autoCancel': false })
     .then(function(data){
         const date1 = new Date(data.items[0].expand.subscription_id.expiry_date);
         const date2 = new Date();
@@ -114,14 +113,15 @@ async function subscriptionExpired(){
             });
         }else{
             console.log('You are still subscribed.');
+            noSubscriptionID();
         }
     }).catch(function(e){
         console.log(e.message);
     }); 
 }
 
-async function noSubscriptionID(){
-    await search(CEMETERY, 1, 1, { id: getSessionAdmin().cemetery_id }, '+created,id', { '$autoCancel': false })
+function noSubscriptionID(){
+    search(CEMETERY, 1, 1, { id: getSessionAdmin().cemetery_id }, '+created,id', { '$autoCancel': false })
     .then( function(data){
         const subID = data.items[0].subscription_id;
         if(subID === ""){

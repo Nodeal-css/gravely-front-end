@@ -84,11 +84,6 @@ reg.addEventListener('click', function(){
         "tel2": document.querySelector("#telephone-2").value,
         "contact": document.querySelector("#contact").value
     };
-    const sub = {
-        "payment": document.querySelector("#cost").value,
-        "status": document.querySelector("#status").value,
-        "expiry_date": document.querySelector("#expiry").value
-    };
     
     create(CEMETERY, cem).then( (cemResponse) => {
         account["cemetery_id"] = cemResponse.id;
