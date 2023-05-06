@@ -260,7 +260,7 @@ function focusOrigin(){
     search('map', 1, 100, { cemetery_id: cem_id }, '+created,cemetery_id', 'cemetery_id')
     .then( function(data){
         map.setView([data.items[0].latitude, data.items[0].longitude], 17);
-        //L.control.locate().addTo(map);
+        L.control.locate().addTo(map);
     }).catch( function(err){
         console.log(err.message);
     });
