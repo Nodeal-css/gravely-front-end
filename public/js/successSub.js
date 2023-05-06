@@ -12,12 +12,12 @@ function initializeSubscription(){
     var cem = JSON.parse(window.localStorage.getItem("cemeteryObject"));
     var sub = JSON.parse(window.localStorage.getItem("subObject"));
     if(account !== null && cem !== null && sub !== null){
+        /*
         registerAdmin(account, cem, sub).then( function(){
             console.log("Successfully subscribed");
         }).catch( function(e){
             console.log(e.message);
-        });
-        /*
+        });*/
         create(SUBSCRIPTION, sub).then(function(subResponse){
             const subID = subResponse.id;
             cem["subscription_id"] = subID;
@@ -26,9 +26,9 @@ function initializeSubscription(){
                 account["cemetery_id"] = cemID;
                 create(ADMIN, account).then(function(){
                     console.log("Successfully subscribed");
-                    window.localStorage.removeItem("accountObject");
-                    window.localStorage.removeItem("cemeteryObject");
-                    window.localStorage.removeItem("subObject");
+                    //window.localStorage.removeItem("accountObject");
+                    //window.localStorage.removeItem("cemeteryObject");
+                    //window.localStorage.removeItem("subObject");
                 }).catch( function(e){
                     console.log(e.message);
                 });
@@ -38,7 +38,6 @@ function initializeSubscription(){
         }).catch( function(e){
             console.log(e.message);
         });
-        */
     }else{
         alert("Registration error: connection error");
     }
