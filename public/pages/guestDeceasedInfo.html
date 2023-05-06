@@ -12,14 +12,13 @@
     <link rel="stylesheet" href="../css/deceasedinfo.css">
     <link rel="icon" href="../assets/gravely-icon.png" type="image/png">
     <title>Deceased Information</title>
+  
 </head> 
 <body>
 <!-- start of header -->
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(220, 108, 75); z-index: 2; width: 100%;">
-        <div class="menu-btn">
-            
-        </div>
+    <nav class="navbar navbar-expand-sm navbar-light" style="background-color: rgb(220, 108, 75); z-index: 2; width: 100%;">
+        
         <a class="navbar-brand ml-3" href="../pages/landingpage.html">
           <img src="../assets/logo.png" width="90" height="30" alt="">
         </a>
@@ -34,28 +33,53 @@
               <li class="nav-item">
                 <a class="nav-link text-light" href="../assets/about.pdf">About</a>
               </li>
+              
             </ul>
+            
         </div>
+        <div class="menu-btn" >
+          <i class="uil uil-bars" style="font-size: 30px;color: white;"></i>
+        </div> 
+        <script>
+          var btn = document.querySelector(".menu-btn");
+          var navbarCollapse = document.getElementById("navbarNav");
+
+         
+          btn.addEventListener("click", function() {
+            if (navbarCollapse.style.display === "flex") {
+                // Hide the navbar collapse element
+                navbarCollapse.style.display = "none";
+              } else {
+                // Show the navbar collapse element
+                navbarCollapse.style.display = "flex";
+                navbarCollapse.style.flexDirection = "column";
+              }
+
+
+        
+          });
+
+        </script>
     </nav>
       <!-- End of Header -->
       </header>
 
       <main id="main-content">
         <div class="contain">
-          <div style="margin-left: 10rem;" class="info container">
+          <div class="info">
             <div>
                 <img id="deceased-img" src="../assets/grave-logo.png" alt="grave img" style="object-fit: none;">
             </div>
             <div class ="info_detail">
              <form> 
                <div class="info1">
-                 <label style="padding-right:7px;">First name:  </label>
+                 <label>First name:  </label>
                  <input class="form-control" id="fNameInput"type="text" readonly value="John" >
-                 <label style="padding-right:7px;">Last name:  </label>
+                 <label>Last name:  </label>
                  <input class="form-control" id="lNameInput"type="text" readonly value="Newman" >
                  <label>Middle initial:  </label>
                  <input class="form-control"id="miInput"type="text" readonly value="M." >
-                 <label style="padding-right:25px;">Birth date: </label>
+                 <label>Birth date: </label>
                  <input class="form-control"id="birthInput" type="text"  readonly>
                  <label>Date of Death: </label>
                  <input class="form-control"id ="deathInput"type="text" readonly>
@@ -63,19 +87,19 @@
                 </div> 
                 <div class="info2">
                   <label for="gender">Gender</label><br>
-                  <select style ="width:300px; height:37px; text-align:center;" name="" id="gender">
+                  <select name="" id="gender">
                     <option value='' disabled selected>Choose type</option>
                     <option value="M">Male</option>
                     <option value="F">Female</option>
                   </select><br>
-                 <label style="padding-right:15px;" for="burialInput">Date of burial: </label>
+                 <label for="burialInput">Date of burial: </label>
                  <input class="form-control" id="burialInput" type="text" readonly>
                    <label >Cause of death: </label>
                    <input class="form-control" id="cDeathInput" type="text" readonly value="Heart attack">
-                   <label style="padding-right: 40px;">Memorial: </label>
+                   <label>Memorial: </label>
                    <textarea class="form-control" rows="4" id ="memorialInput" type="text" style="resize:none;"  readonly value="Rest in peace"></textarea>
                    <label style="display:flex;">Burial type: </label>
-                   <select style ="width:300px; height:37px; text-align:center;" id="burial-type-input" readonly>
+                   <select id="burial-type-input" readonly>
                       <option value="pzcou9z7i198uhf">Above ground</option>
                       <option value="3gk7c2h67lhgbzr">In ground</option>
                       <option value="yfr3d0hrq4cr7np">Cremation</option>

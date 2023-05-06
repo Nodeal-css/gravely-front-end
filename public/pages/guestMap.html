@@ -11,6 +11,27 @@
     <link rel="stylesheet" href="../css/map.css">
     <link rel="icon" href="../assets/gravely-icon.png" type="image/png">
     <title>Cemetery map</title>
+    <style>
+        .menu-btn{
+  display:none;
+}
+
+
+@media (min-width:360px) and (max-height:640px){
+  .navbar-collapse{
+    display:none;
+  }
+  .menu-btn{
+    display:block;
+  }
+  .cem-pic{
+    margin-right:15px;
+    margin-left:15px;
+  }
+  
+}
+
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -31,6 +52,30 @@
         </li>
       </ul>
     </div>
+    <div class="menu-btn" >
+      <i class="uil uil-bars" style="font-size: 30px;color: white;"></i>
+    
+  </div> 
+  <script>
+    var btn = document.querySelector(".menu-btn");
+    var navbarCollapse = document.getElementById("navbarNav");
+
+  
+    btn.addEventListener("click", function() {
+      if (navbarCollapse.style.display === "flex") {
+          // Hide the navbar collapse element
+          navbarCollapse.style.display = "none";
+        } else {
+          // Show the navbar collapse element
+          navbarCollapse.style.display = "flex";
+          navbarCollapse.style.flexDirection = "column";
+        }
+
+
+
+    });
+
+  </script>
   </nav>
   <!-- End of Navigation -->
 
@@ -96,7 +141,7 @@
   </div>
 
   <div id="cemetery_picker">
-      <div class="p-3 row">
+      <div class="cem-pic p-3 row">
           <div class="col">
             <label for="cemetery" class="form-label">Cemetery</label>
             <select id="cemetery" class="form-control">

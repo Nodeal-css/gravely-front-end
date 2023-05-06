@@ -8,6 +8,81 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <link rel="icon" href="../assets/gravely-icon.png" type="image/png">
     <title>Search Deceased</title>
+
+    <style>
+        .cemetery-choice{
+            width:50%;
+            margin:auto;
+        }
+        .bg-image{
+            height:25rem;
+            background-image: url('../assets/body.png');
+            background-size: cover;
+            background-repeat: no-repeat; 
+            background-position: center center;
+        }
+        table{
+            width: 1200px;
+            max-height: 20rem;
+        }
+        .fb-testimony{
+            max-height: 20rem; 
+            overflow-x: auto;
+        }
+
+        .miss-vis{
+            max-height: 20rem;
+             overflow-x: auto;
+        }
+        
+        .menu-btn{
+            display:none;
+        }
+
+        @media (min-width:360px) and (max-height:640px) {
+            .m-5 {
+                    margin: 1rem!important;
+                }
+            .col-6{
+                    flex: 0 0 50%;
+                    max-width: 350px;
+                    margin-bottom:3rem;
+                }
+            
+          
+            .cemetery-choice{
+                width:100%;
+            }
+            .name-input{
+                display:flex;
+                flex-direction: column;
+            }
+            .bg-image{
+                height:35rem;
+            }
+
+            .fb-testimony{
+               display:none;
+            }
+            .bottom-div{
+            display:flex;
+            flex-direction: column;
+            align-content:space-between ;
+            
+             }
+           .miss-vis{
+            display:none;
+              }
+           .navbar-collapse{
+                display:none;
+            }
+     
+            .menu-btn{
+                display:block;
+            }
+            
+        }
+    </style>
 </head>
 <body>
 <!-- Navigation -->
@@ -28,20 +103,44 @@
         </li>
       </ul>
     </div>
+    <div class="menu-btn" >
+        <i class="uil uil-bars" style="font-size: 30px;color: white;"></i>
+       
+    </div> 
+    <script>
+      var btn = document.querySelector(".menu-btn");
+      var navbarCollapse = document.getElementById("navbarNav");
+
+     
+      btn.addEventListener("click", function() {
+        if (navbarCollapse.style.display === "flex") {
+            // Hide the navbar collapse element
+            navbarCollapse.style.display = "none";
+          } else {
+            // Show the navbar collapse element
+            navbarCollapse.style.display = "flex";
+            navbarCollapse.style.flexDirection = "column";
+          }
+
+
+    
+      });
+
+    </script>
   </nav>
   <!-- End of Navigation -->
 
   <main>
-        <div class="bg-image pt-5" style="height: 25rem;background-image: url('../assets/body.png');background-size: cover; background-repeat: no-repeat; background-position: center center; ">
+        <div class="bg-image pt-5">
             <div style="width: 65%; margin: auto; color: white;">
                 <h3 class="text-center">
-                    <select name="" id="cemetery" class="form-control" style="width: 50%; margin: auto;">
+                    <select name="" id="cemetery" class="cemetery-choice form-control">
                         <option value="" selected disabled>Choose Cemetery</option>
 
                     </select>
                 </h3>
                 <p class="text-center">Find deceased record</p>
-                <div class="row bg-white">
+                <div class="name-input row bg-white">
                     <div class="col" style="padding-inline: 0;">
                         <input type="text" class="form-control form-control-lg" id="fname" placeholder="First name">
                     </div>
@@ -71,15 +170,15 @@
                 </div>
             </div>
         </div>
-        <div class="row m-5">
-            <div class="col-3 card" style="max-height: 20rem; overflow-x: auto;">
+        <div class="bottom-div row m-5">
+            <div class="fb-testimony col-3 card">
                 <div class="card-body">
                     <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Ffrankdeguzman%2Fposts%2Fpfbid0NFF3Yd1MrpC5Fp7KrqYoNRPPwhFoW3HrnJgbRaqC5ci77k4q9TqmfbmMYTZ6uNsfl&show_text=true&width=500" width="500" height="250" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="tbl col-6">
                 <div style="overflow: auto;">
-                    <table id="table-search" class="table table-responsive table-borderless table-hover" style="width: 1200px;max-height: 20rem;">
+                    <table id="table-search" class="table table-responsive table-borderless table-hover">
                         <thead >
                             <tr class="bg-light">
                                 <th scope="col" width="5%">no.</th>
@@ -101,7 +200,7 @@
                     </table>
                 </div>
             </div>
-            <div class="col-3 card" style="max-height: 20rem; overflow-x: auto;">
+            <div class="miss-vis col-3 card">
                 <div class="card-body">
                     <strong>Mission:</strong><br>
                     <small>

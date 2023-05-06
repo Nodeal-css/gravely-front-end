@@ -19,13 +19,14 @@ padding:20px;
   background-repeat: no-repeat; 
   background-position: center center;
 }
-.info{
 
+.info{
   display:flex;
   flex-direction:column;
   margin-left:60px;
   margin-top:120px;
   padding:50px;
+  padding-left:10rem;
   color:white;
   margin-right:55px;
   background-color: white;
@@ -79,9 +80,12 @@ padding:20px;
 .info_detail .info2{
   position:absolute;
   top:0;
-  left:320px;
-  
-  
+  left:320px; 
+}
+.info_detail .info2 select{
+  width:300px; 
+  height:37px; 
+  text-align:center;
 }
 .info_detail button{
   margin-top:15px;
@@ -120,93 +124,71 @@ padding:20px;
   background-color: rgb(220, 108, 75);
   border-color: rgb(220, 108, 75);
 }
+.menu-btn{
+  display:none;
+}
 
-/*
-*{
-    margin:0;
-    padding:0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+
+@media (min-width:360px) and (max-height:640px){
+  .navbar-collapse{
+    display:none;
   }
-  
-  .contain{
-  width:90%;
-  background-color: #ffffff;
-  height:420px;
-  }
+
   .info{
-  
-    display:flex;
-    flex-direction:column;
-    color:white;
-  
+    width:320px;
+    font-size:10px;
+    padding:10px;
+    margin-top:0px;
+    margin-left:0px;
+    margin-bottom:100px;
   }
-  .info img{
-    position: absolute;
-    width:280px;
-    height:250px;
-    
-  }
-  
   .info_detail{
-    position: relative;
     display: flex;
-    flex-direction:column;
-    margin-left:300px;
-  }
-  .info_detail h1{
-    margin-left:50px;
-  
+    flex-direction:row;
+    margin-left:0px;
   }
   
-  .pdfbutton button{
-   top:0;
-   margin-left:155px;
-   width:200px;
+  .info img{
+    position:static;
+
+    max-width:300px;
+    height:auto;
+    object-fit:cover;
+   
   }
-  
-  
-  .info_detail input{
-    width:200px;
-    outline:none;
-    border:none;
-    background-color:   #ffffff;
-    cursor:pointer;
-    border-bottom: 1px solid black;
-    text-align: center;
+  .contain{
+    margin-left:0;
+    min-height: 420px;
   }
-  
-  .info_detail label{
-    display:inline-block;
-    text-align:right;
-    color:black;
-    font-weight: bold;
-  }
-  
-  
   .info_detail .info1{
-    padding-bottom:20px;
+    margin-top:10px;
+    padding-bottom:0px;
+
     
   }
   .info_detail .info2{
-    position:absolute;
-    top:0;
-    left:350px;
+    left:0;
+    position:static;
     
   }
-  .info_detail button{
-    margin-top:15px;
-  
-  }
-  
-  
-  
   .info .btns{
-    margin-top:10px;
     position:absolute;
-    display:flex;
-    align-items: center;
-    left:10px;
-  
+    top:-70px;  
+    padding-left:50px;
+    
   }
-*/
+  .card{
+    display:none;
+  }
+  footer{
+     display:none;
+  }
+  .menu-btn{
+    display:block;
+  }
+  
+  /* .collapse:not(.show) {
+    display: flex;
+    flex-direction: column;
+ } */
+}
