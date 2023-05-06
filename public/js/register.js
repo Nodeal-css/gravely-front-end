@@ -90,7 +90,7 @@ reg.addEventListener('click', function(){
         "expiry_date": document.querySelector("#expiry").value
     };
     
-    create(CEMETERY, cem).then(function(cemResponse){
+    create(CEMETERY, cem).then( (cemResponse) => {
         account["cemetery_id"] = cemResponse.id;
         create(ADMIN, account).then(function(){
             alert("Successfully registered, returning to admin sign in page");

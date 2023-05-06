@@ -94,7 +94,7 @@ function openDeceased(id){
 
 
 function subscriptionExpired(){
-    search(CEMETERY, 1, 1, { id: getSessionAdmin().cemetery_id }, '+created,id', 'subscription_id')
+    search(CEMETERY, 1, 1, { id: getSessionAdmin().cemetery_id }, '+created,id', 'subscription_id', { '$autoCancel': false })
     .then(function(data){
         const date1 = new Date(data.items[0].expand.subscription_id.expiry_date);
         const date2 = new Date();
@@ -121,7 +121,7 @@ function subscriptionExpired(){
 }
 
 function noSubscriptionID(){
-    search(CEMETERY, 1, 1, { id: getSessionAdmin().cemetery_id }, '+created,id')
+    search(CEMETERY, 1, 1, { id: getSessionAdmin().cemetery_id }, '+created,id', { '$autoCancel': false })
     .then( function(data){
         const subID = data.items[0].subscription_id;
         if(subID === ""){
