@@ -74,7 +74,7 @@ function setSubscriptionID(){
     create(SUBSCRIPTION, subObj).then(function(data){
         update(CEMETERY, {id: cemID, subscription_id: data.id}).then(function(data){
             alert("Thank you for subscribing, You can now sign in");
-            document.getElementById("btn-return").style.display = 'block';
+            document.getElementById("btn-return").style.display = 'inline';
         }).catch(function(e){
             console.log(e.message);
         });
