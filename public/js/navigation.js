@@ -131,12 +131,13 @@ function noSubscriptionID(){
                 },
                 email_address: getSessionAdmin().email
             }
-            
 
             window.localStorage.setItem("cemetery-id", getSessionAdmin().cemetery_id);
-            subscribe(subscriber).then(function (response) {
-                window.location.replace(response.links[0].href);
-            });
+            if(window.localStorage.getItem("cemetery-id") !== null){
+                subscribe(subscriber).then(function (response) {
+                    window.location.replace(response.links[0].href);
+                });
+            }
         }else{
             subscriptionExpired();
         }
