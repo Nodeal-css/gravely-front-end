@@ -38,6 +38,9 @@ function subscriptionMode(){
     if(window.localStorage.getItem("accountObject") !== null){
         initializeSubscription();
         return;
+    }else if(window.localStorage.getItem("cemetery-id") !== null){
+        setSubscriptionID();
+        return;
     }else{
         updateSubsciption();
     }
@@ -53,6 +56,29 @@ function updateSubsciption(){
         console.log("Thank you for re-subscribing");
         window.localStorage.removeItem("subscription-id");
     }).catch( function(e){
+        console.log(e.message);
+    });
+}
+
+function setSubscriptionID(){
+    const cemID = window.localStorage.getItem("cemetery-id");
+    const dateNextYear = new Date();
+    const daysOfyear = 365;
+    dateNextYear.setDate(dateNextYear.getDate() + daysOfyear);
+    let format = dateNextYear.toISOString().substring(0, 10);
+    const subObj = {
+        "payment": 1200,
+        "status": 'ACTIVE',
+        "expiry_date": format
+    }
+    create(SUBSCRIPTION, subObj).then(function(data){
+        update(CEMETERY, {id: cemID, subscription_id: data.id}).then(function(data){
+            alert("Thank you for subscribing, You can now sign in");
+            document.getElementById("btn-return").style.display = 'block';
+        }).catch(function(e){
+            console.log(e.message);
+        });
+    }).catch(function(e){
         console.log(e.message);
     });
 }

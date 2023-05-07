@@ -6,7 +6,7 @@ var flag = false;
 
 check_session();
 currCemetery();
-subscriptionExpired();
+noSubscriptionID();
 
 
 //transfer this script to js file
@@ -117,6 +117,33 @@ function subscriptionExpired(){
     }).catch(function(e){
         console.log(e.message);
     }); 
+}
+
+function noSubscriptionID(){
+    search(CEMETERY, 1, 1, { id: getSessionAdmin().cemetery_id }, '+created,id', { '$autoCancel': false })
+    .then( function(data){
+        const subID = data.items[0].subscription_id;
+        if(subID === ""){
+            const subscriber = {
+                name: {
+                  given_name: getSessionAdmin().firstname,
+                  surname: getSessionAdmin().lastname
+                },
+                email_address: getSessionAdmin().email
+            }
+
+            window.localStorage.setItem("cemetery-id", getSessionAdmin().cemetery_id);
+            if(window.localStorage.getItem("cemetery-id") !== null){
+                subscribe(subscriber).then(function (response) {
+                    window.location.replace(response.links[0].href);
+                });
+            }
+        }else{
+            subscriptionExpired();
+        }
+    }).catch( function(e){
+        console.log(e.message);
+    });
 }
 
 
