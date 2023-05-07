@@ -12,11 +12,14 @@
     .menu-btn{
       display:none;
     }
+    .container h1{  
+      font-size:50px;
+    }
     .login-container{
     padding:20px;
     background-color: 	rgb(0, 0, 0,0.5);
     width:380px;
-    height:430px;
+    
     border-radius: 10px;
    }
    .login-container input{
@@ -31,8 +34,9 @@
    .login-container h3{
     text-align: center;
     margin-bottom:20px;
+    color:#fff;
    }
-
+  
 
 @media (min-width:360px) and (max-height:640px){
   .navbar-collapse{
@@ -107,11 +111,12 @@
   <div class="container py-5 h-100">
     <div class="row d-flex align-items-center justify-content-center h-100">
       <div class="col-md-8 col-lg-7 col-xl-6 text-light">
-        <h1>Cemetery Records<br><span>ease of access</span> <br>Visit the graves of your love ones</h1>
+        <h1>Cemetery Records<br>ease of access <br>Visit the graves<br> of your love ones</h1>
         <button class="btn btn-secondary btn-md" style="display: none;" onclick="location.href ='pages/guestSearchDeceased.html';">Find</button>
       </div>
       <div class="offset-xl-1" style="width: 19rem;">
         <div class="login-container">
+          <h3>Log in as Admin</h3>
           <!-- Email input -->
           <div class="form-outline mb-4">
             <input type="email" id="user-name" class="form-control form-control-md" placeholder="Enter your email" />
@@ -126,7 +131,7 @@
 
           <div class="d-flex justify-content-around align-items-center mb-4">
             <!-- Checkbox -->
-            <a href="#!">Forgot password?</a>
+            
           </div>
 
           <!-- Submit button -->

@@ -14,7 +14,7 @@ section{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    background: url(../assets/body.png)no-repeat;
+    background: linear-gradient(rgba(0, 0, 0, 0.50), rgba(0, 0, 0, 0.50)),url(../assets/landingBG.jpg)no-repeat;
     background-size: cover;
     background-position: center;
 }
@@ -43,24 +43,29 @@ section{
     font-size: 16px;
     font-weight: 500;
     margin-bottom: 40px;
+    color:#fff;
 }
 
 .content .info-btn{
-    color: #111;
-    background:transparent;
+    color: #fff;
+    background:transparen   t;
     text-decoration: none;
     text-transform: uppercase;
     font-weight: 700;
     letter-spacing: 2px;
     padding: 10px 20px;
     border-radius: 5px;
-    transition: 0.3s;
-    transition-property: background;
-}
-
-.content .info-btn:hover{
     background:rgb(220,108, 75);
 }
+
+.logo-gravely img{
+    position:absolute;  
+    top:230px;
+    right:250px;    
+    width:400px;
+    height:350px;
+}
+
 
 .media-icons{
     display: flex;
@@ -71,7 +76,7 @@ section{
 }
 .media-icons a{
     position: relative;
-    color: #111;
+    color: #fff;
     font-size: 25px;
     transition: 0.3s;
     transition-property: transform;
