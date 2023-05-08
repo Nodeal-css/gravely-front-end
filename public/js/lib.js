@@ -15,6 +15,9 @@ const MAP = 'map'
 const POLYGON = 'polygon'
 const SUBSCRIPTION = 'subscription'
 
+
+
+
 /** CHeck if user is authenticated
  * 
  * @returns boolean true or false
