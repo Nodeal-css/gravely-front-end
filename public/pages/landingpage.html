@@ -33,6 +33,26 @@
                       </li>
                     </ul>
                 </div>
+                <div class="menu-btn" >
+                  <i class="uil uil-bars" style="font-size: 30px;color: white;"></i>
+                </div> 
+                <script>
+                  var btn = document.querySelector(".menu-btn");
+                  var navbarCollapse = document.getElementById("navbarNav");
+              
+                
+                  btn.addEventListener("click", function() {
+                    if (navbarCollapse.style.display === "flex") {
+                        // Hide the navbar collapse element
+                        navbarCollapse.style.display = "none";
+                      } else {
+                        // Show the navbar collapse element
+                        navbarCollapse.style.display = "flex";
+                        navbarCollapse.style.flexDirection = "column";
+                      }
+                  });
+              
+                </script>
             </nav>
         </header><br><br><br><br><br>
         <div class="content">
