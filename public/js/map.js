@@ -273,7 +273,7 @@ function loadGravePopup(grave_id, description, status, price, row, column, type,
     const namesOfGraves = {
         'av67hd01wy9ud91': 'Mausoleum',
         'b087tzicqoehxlw': 'Crypt',
-        'rm4446wpn3l6bzu': 'Burial vault',
+        'rm4446wpn3l6bzu': 'Apartment',
         'xuig8ihm4c24g2p': 'Niche',
         'fjrbidw8qsjjwr6': 'Tombstone',
         '3dey7aenzrkckgi': 'Family plot'
