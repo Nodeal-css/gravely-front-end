@@ -30,7 +30,7 @@ function loadList(arr = []){
 loadList();
 
 saveAdmin.addEventListener('click', function(){
-    const admin_id_names = ["email", "pass", "re-pass", "fname", "lname", "mi"];
+    const admin_id_names = ["email", "pass", "re-pass", "fname", "lname", "mi", "terms"];
     const admin = {
         username: document.querySelector("#fname").value + '_' + document.querySelector("#lname").value,
         email: document.querySelector("#email").value,

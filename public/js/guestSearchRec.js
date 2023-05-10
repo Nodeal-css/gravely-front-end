@@ -1,6 +1,7 @@
 const deceased_list = document.getElementById('load-deceased');
 const btn_search_deceased = document.getElementById('btn-search');
 const cemetery_option = document.getElementById('cemetery');
+const btn_search_deceased_field = document.getElementById('search-deceased');
 
 loadCemeteries();
 
@@ -16,6 +17,29 @@ function loadCemeteries(){
     });
 }
 
+function getFindInputs(){
+    let field = document.getElementById('search-type').value;
+    let input = document.getElementById('search-input').value;
+    searchDeceasedRecordsByField(field, input);
+}
+
+btn_search_deceased_field.addEventListener('click', function(){
+    getFindInputs();
+});
+
+
+document.getElementById('search-type-btn').addEventListener('click', function(){
+    document.getElementById('search-many-fields').style.display = 'block';
+    document.getElementById('search-choose-field').style.display = 'none';
+    
+});
+
+
+document.getElementById('search-type-btn-return').addEventListener('click', function(){
+    document.getElementById('search-many-fields').style.display = 'none';
+    document.getElementById('search-choose-field').style.display = 'block';
+});
+
 btn_search_deceased.addEventListener('click', function(){
     const searchItems = {
         firstname: document.getElementById('fname').value,
@@ -29,6 +53,7 @@ btn_search_deceased.addEventListener('click', function(){
 });
 
 function loadList(data){
+    document.getElementById("table-search").style.display = 'inline';
     deceased_list.innerHTML = (Object.keys(data).length < 1) ? "<tr><th colspan='12' class='text-center'><b>No record/s found.</b></th></tr>" : "";
     for(let i = 0; i < Object.keys(data).length; i++){
         let current = new Date();
@@ -74,6 +99,72 @@ function searchDeceasedRecords(input){
     });
 }
 
+function searchDeceasedRecordsByField(search_field, search_input){
+    //console.log(searchFieldHelper(search_field, search_input));
+    const input1 = searchFieldHelper(search_field, search_input);
+    Promise.all([
+        search('grave', 1, 1500, { id: ' ' }, '+created,id'),
+        search('deceased', 1, 100, {...input1}, '+created,'+ search_field, 'burial_type_id')
+    ]).then( function(result){
+        const arrset1 = new Set(convertArray(result[0], false));
+        const arrset2 = new Set(convertArray(result[1], true));
+        const deceased = result[1];
+        const common = {};
+        let x = 0;
+        for(const item of arrset2){
+            if(arrset1.has(item)){
+                common[Object.keys(common).length] = deceased.items[x]; 
+                
+            }
+            x++;
+        }
+        loadList(common);
+    }).catch( function(err){
+        console.log(err.message);
+    });
+}
+
+
+//switch case function to specify the field of searching
+function searchFieldHelper(field, input){
+    let obj = {};
+    switch(field){
+        case 'id':
+            obj = { id: input};
+            break;
+        case 'firstname':
+            obj = { firstname: input};
+            break;
+        case 'lastname':
+            obj = { lastname: input};
+            break;
+        case 'mi':
+            obj = { mi: input};
+            break;
+        case 'date_birth':
+            obj = { date_birth: input};
+            break;
+        case 'date_death':
+            obj = { date_death: input};
+            break;
+        case 'date_burial':
+            obj = { date_burial: input};
+            break;
+        case 'cause_of_death':
+            obj = { cause_of_death: input };
+            break;
+        case 'burial_type_id':
+            obj = { burial_type_id: input };
+            break;
+        case 'gender':
+            obj = { gender: input };
+            break;
+        default:
+            obj = { firstname: input};
+            break;
+    }
+    return obj;
+}
 
 function convertArray(arr, flag){
     var res = [];

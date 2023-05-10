@@ -4,7 +4,7 @@ window.addEventListener('beforeunload', function(){
 });
 
 getAdmins();
-getListExceed5years();
+//getListExceed5years();
 
 
 function getListExceed5years(){

@@ -10,6 +10,7 @@ getGraveId();
 loadCemeteries();
 
 
+
 function getGraveId(){
         if(params.get('id') == null || params.get('lat') == null || params.get('lng') == null || params.get('deceased') == null){
                 alert('Required parameters are missing.');
@@ -25,6 +26,7 @@ function mapInit(){
         maxZoom: 23,
         }).addTo(map);
 }
+
 
 
 map.on('popupclose', function() {
@@ -172,12 +174,11 @@ function locateByGraveId(graveID, lat, lng){
                 let container = document.getElementById('grave-information');
                 container.style.display = 'block';
                 loadDeceased(data.items[0].deceased_id);
-                //loadContract(data.items[0].contract_id);
-    
             });
         }).catch(function(e){
             console.log(e.message);
         });
+        //5b3ce3597851110001cf6248864181146b8b4b88ac2dbeb7160e9744
 }
 
 function loadGravePopup(description, status, price, row ,column , type){
@@ -268,3 +269,20 @@ function setOrigin(id){
                 console.log(e.message);
         });
 }
+
+function onLocationFound(e){
+    const lat = e.latitude;
+    const lng = e.longitude;
+    console.log("current location: lat: " + lat + " lng: " + lng);
+    L.Routing.control({
+        waypoints: [
+            L.latLng(lat, lng),
+            L.latLng(params.get('lat'), params.get('lng'))
+        ]
+    }).addTo(map);
+    
+}
+map.on('locationfound', onLocationFound);
+
+
+
