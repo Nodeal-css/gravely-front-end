@@ -12,6 +12,22 @@
     <link rel="stylesheet" href="../css/map.css">
     <link rel="icon" href="../assets/gravely-icon.png" type="image/png">
     <title>Cemetery Map</title>
+
+    <style>
+      .grid-container {
+        display: grid;
+        grid-template-columns: auto;
+        background-color: #2196F3;
+        padding: 5px;
+      }
+      .grid-item {
+        background-color: rgba(255, 255, 255, 0.8);
+        border: 1px solid rgba(0, 0, 0, 0.8);
+        padding: 10px;
+        font-size: 10px;
+        text-align: center;
+      }
+    </style>
 </head>
 <body>
     <header>
@@ -142,11 +158,13 @@
         <!-- Start grave form -->
         <div id="grave-form">
             <small><b>Grave details</b></small><br>
-            <small>Location desc: <input type="text" id="location-inp" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;" required></small><br>
+            <small>Section: <select id="section_picker" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;" required></select></small><br>
+            <small style="display: none;">Location desc: <input type="text" id="location-inp" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;" required></small>
             <small>Price: <input type="number" id="price-inp" step="0.01" placeholder="₱" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;" required></small><br>
             <small>Grave type: <select name="grave-type" id="grave-type" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;" required></select></small><br>
-            <small>Row: <input type="number" id="row-inp" min="0" max="9" placeholder="1 - 9" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;" required></small><br>
-            <small>Column: <input type="number" id="col-inp" min="0" max="30" placeholder="1 - 30" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;" required></small><br>
+            <small style="display: none;">Row: <input type="number" id="row-inp" value="1" min="0" max="9" placeholder="1 - 9" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;"></small>
+            <small style="display: none;">Column: <input type="number" id="col-inp" value="1" min="0" max="30" placeholder="1 - 30" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;"></small>
+            <small>Block number: <input type="number" id="block-number" placeholder="1 - 100" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;" required readonly></small><br>
             <small>Latitude: <input type="text" id="lat-txt" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;" readonly required></small><br>
             <small>Longitude: <input type="text" id="lng-txt" style="width: 170px;float: right; border-top: 0; border-left: 0; border-right: 0;" readonly required></small><br>
             <div class="row">
@@ -174,6 +192,36 @@
             </div>
         </div>
         <!-- End of properties for map-->
+
+        <br><hr><br>
+
+        <!-- Start list of cemetery sections -->
+        <div class="ml-3 card" style="width: 38%;">
+        <div class="card-header text-center">Cemetery Sections</div>
+        <div class="card-body">
+          <div>
+            <button class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#add-section"><i class="uil uil-plus-circle"></i> Section</button>
+          </div>
+          <div>
+            <table class="table table-responsive table-borderless table-hover">
+              <thead>
+                <tr class="bg-light">
+                  <th>#.</th>
+                  <th>Name</th>
+                  <th>Grave type</th>
+                  <th>Total columns</th>
+                  <th>Total rows</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="section-list">
+                
+              </tbody>
+            </table>
+          </div>
+        </div>
+        </div>
+        <!-- End list of cemetery sections -->
 
         <!-- Start of information about deceased and contracts -->
         <div id="grave-information" style="display: none;">
@@ -389,6 +437,84 @@
       </div>
     </div>
 <!-- End of modal for changing grave status -->
+
+<!-- Start modal for adding graves section -->
+<div class="modal fade" id="add-section" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        Cemetery Section
+      </div>
+      <div class="modal-body">
+        <label for="section-name">Section name</label>
+        <input type="text" class="form-control" id="section-name" required>
+
+        <label for="grave-type-section">Grave Type </label>
+        <select class="form-control" id="grave-type-section" required>
+
+        </select>
+
+        <div class="row mt-3">
+          <div class="col">
+            <label for="inp-total-column">Total column</label>
+            <input type="number" class="form-control" id="inp-total-column" placeholder="0 - 100" min="0" max="100" required>
+          </div>
+          <div class="col">
+            <label for="inp-total-row">Total row</label>
+            <input type="number" class="form-control" id="inp-total-row" placeholder="0 - 100" min="0" max="100" required>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary btn-md" id="save-section">Save</button>
+        <button class="btn btn-danger btn-md" id="close-add-section-modal" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End modal for adding graves section -->
+
+<!-- Start of viewing section visuals -->
+<div class="modal fade" id="section-visuals" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width: fit-content; margin: auto;">
+      <div class="modal-header">
+        Section Visual
+      </div>
+      <div class="modal-body">
+        <div id="grave-grid" class="grid-container" >
+          
+        </div>
+
+      </div>
+      <div class="modal-footer">
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End of viewing section visuals -->
+
+<!-- Start of viewing section block picker -->
+<div class="modal fade" id="modal-block-picker" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width: fit-content; margin: auto;">
+      <div class="modal-header" id="block-picker-header">
+        Select the grave's level or row
+      </div>
+      <div class="modal-body">
+        <div id="grave-grid-picker" class="grid-container" >
+          
+        </div>
+
+      </div>
+      <div class="modal-footer">
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End of viewing section block picker -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pocketbase/0.10.1/pocketbase.umd.min.js" integrity="sha512-5fhlKWYvJkEBjEmVznt+oi09HehBG8AhveES3kSosa9VEKnOPJfMWV7cl+e5zAc0Tkn10w+CSfi4lrXcDWc4TQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="text/javascript" src="../js/lib.js"></script>

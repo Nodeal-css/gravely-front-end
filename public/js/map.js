@@ -24,6 +24,8 @@ displayMap();
 checkSearchExist();
 loadGraveTypes();
 loadBurialTypes();
+getSectionList();
+
 
 
 //Check if the user is searching a specific location from deceased info
@@ -74,20 +76,26 @@ map.addEventListener('mousemove', function(e){
     coordinates.innerHTML = "<small>Latitude: "+ lat +"<br>Longitude: "+ lng +"</small>";
 });
 
+
+
+
+
 btn_save_location.addEventListener('click', function(){
-    if(!input_validation(['location-inp', 'price-inp', 'row-inp' ,'col-inp' , 'grave-type'])){
+    if(!input_validation(['location-inp', 'section_picker', 'block-number', 'price-inp', 'row-inp' ,'col-inp' , 'grave-type'])){
         alert('There are invalid input fields. Please fill all text boxes.');
         return;
     }
     console.log("lat: " + coord.latitude + " lng: " + coord.longitude);
     let formdata = new FormData();
     formdata.append('cemetery_id', cem_id);
+    formdata.append('section_id', document.getElementById('section_picker').value);
     formdata.append('grave_type', document.getElementById('grave-type').value);
     formdata.append('location_description', document.getElementById('location-inp').value);
     formdata.append('status', 'Vacant'),
     formdata.append('price', document.getElementById('price-inp').value);
     formdata.append('row', document.getElementById('row-inp').value);
     formdata.append('column', document.getElementById('col-inp').value);
+    formdata.append('block_number', document.getElementById('block-number').value);
     formdata.append('latitude', coord.latitude);
     formdata.append('longitude', coord.longitude);
 
@@ -105,6 +113,7 @@ btn_save_location.addEventListener('click', function(){
 document.getElementById('cem-map').addEventListener('contextmenu', function(event){
     event.preventDefault();
     map.closePopup();
+    loadSectionTypes();
     let lat_txt = document.getElementById('lat-txt');
     let lng_txt = document.getElementById('lng-txt');
 
@@ -223,6 +232,8 @@ function clearGraveForm(bool){
     document.getElementById('price-inp').value = "";
     document.getElementById('row-inp').value = "";
     document.getElementById('col-inp').value = "";
+    document.getElementById('section_picker').value = "";
+    document.getElementById('block-number').value = "";
     coord = {};
 }
 
@@ -304,6 +315,7 @@ function loadGravePopup(grave_id, description, status, price, row, column, type,
     '<div class="card-footer text-center">' +
         '<button class="btn btn-outline-warning btn-sm mr-3" title="Change the location of grave." onclick="updateGraveCoordinates(\''+ 'grave' +'\', \''+ grave_id +'\', \''+ lat +'\', \''+ lng +'\');">Transfer</button>' + 
         '<button class="btn btn-outline-danger btn-sm" title="Click, if you wish to delete this pinned location." onclick="deleteGrave(\''+ grave_id +'\', \''+ deceased + '\', \''+ contract + '\');"><i class="uil uil-trash"></i> Remove</button>' +
+        '<button class="btn btn-outline-primary btn-sm ml-3" title="Click, to see a visual representation of the grave floor and column.">Visual</button>' +
     '</div>' +
 '</div>';
 }
@@ -478,8 +490,23 @@ function loadGraveTypes(){
         for(let i = 0; i < data.items.length; i++){
             grave_type.innerHTML += "<option value="+ data.items[i].id +">"+ data.items[i].type +"</option>";
         }
+        document.getElementById('grave-type-section').innerHTML = grave_type.innerHTML;
     }).catch( function(err){
         console.log(err.message);
+    });
+}
+
+function loadSectionTypes(){
+    var sectionTypes = document.getElementById('section_picker');
+    search(SECTION, 1, 50, {id: ' '}, '+created,id', '')
+    .then( function(data){
+        sectionTypes.innerHTML = "";
+        sectionTypes.innerHTML = "<option value='' disabled selected>Choose which section</option>";
+        for(let i = 0; i < data.items.length; i++){
+            sectionTypes.innerHTML += "<option value="+ data.items[i].id +">"+ data.items[i].section_name +"</option>";
+        }
+    }).catch( function(e){
+        console.log(e.message);
     });
 }
 
@@ -688,3 +715,108 @@ function input_validation(id = []){
     }
     return flag;
 }
+
+
+/*
+    javascript code for cemetery sections
+*/
+function loadSectionList(data){
+    const namesOfGraves = {
+        'av67hd01wy9ud91': 'Mausoleum',
+        'b087tzicqoehxlw': 'Crypt',
+        'rm4446wpn3l6bzu': 'Apartment',
+        'xuig8ihm4c24g2p': 'Niche',
+        'fjrbidw8qsjjwr6': 'Tombstone',
+        '3dey7aenzrkckgi': 'Family plot'
+    };
+    var sectionList = document.getElementById('section-list');
+    sectionList.innerHTML = "";
+
+
+    for(let i = 0; i < data.length; i++){
+        sectionList.innerHTML += '<tr onclick="viewFloorVisual(\''+ data[i].id +'\', \''+ data[i].section_name +'\', \''+ data[i].total_column +'\', \''+ data[i].total_row +'\', \''+ namesOfGraves[data[i].grave_type_id] +'\');">' +
+        '<td>'+ (i + 1) +'</td>' +
+        '<td>'+ data[i].section_name +'</td>' + 
+        '<td>'+ namesOfGraves[data[i].grave_type_id] +'</td>' +
+        '<td>'+ data[i].total_column +'</td>' +
+        '<td>'+ data[i].total_row +'</td>' +
+        '<td><button class="btn btn-outline-success btn-sm"><i class="uil uil-edit"></i></button></td>' +
+        '</tr>';
+    }
+}
+
+document.getElementById('save-section').addEventListener('click', function(){
+    const graveTypeSection = document.getElementById('grave-type-section').value;
+    const totalColumn = document.getElementById('inp-total-column').value;
+    const totalRow = document.getElementById('inp-total-row').value;
+    const secName = document.getElementById('section-name').value;
+
+    const sectionObj = {
+        cemetery_id: getSessionAdmin().cemetery_id,
+        section_name: secName,
+        grave_type_id: graveTypeSection,
+        total_column: totalColumn,
+        total_row: totalRow
+    }
+
+    create(SECTION, sectionObj).then( function(){
+        clearInput(['grave-type-section', 'inp-total-column', 'inp-total-row']);
+        $("#add-section").modal('hide');
+        getSectionList();
+    }).catch( function(e){
+        console.log(e.message);
+    });
+});
+
+function getSectionList(){
+    search(SECTION, 1, 50, { cemetery_id: getSessionAdmin().cemetery_id }, '-created,cemetery_id')
+    .then( function(data){
+        
+        loadSectionList(data.items);
+    }).catch(function(e){
+        console.log(e.message);
+    });
+}
+
+function viewFloorVisual(section_id, name, column, row, type){
+    var grave_grid = document.getElementById('grave-grid');
+    $("#section-visuals").modal('show');
+    grave_grid.style.gridTemplateColumns  = "repeat("+ column +", 1fr)";
+    grave_grid.innerHTML = "";
+    for(let i = 0; i < row * column; i++){
+        grave_grid.innerHTML += '<div class="grid-item" style="cursor: pointer;" onclick="calculateRowAndColumn(\''+ column +'\', \''+ (i+1) + '\');">'+ (i + 1) +'</div>';
+    }
+}
+
+function openBlockPickerModal(section_id, name, column, row, type){
+    var graveGrid = document.getElementById('grave-grid-picker');
+    $("#modal-block-picker").modal('show');
+    document.getElementById('block-picker-header').innerHTML = name + "<br>Select the grave's level or row";
+    graveGrid.style.gridTemplateColumns  = "repeat("+ column +", 1fr)";
+    graveGrid.innerHTML = "";
+    for(let i = 0; i < row * column; i++){
+        graveGrid.innerHTML += '<div class="grid-item" style="cursor: pointer;" onclick="document.getElementById(\''+"block-number"+'\').value = \''+ (i+1) + '\'; hideBlockPicker();">'+ (i + 1) +'</div>';
+    }
+}
+
+function calculateRowAndColumn(columns, cellNumber) {
+    var row = Math.ceil(cellNumber / columns);
+    var column = (cellNumber - 1) % columns + 1;
+    console.log([row, column]);
+}
+
+function hideBlockPicker(){
+    $("#modal-block-picker").modal('hide');
+}
+
+document.getElementById('section_picker').addEventListener('change', function(){
+    const secID = document.getElementById('section_picker').value;
+    console.log(secID);
+    search(SECTION, 1, 1, { id: secID }, '+created,id')
+    .then(function(data){
+        document.getElementById('location-inp').value = data.items[0].section_name;
+        openBlockPickerModal(data.items[0].id, data.items[0].section_name, data.items[0].total_column, data.items[0].total_row, data.items[0].grave_type_id);
+    }).catch( function(e){
+        console.log(e.message);
+    });
+});

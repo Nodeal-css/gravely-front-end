@@ -14,6 +14,7 @@ const LEGAL_DOCUMENT = 'legal_document'
 const MAP = 'map'
 const POLYGON = 'polygon'
 const SUBSCRIPTION = 'subscription'
+const SECTION = 'section'
 
 
 
