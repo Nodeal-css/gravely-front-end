@@ -173,7 +173,7 @@ document.getElementById('view-markers-status').addEventListener('click', functio
                 icon: L.icon(markerStatus[data.items[i].status]),
                 title: 'Status: ' + data.items[i].status
             }).addTo(graveMarker)
-            .bindPopup(loadGravePopup(data.items[i].id, data.items[i].location_description, data.items[i].status, data.items[i].price, data.items[i].row, data.items[i].column, data.items[i].grave_type, data.items[i].deceased_id, data.items[i].contract_id, data.items[i].latitude, data.items[i].longitude))
+            .bindPopup(loadGravePopup(data.items[i].id, data.items[i].location_description, data.items[i].status, data.items[i].price, data.items[i].row, data.items[i].column, data.items[i].grave_type, data.items[i].deceased_id, data.items[i].contract_id, data.items[i].latitude, data.items[i].longitude, data.items[i].section_id, data.items[i].block_number))
             .on('click', function(){
                 let container = document.getElementById('grave-information');
                 container.style.display = 'block';
@@ -279,7 +279,7 @@ function focusOrigin(){
 
 
 //.bindPopup() <-- in bind pop up, create a function that receives the grave_id, that returns a string of html content containing grave and deceased info. If we want to load all the markers to the map.
-function loadGravePopup(grave_id, description, status, price, row, column, type, deceased, contract, lat, lng){
+function loadGravePopup(grave_id, description, status, price, row, column, type, deceased, contract, lat, lng, section_id, celNumber){
     // query to db based from id
     const namesOfGraves = {
         'av67hd01wy9ud91': 'Mausoleum',
@@ -315,7 +315,7 @@ function loadGravePopup(grave_id, description, status, price, row, column, type,
     '<div class="card-footer text-center">' +
         '<button class="btn btn-outline-warning btn-sm mr-3" title="Change the location of grave." onclick="updateGraveCoordinates(\''+ 'grave' +'\', \''+ grave_id +'\', \''+ lat +'\', \''+ lng +'\');">Transfer</button>' + 
         '<button class="btn btn-outline-danger btn-sm" title="Click, if you wish to delete this pinned location." onclick="deleteGrave(\''+ grave_id +'\', \''+ deceased + '\', \''+ contract + '\');"><i class="uil uil-trash"></i> Remove</button>' +
-        '<button class="btn btn-outline-primary btn-sm ml-3" title="Click, to see a visual representation of the grave floor and column.">Visual</button>' +
+        '<button class="btn btn-outline-primary btn-sm ml-3" title="Click, to see a visual representation of the grave floor and column." onclick="identifyGraveLevel(\''+ section_id +'\', \''+ celNumber +'\');">Levels</button>' +
     '</div>' +
 '</div>';
 }
@@ -391,7 +391,7 @@ function loadMarkers(){
                 icon: L.icon(temp[data.items[i].grave_type]),
                 title: 'Description: ' + data.items[i].location_description
             }).addTo(graveMarker)
-            .bindPopup(loadGravePopup(data.items[i].id, data.items[i].location_description, data.items[i].status, data.items[i].price, data.items[i].row, data.items[i].column, data.items[i].grave_type, data.items[i].deceased_id, data.items[i].contract_id, data.items[i].latitude, data.items[i].longitude))
+            .bindPopup(loadGravePopup(data.items[i].id, data.items[i].location_description, data.items[i].status, data.items[i].price, data.items[i].row, data.items[i].column, data.items[i].grave_type, data.items[i].deceased_id, data.items[i].contract_id, data.items[i].latitude, data.items[i].longitude, data.items[i].section_id, data.items[i].block_number))
             .on('click', function(){
                 let container = document.getElementById('grave-information');
                 container.style.display = 'block';
@@ -435,7 +435,7 @@ function locateByGraveId(graveID){
             icon: iconPin,
             title: 'Description: ' + data.items[0].location_description
         }).addTo(graveMarker)
-        .bindPopup(loadGravePopup(data.items[0].id, data.items[0].location_description, data.items[0].status, data.items[0].price, data.items[0].row, data.items[0].column, data.items[0].grave_type, data.items[0].deceased_id, data.items[0].contract_id, data.items[0].latitude, data.items[0].longitude))
+        .bindPopup(loadGravePopup(data.items[0].id, data.items[0].location_description, data.items[0].status, data.items[0].price, data.items[0].row, data.items[0].column, data.items[0].grave_type, data.items[0].deceased_id, data.items[0].contract_id, data.items[0].latitude, data.items[0].longitude, data.items[0].section_id, data.items[0].block_number))
         .on('click', function(){
             let container = document.getElementById('grave-information');
             container.style.display = 'block';
@@ -778,9 +778,38 @@ function getSectionList(){
     });
 }
 
+
+
+function identifyGraveLevel(section_id, celnumber, grave_id){
+    const namesOfGraves = {
+        'av67hd01wy9ud91': 'Mausoleum',
+        'b087tzicqoehxlw': 'Crypt',
+        'rm4446wpn3l6bzu': 'Apartment',
+        'xuig8ihm4c24g2p': 'Niche',
+        'fjrbidw8qsjjwr6': 'Tombstone',
+        '3dey7aenzrkckgi': 'Family plot'
+    };
+    search(SECTION, 1, 1, {id: section_id}, '+created,id')
+    .then( function(data){
+        var grave_grid_block = document.getElementById('grave-grid');
+        const currLevel = calculateRowAndColumn(data.items[0].total_column, celnumber);
+        $("#section-visuals").modal('show');
+        document.getElementById('section-visual-header').innerHTML = data.items[0].section_name + "<br>Grave: " + namesOfGraves[data.items[0].grave_type_id] + "<br>Current Row: " + currLevel[0] + " | Column: " + currLevel[1];
+        grave_grid_block.style.gridTemplateColumns = "repeat("+ data.items[0].total_column +", 1fr)";
+        grave_grid_block.innerHTML = "";
+        for(let i = 0; i < data.items[0].total_row * data.items[0].total_column; i++){
+            grave_grid_block.innerHTML += (i+1 == celnumber) ? '<div class="grid-item-highlight">'+ celnumber +'</div>' : '<div class="grid-item");">'+ (i + 1) +'</div>';
+        }
+    }).catch( function(e){
+        console.log(e.message);
+    });
+}
+
+//migrate this function to updating the section
 function viewFloorVisual(section_id, name, column, row, type){
     var grave_grid = document.getElementById('grave-grid');
     $("#section-visuals").modal('show');
+    document.getElementById('section-visual-header').innerHTML = name + "<br>Grave: " + type + "<br>Row/s: " + row + " | Column/s: " + column;
     grave_grid.style.gridTemplateColumns  = "repeat("+ column +", 1fr)";
     grave_grid.innerHTML = "";
     for(let i = 0; i < row * column; i++){
@@ -789,20 +818,49 @@ function viewFloorVisual(section_id, name, column, row, type){
 }
 
 function openBlockPickerModal(section_id, name, column, row, type){
+    const namesOfGraves = {
+        'av67hd01wy9ud91': 'Mausoleum',
+        'b087tzicqoehxlw': 'Crypt',
+        'rm4446wpn3l6bzu': 'Apartment',
+        'xuig8ihm4c24g2p': 'Niche',
+        'fjrbidw8qsjjwr6': 'Tombstone',
+        '3dey7aenzrkckgi': 'Family plot'
+    };
     var graveGrid = document.getElementById('grave-grid-picker');
     $("#modal-block-picker").modal('show');
-    document.getElementById('block-picker-header').innerHTML = name + "<br>Select the grave's level or row";
+    document.getElementById('block-picker-header').innerHTML = name + "<br>Grave: " + namesOfGraves[type] + "<br>Row/s: " + row + " | Column/s: " + column + "<div class='text-info'><i class='uil uil-info-circle'></i> Select the grave's level or row</div>";
     graveGrid.style.gridTemplateColumns  = "repeat("+ column +", 1fr)";
     graveGrid.innerHTML = "";
     for(let i = 0; i < row * column; i++){
-        graveGrid.innerHTML += '<div class="grid-item" style="cursor: pointer;" onclick="document.getElementById(\''+"block-number"+'\').value = \''+ (i+1) + '\'; hideBlockPicker();">'+ (i + 1) +'</div>';
+        graveGrid.innerHTML += '<div class="grid-item" style="cursor: pointer;" onclick="verifyBlockDuplicates(\''+ section_id +'\', \''+ (i + 1) +'\');">'+ (i + 1) +'</div>';
     }
+}
+
+function verifyBlockDuplicates(sectionID, block){
+    search(GRAVE, 1, 200, {section_id: sectionID}, '+created,section_id')
+    .then( function(data){
+        var flag = false;
+        for(let i = 0; i < data.items.length; i++){
+            if(data.items[i].block_number == block){
+                alert("This block level has been already used by other grave.");
+                flag = true;
+                break;
+            }
+        }
+
+        if(!flag){
+            hideBlockPicker();
+            document.getElementById("block-number").value = block;
+        }
+    }).catch( function(e){
+        console.log(e.message);
+    });
 }
 
 function calculateRowAndColumn(columns, cellNumber) {
     var row = Math.ceil(cellNumber / columns);
     var column = (cellNumber - 1) % columns + 1;
-    console.log([row, column]);
+    return ([row, column]);
 }
 
 function hideBlockPicker(){

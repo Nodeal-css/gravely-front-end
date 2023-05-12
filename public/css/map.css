@@ -74,6 +74,31 @@ th,td {
     z-index: 601;
 }
 
+.grid-container {
+    display: grid;
+    grid-template-columns: auto;
+    background-color: rgb(220, 108, 75);
+    padding: 5px;
+}
+
+.grid-item {
+    background-color: rgba(143, 143, 143, 0.589);
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    font-size: 10px;
+    text-align: center;
+    color: white;
+}
+
+.grid-item-highlight {
+    background-color: rgb(220, 108, 75);
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    font-size: 10px;
+    text-align: center;
+    color: white;
+}
+
 @keyframes show_form {
     0% {right: -300px;}
     100% {right: 0px;}
