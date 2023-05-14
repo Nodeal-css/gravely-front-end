@@ -300,20 +300,16 @@ function loadGravePopup(grave_id, description, status, price, row, column, type,
             '<p class="card-text"><strong>Status: </strong></p>' +
             '<p class="card-text"><strong>Type: </strong></p>' +
             '<p class="card-text"><strong>Price: </strong></p>' +
-            '<p class="card-text"><strong>Row: </strong></p>' +
-            '<p class="card-text"><strong>Column: </strong></p>' +
         '</div>' +
         '<div class="col text-left">' +
-            '<p class="card-text">'+ description +'</p>' +
+            '<p class="card-text">'+ description +' <button data-toggle="modal" data-target="#modal-update-section" style="background-color: gray;border: 0 solid;color:white;" onclick="selectSectionsUpdateBlock(\''+ grave_id +'\');">Change</button></p>' +
             '<p class="card-text">'+ status +' <button data-toggle="modal" data-target="#modal-change-status" style="background-color: gray;border: 0 solid;color:white;" onclick="setGraveStatus(\''+ grave_id +'\', \''+ status +'\');">Edit</button></p>' +
             '<p class="card-text">'+ namesOfGraves[type] +'</p>' +
             '<p class="card-text">₱ '+ price.toLocaleString() +'</p>' +
-            '<p class="card-text">'+ row +'</p>' +
-            '<p class="card-text">'+ column +'</p>' +
         '</div>' +
     '</div>' +
     '<div class="card-footer text-center">' +
-        '<button class="btn btn-outline-warning btn-sm mr-3" title="Change the location of grave." onclick="updateGraveCoordinates(\''+ 'grave' +'\', \''+ grave_id +'\', \''+ lat +'\', \''+ lng +'\');">Transfer</button>' + 
+        '<button class="btn btn-outline-info btn-sm mr-3" title="Change the location of grave." onclick="updateGraveCoordinates(\''+ 'grave' +'\', \''+ grave_id +'\', \''+ lat +'\', \''+ lng +'\');">Transfer</button>' + 
         '<button class="btn btn-outline-danger btn-sm" title="Click, if you wish to delete this pinned location." onclick="deleteGrave(\''+ grave_id +'\', \''+ deceased + '\', \''+ contract + '\');"><i class="uil uil-trash"></i> Remove</button>' +
         '<button class="btn btn-outline-primary btn-sm ml-3" title="Click, to see a visual representation of the grave floor and column." onclick="identifyGraveLevel(\''+ section_id +'\', \''+ celNumber +'\');">Levels</button>' +
     '</div>' +
@@ -740,7 +736,6 @@ function loadSectionList(data){
         '<td>'+ namesOfGraves[data[i].grave_type_id] +'</td>' +
         '<td>'+ data[i].total_column +'</td>' +
         '<td>'+ data[i].total_row +'</td>' +
-        '<td><button class="btn btn-outline-success btn-sm"><i class="uil uil-edit"></i></button></td>' +
         '</tr>';
     }
 }
@@ -768,6 +763,7 @@ document.getElementById('save-section').addEventListener('click', function(){
     });
 });
 
+//load all sections in a list. by cemetery
 function getSectionList(){
     search(SECTION, 1, 50, { cemetery_id: getSessionAdmin().cemetery_id }, '-created,cemetery_id')
     .then( function(data){
@@ -780,7 +776,13 @@ function getSectionList(){
 
 
 
-function identifyGraveLevel(section_id, celnumber, grave_id){
+
+//method for viewing the current block level of a grave
+function identifyGraveLevel(section_id, celnumber){
+    if(section_id === ""){
+        alert("This grave does not belong to any block sections.");
+        return;
+    }
     const namesOfGraves = {
         'av67hd01wy9ud91': 'Mausoleum',
         'b087tzicqoehxlw': 'Crypt',
@@ -805,7 +807,7 @@ function identifyGraveLevel(section_id, celnumber, grave_id){
     });
 }
 
-//migrate this function to updating the section
+//method for viewing section visual representation
 function viewFloorVisual(section_id, name, column, row, type){
     var grave_grid = document.getElementById('grave-grid');
     $("#section-visuals").modal('show');
@@ -817,6 +819,8 @@ function viewFloorVisual(section_id, name, column, row, type){
     }
 }
 
+
+//Method for pre-insertion of block level
 function openBlockPickerModal(section_id, name, column, row, type){
     const namesOfGraves = {
         'av67hd01wy9ud91': 'Mausoleum',
@@ -836,6 +840,7 @@ function openBlockPickerModal(section_id, name, column, row, type){
     }
 }
 
+//Method to verifty if block level input has no duplicates
 function verifyBlockDuplicates(sectionID, block){
     search(GRAVE, 1, 200, {section_id: sectionID}, '+created,section_id')
     .then( function(data){
@@ -869,7 +874,7 @@ function hideBlockPicker(){
 
 document.getElementById('section_picker').addEventListener('change', function(){
     const secID = document.getElementById('section_picker').value;
-    console.log(secID);
+    
     search(SECTION, 1, 1, { id: secID }, '+created,id')
     .then(function(data){
         document.getElementById('location-inp').value = data.items[0].section_name;
@@ -878,3 +883,96 @@ document.getElementById('section_picker').addEventListener('change', function(){
         console.log(e.message);
     });
 });
+
+document.getElementById('select-new-section').addEventListener('change', function(){
+    const sec_ID = document.getElementById('select-new-section').value;
+    
+    search(SECTION, 1, 1, { id: sec_ID }, '+created,id')
+    .then(function(data){
+        console.log(data.items[0].section_name);
+        //document.getElementById('location-inp').value = data.items[0].section_name;
+        //openBlockPickerModal(data.items[0].id, data.items[0].section_name, data.items[0].total_column, data.items[0].total_row, data.items[0].grave_type_id);
+        loadBlockLevelSelection(sec_ID, data.items[0].total_column, data.items[0].total_row);
+    }).catch( function(e){
+        console.log(e.message);
+    });
+});
+
+function selectSectionsUpdateBlock(graveID){
+    window.localStorage.setItem("update-section-graveID", graveID);
+    var section_Types = document.getElementById('select-new-section');
+    search(SECTION, 1, 50, {id: ' '}, '+created,id', '')
+    .then( function(data){
+        section_Types.innerHTML = "";
+        section_Types.innerHTML = "<option value='' disabled selected>Choose which section</option>";
+        for(let i = 0; i < data.items.length; i++){
+            section_Types.innerHTML += "<option value="+ data.items[i].id +">"+ data.items[i].section_name +"</option>";
+        }
+    }).catch( function(e){
+        console.log(e.message);
+    });
+}
+
+function loadBlockLevelSelection(section_id, column, row){
+    var updateGraveGrid = document.getElementById('change-block-level');
+    updateGraveGrid.style.gridTemplateColumns  = "repeat("+ column +", 1fr)";
+    updateGraveGrid.innerHTML = "";
+    for(let i = 0; i < row * column; i++){
+        updateGraveGrid.innerHTML += '<div class="grid-item" style="cursor: pointer;" onclick="verifyBlockDuplicatesUpdate(\''+ section_id +'\', \''+ (i + 1) +'\')">'+ (i + 1) +'</div>';
+    }
+}
+
+//Method to verifty if block level input has no duplicates
+function verifyBlockDuplicatesUpdate(sectionID, block){
+    search(GRAVE, 1, 200, {section_id: sectionID}, '+created,section_id')
+    .then( function(data){
+        var flag = false;
+        for(let i = 0; i < data.items.length; i++){
+            if(data.items[i].block_number == block){
+                alert("This block level has been already used by other grave.");
+                flag = true;
+                break;
+            }
+        }
+
+        if(!flag){
+            hideBlockPicker();
+            document.getElementById("update-block-level").value = block;
+        }
+    }).catch( function(e){
+        console.log(e.message);
+    });
+}
+
+document.getElementById('close-update-block-section').addEventListener('click', function(){
+    window.localStorage.removeItem("update-section-graveID");
+    clearBlockUpdateFields();
+});
+
+//update section & block
+document.getElementById('save-block-changes').addEventListener('click', function(){
+    const section = document.getElementById('select-new-section').value;
+    const block = document.getElementById('update-block-level').value;
+    const grave_id = window.localStorage.getItem("update-section-graveID");
+
+    if(!input_validation(['select-new-section', 'update-block-level']) && grave_id != null){
+        alert("Invalid input: Update fields are not found.");
+        return;
+    }
+
+    update(GRAVE, { id: grave_id, section_id: section, block_number: block})
+    .then( function(){
+        alert("Block level has been change for this grave.");
+        $("#modal-update-section").modal('hide');
+        clearBlockUpdateFields();
+        window.localStorage.removeItem("update-section-graveID");
+    }).catch( function(e){
+        console.log(e.message);
+    });
+});
+
+function clearBlockUpdateFields(){
+    document.getElementById('select-new-section').value = "";
+    document.getElementById('update-block-level').value = "";
+    document.getElementById('change-block-level').innerHTML = "";
+}

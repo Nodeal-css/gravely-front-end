@@ -195,7 +195,6 @@
                   <th>Grave type</th>
                   <th>Total columns</th>
                   <th>Total rows</th>
-                  <th>Action</th>
                 </tr>
               </thead>
               <tbody id="section-list">
@@ -497,6 +496,35 @@
   </div>
 </div>
 <!-- End of viewing section block picker -->
+
+<!-- Start of update section modal -->
+<div class="modal fade" id="modal-update-section" tabindex="-1" role="dialog" data-backdrop="static">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width: fit-content; margin: auto;">
+      <div class="modal-header">
+        <div>
+          <div>Change grave's section and block level</div>
+          <label for="select-new-section">Section</label>
+          <select id="select-new-section" class="form-control">
+
+          </select>
+
+          <label for="update-block-level">Block</label>
+          <input type="number" id="update-block-level" class="form-control" placeholder="Automatically generate once you click a new block." readonly required>
+        </div>
+      </div>
+      <div class="modal-body p-3" >
+        <div class="grid-container" id="change-block-level"></div>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary btn-md" id="save-block-changes">Save</button>
+        <button class="btn btn-outline-info btn-md" id="close-update-block-section" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End of update section modal -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pocketbase/0.10.1/pocketbase.umd.min.js" integrity="sha512-5fhlKWYvJkEBjEmVznt+oi09HehBG8AhveES3kSosa9VEKnOPJfMWV7cl+e5zAc0Tkn10w+CSfi4lrXcDWc4TQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="text/javascript" src="../js/lib.js"></script>
