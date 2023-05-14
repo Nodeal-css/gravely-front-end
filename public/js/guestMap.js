@@ -198,14 +198,14 @@ function loadGravePopup(description, status, price, row ,column, type, section_i
         '</div>' +
         '<div class="card-body text-center row">' +
             '<div class="col text-right">' +
-                '<p class="card-text"><strong>Description: </strong></p>' +
                 '<p class="card-text"><strong>Status: </strong></p>' +
                 '<p class="card-text"><strong>Type: </strong></p>' +
+                '<p class="card-text"><strong>Price: </strong></p>' +
             '</div>' +
             '<div class="col text-left">' +
-                '<p class="card-text">'+ description +'</p>' +
                 '<p class="card-text">'+ status + '</p>' +
                 '<p class="card-text">'+ namesOfGraves[type] +'</p>' +
+                '<p class="card-text">P '+ price.toLocaleString() +'</p>' +
             '</div>' +
         '</div>' +
         '<div class="card-footer text-right">' +
@@ -301,15 +301,28 @@ function identifyGraveLevel(section_id, celnumber){
     };
     search(SECTION, 1, 1, {id: section_id}, '+created,id')
     .then( function(data){
+        var isContain = false;
         var grave_grid_block = document.getElementById('grave-grid');
         const currLevel = calculateRowAndColumn(data.items[0].total_column, celnumber);
-        $("#section-visuals").modal('show');
+        
         document.getElementById('section-visual-header').innerHTML = data.items[0].section_name + "<br>Grave: " + namesOfGraves[data.items[0].grave_type_id] + "<br>Current Row: " + currLevel[0] + " | Column: " + currLevel[1];
         grave_grid_block.style.gridTemplateColumns = "repeat("+ data.items[0].total_column +", 1fr)";
         grave_grid_block.innerHTML = "";
         for(let i = 0; i < data.items[0].total_row * data.items[0].total_column; i++){
-            grave_grid_block.innerHTML += (i+1 == celnumber) ? '<div class="grid-item-highlight">'+ celnumber +'</div>' : '<div class="grid-item");">'+ (i + 1) +'</div>';
+            //grave_grid_block.innerHTML += (i+1 == celnumber) ? '<div class="grid-item-highlight">'+ celnumber +'</div>' : '<div class="grid-item");">'+ (i + 1) +'</div>';
+            if(i+1 == celnumber){
+                grave_grid_block.innerHTML += '<div class="grid-item-highlight">'+ celnumber +'</div>';
+                isContain = true;
+            }else{
+                grave_grid_block.innerHTML += '<div class="grid-item");">'+ (i + 1) +'</div>';
+            }
         }
+
+        if(!isContain){
+            alert("The grave's block number was not found.\n\nReasons: \n- The section has an updated columns and rows.\n- Or section has been deleted.\n\nWe recommend to change the grave's block.");
+            return;
+        }
+        $("#section-visuals").modal('show');
     }).catch( function(e){
         console.log(e.message);
     });
