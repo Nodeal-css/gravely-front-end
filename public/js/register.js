@@ -85,18 +85,23 @@ reg.addEventListener('click', function(){
         "contact": document.querySelector("#contact").value
     };
 
-    create(CEMETERY, cem).then( (cemResponse) => {
-        account["cemetery_id"] = cemResponse.id;
-        create(ADMIN, account).then(function(){
-            alert("Successfully registered, returning to admin sign in page");
-            window.location.href = "../index.html";
+    if(document.getElementById('terms').checked == true){
+        create(CEMETERY, cem).then( (cemResponse) => {
+            account["cemetery_id"] = cemResponse.id;
+            create(ADMIN, account).then(function(){
+                alert("Successfully registered, returning to admin sign in page");
+                window.location.href = "../index.html";
+            }).catch( function(e){
+                alert("Connection error: Failed to sing up");
+                console.log(e.message);
+            });
         }).catch( function(e){
-            alert("Connection error: Failed to sing up");
             console.log(e.message);
         });
-    }).catch( function(e){
-        console.log(e.message);
-    });
+    }else{
+        alert("Please check terms & conditions");
+        
+    }
 });
 
 //This function will check if the format of input is not followed, or if it is empty.

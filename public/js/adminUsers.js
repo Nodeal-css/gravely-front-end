@@ -3,12 +3,13 @@ const saveAdmin = document.getElementById('admin-register');
 const num_rows = document.getElementById('num-rows');
 
 const id_names = {
-    "fname": "first name",
-    "lname": "last name",
-    "mi": "Middle initial",
-    "email": "Email",
-    "pass": "password",
-    "re-pass": "re-entered password"
+    "fname": "Please input a valid first name",
+    "lname": "Please input a valid last name",
+    "mi": "Please input a valid Middle initial",
+    "email": "Please input a valid Email",
+    "pass": "Please input a valid password",
+    "re-pass": "Please input a valid re-entered password",
+    "terms": "Please check terms & conditions"
 }
 
 loadUsers(10);
@@ -44,7 +45,7 @@ saveAdmin.addEventListener('click', function(){
     }
     for(let i = 0; i < admin_id_names.length; i++){
         if(!inputValidation(admin_id_names[i])){
-            alert('Please input a valid ' + id_names[admin_id_names[i]] + '.');
+            alert('' + id_names[admin_id_names[i]] + '.');
             return;
         }
     }
